@@ -19,11 +19,8 @@
 <!-- End of the main -->
 
 </div>
-<!-- End of the footer -->
+<!-- End of the wrapper -->
 <?php wp_footer(); ?>
-
-
-
 </body>
 
 </html>

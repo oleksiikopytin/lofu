@@ -20,15 +20,15 @@ the_post(); ?>
 
 <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="hero-headline first-screen">
-		<div class="inner">
+		<div class="ia-container">
 			<div class="hero-headline-in">
-				<h1 class="fadeInUpS wow" data-wow-duration="0.8s" data-wow-delay="0.3s"><?php the_title(); ?></h1>
+				<h1><?php the_title(); ?></h1>
 			</div>
 		</div>
 	</div>
 
-	<div class="content-block wow fadeInUpS" data-wow-duration="0.8s" data-wow-delay="0.2s">
-		<div class="inner">
+	<div class="content-block ">
+		<div class="ia-container">
 			<div class="content-block-inner">
 				<div class="content-entry">
 					<?php the_content(); ?>

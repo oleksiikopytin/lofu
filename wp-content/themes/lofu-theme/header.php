@@ -30,7 +30,7 @@
 			<div class="ia-container py-5">
 				<div class="logo">
 					<a href="<?php echo esc_url( get_home_url() ); ?>">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.svg" class="nolazy" width="232" height="22" alt="Logo of Family Secutiry Plan">
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.svg" class="nolazy" width="232" height="22" alt="Logo of LOFU">
 					</a>
 				</div>
 

@@ -9,13 +9,12 @@
  */
 get_header();
 the_post();
-
-/*start quiz demo */
 ?>
 
 
 <?php
 /*end quiz demo */
+the_content();
 while ( have_rows( 'hero' ) ) {
 	the_row();
 	get_template_part( 'template-parts/home-page/hero' );

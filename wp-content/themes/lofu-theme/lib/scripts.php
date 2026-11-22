@@ -13,7 +13,7 @@ function lofu_scripts() {
 	wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/slick.min.js', array( 'jquery' ), '20170801', true );
 
 	wp_enqueue_script( 'fancybox3', get_template_directory_uri() . '/assets/js/jquery.fancybox.min.js', array( 'jquery' ), '20220117', true );
-	wp_enqueue_script( 'scripts', get_theme_file_uri( '/assets/js/scripts.js' ), array(), null, true );
+	wp_enqueue_script( 'scripts', get_theme_file_uri( '/assets/js/scripts.js' ), array( 'jquery' ), null, true );
 
 
 
