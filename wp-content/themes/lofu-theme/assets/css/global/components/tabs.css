@@ -1,0 +1,132 @@
+@keyframes hoverSetRevers {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverSet {
+  from {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverDef {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+.tabs {
+  position: relative;
+}
+.tabs.tabs--dark .tab-list-outer {
+  color: #0c0c0c;
+  background: rgba(12, 12, 12, 0.15);
+  border-color: #0c0c0c;
+}
+.tabs.tabs--dark .moving-tab {
+  background: #0c0c0c;
+}
+.tabs.tabs--dark .tab-item {
+  color: #0c0c0c;
+}
+.tabs.tabs--dark .tab-item.active {
+  color: #fff;
+}
+.tabs.tabs--dark .tab-content {
+  color: #0c0c0c;
+}
+.tabs.tabs--light .tab-list-outer {
+  color: #fff;
+  background: rgba(12, 12, 12, 0.15);
+  border-color: #fff;
+}
+.tabs.tabs--light .moving-tab {
+  background: #fff;
+}
+.tabs.tabs--light .tab-item {
+  color: #fff;
+}
+.tabs.tabs--light .tab-item.active {
+  color: #0c0c0c;
+}
+.tabs.tabs--light .tab-content {
+  color: #fff;
+}
+.tabs .tab-list {
+  display: inline-flex;
+  list-style: none;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.tabs .tab-list-outer {
+  border: 1px solid #0c0c0c;
+  background: rgba(12, 12, 12, 0.15);
+  padding: 0.6rem;
+  border-radius: 50px;
+  max-width: 46%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.tabs .moving-tab {
+  position: absolute;
+  width: 50%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #0c0c0c;
+  border-radius: 50px;
+  margin: 0;
+  transition: left 0.3s linear;
+}
+.tabs .tab-item {
+  padding: 2rem 4.5rem;
+  line-height: 1;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s;
+  color: #0c0c0c;
+  border-radius: 50px;
+  margin-bottom: 0;
+  width: 50%;
+  font-size: 2rem;
+  text-align: center;
+}
+.tabs .tab-item.active {
+  color: #fff;
+}
+.tabs .tab-content {
+  color: #0c0c0c;
+}
+.tabs .tab-content .tab-pane {
+  display: none;
+}
+@media (max-width: 1200px) {
+  .tabs .tab-item {
+    padding: 2rem 2.4rem;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  .tabs .tab-list-outer {
+    max-width: 52%;
+  }
+}
+@media (max-width: 767px) {
+  .tabs .tab-list-outer {
+    max-width: 100%;
+  }
+  .tabs .tab-list-outer li {
+    width: 50%;
+  }
+}
+
+/*# sourceMappingURL=tabs.css.map */

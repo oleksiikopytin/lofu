@@ -1,0 +1,126 @@
+@keyframes hoverSetRevers {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverSet {
+  from {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverDef {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+.close {
+  position: relative;
+  border: none;
+  transition: all 0.3s;
+  cursor: pointer;
+  padding: 0;
+}
+.close--sm {
+  font-size: 1.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+}
+.close--sm i {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.close--primary {
+  background-color: #253FDA;
+  color: #fff !important;
+}
+.close--primary:hover, .close--primary:focus {
+  background-color: #F7F775;
+  color: #fff !important;
+}
+
+.close--secondary {
+  background-color: #F7F775;
+  color: #fff !important;
+}
+.close--secondary:hover, .close--secondary:focus {
+  background-color: #0c0c0c;
+  color: #fff !important;
+}
+
+.close--success {
+  background-color: #079455;
+  color: #fff !important;
+}
+.close--success:hover, .close--success:focus {
+  background-color: #0c0c0c;
+  color: #fff !important;
+}
+
+.close--info {
+  background-color: #E0D9D1;
+  color: #0c0c0c !important;
+}
+.close--info:hover, .close--info:focus {
+  background-color: #0c0c0c;
+  color: #fff !important;
+}
+
+.close--warning {
+  background-color: #F15E35;
+  color: #0c0c0c !important;
+}
+.close--warning:hover, .close--warning:focus {
+  background-color: #0c0c0c;
+  color: #fff !important;
+}
+
+.close--danger {
+  background-color: #AC2020;
+  color: #fff !important;
+}
+.close--danger:hover, .close--danger:focus {
+  background-color: #0c0c0c;
+  color: #fff !important;
+}
+
+.close--light {
+  background-color: #D8D8D8;
+  color: #0c0c0c !important;
+}
+.close--light:hover, .close--light:focus {
+  background-color: #0c0c0c;
+  color: #fff !important;
+}
+
+.close--dark {
+  background-color: #0c0c0c;
+  color: #fff !important;
+}
+.close--dark:hover, .close--dark:focus {
+  background-color: #E0D9D1;
+  color: #0c0c0c !important;
+}
+
+.close--white {
+  background-color: #fff;
+  color: #0c0c0c !important;
+}
+.close--white:hover, .close--white:focus {
+  background-color: #0c0c0c;
+  color: #fff !important;
+}
+
+/*# sourceMappingURL=close.css.map */

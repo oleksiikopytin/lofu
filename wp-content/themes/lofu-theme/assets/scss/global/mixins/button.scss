@@ -1,0 +1,6 @@
+@import '../utils/variables';
+@mixin button($padding, $font-base-size) {
+  padding: $padding;
+  font-size: $font-base-size;
+  border-radius: $button-border-radius;
+}

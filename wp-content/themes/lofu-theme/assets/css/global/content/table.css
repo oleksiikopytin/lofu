@@ -1,0 +1,47 @@
+@keyframes hoverSetRevers {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverSet {
+  from {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverDef {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table th, table td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 1.6rem;
+  border: 1px solid #0c0c0c;
+}
+table th {
+  border-bottom-width: 4px;
+  background-color: #E0D9D1;
+  font-weight: 600;
+}
+table tr {
+  border-bottom: 1px solid #0c0c0c;
+}
+table tr:nth-child(even) {
+  background-color: #E0D9D1;
+}
+
+/*# sourceMappingURL=table.css.map */

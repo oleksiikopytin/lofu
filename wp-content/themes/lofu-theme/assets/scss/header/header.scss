@@ -1,0 +1,27 @@
+@import "../global/utils/variables";
+.header {
+  &__top {
+    padding: 0.8rem 0;
+    a {
+      display: flex;
+      align-items: center;
+      transition: color 0.35s;
+      line-height: 1.2;
+      gap: 0.6rem;
+      &:hover,
+      &.active {
+        color: #171db6;
+        text-decoration: underline;
+      }
+      &.active {
+        pointer-events: none;
+      }
+    }
+    &-left {
+      gap: 2.4rem;
+    }
+    &-right {
+      gap: 2.4rem;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.hero-zoom-bg {
+  overflow: hidden;
+}
+.hero-zoom-bg img, .hero-zoom-bg video {
+  transition: transform 10s 0.1s ease-out;
+}
+.hero-zoom-bg.is-animating img, .hero-zoom-bg.is-animating video {
+  transform: scale(1.3);
+}
+
+/*# sourceMappingURL=hero-zoom.css.map */

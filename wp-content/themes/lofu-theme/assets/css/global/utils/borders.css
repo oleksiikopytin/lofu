@@ -1,0 +1,94 @@
+@keyframes hoverSetRevers {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverSet {
+  from {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverDef {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+.border-example {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.border-example span {
+  height: 8rem;
+  width: 8rem;
+  margin-right: 1rem;
+  background: #D8D8D8;
+}
+
+.border-0 {
+  border: none !important;
+}
+
+.border {
+  --border-opacity: 1;
+  border: 1px solid rgba(21, 7, 37, var(--border-opacity));
+}
+
+.border-top {
+  border-top: 1px solid rgba(21, 7, 37, var(--border-opacity));
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgba(21, 7, 37, var(--border-opacity));
+}
+
+.border-left {
+  border-left: 1px solid rgba(21, 7, 37, var(--border-opacity));
+}
+
+.border-right {
+  border-right: 1px solid rgba(21, 7, 37, var(--border-opacity));
+}
+
+.border--dashed {
+  border-style: dashed !important;
+}
+
+.border--dotted {
+  border-style: dotted !important;
+}
+
+.rounded {
+  border-radius: 1rem;
+}
+
+.rounded--lg {
+  border-radius: 2rem;
+}
+
+.rounded--xl {
+  border-radius: 3rem;
+}
+
+.masked {
+  position: relative;
+  mask: url(#mask-grid);
+  -webkit-mask: url(#mask-grid);
+}
+
+.masked .grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 200px;
+}
+
+/*# sourceMappingURL=borders.css.map */

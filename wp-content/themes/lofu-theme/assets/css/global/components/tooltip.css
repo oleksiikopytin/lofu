@@ -1,0 +1,90 @@
+:root {
+  --grid-gutter-width: 30px;
+  --border-opacity: 1;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --grid-gutter-width: 40px;
+  }
+}
+:root {
+  --grid-gutter-width: 30px;
+  --border-opacity: 1;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --grid-gutter-width: 40px;
+  }
+}
+.grid-tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  border-bottom: 2px dotted #13161b;
+  color: inherit;
+  line-height: 1.1;
+  text-decoration: none;
+}
+.grid-tooltip__content {
+  visibility: hidden;
+  width: 300px;
+  max-width: 80vw;
+  color: #13161b;
+  text-align: center;
+  padding: 1.7rem;
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  --arrow-left: 50%;
+  margin-left: 0;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  font-family: "Satoshi", Arial, sans-serif;
+  font-weight: 500;
+  pointer-events: none;
+}
+.grid-tooltip__content:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  --cut: 8px;
+  background: #e6e3d9;
+  clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut));
+}
+.grid-tooltip__content::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: var(--arrow-left, 50%);
+  margin-left: -12px;
+  border-width: 0 12px 20px 12px;
+  border-style: solid;
+  border-color: transparent transparent #e6e3d9 transparent;
+}
+.grid-tooltip__content span {
+  position: relative;
+  z-index: 5;
+}
+.grid-tooltip:hover .grid-tooltip__content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.bg--secondary .grid-tooltip__content:before,
+.bg--primary .grid-tooltip__content:before,
+.bg--dark .grid-tooltip__content:before {
+  background: #fff;
+}
+.bg--secondary .grid-tooltip__content:after,
+.bg--primary .grid-tooltip__content:after,
+.bg--dark .grid-tooltip__content:after {
+  border-color: transparent transparent white transparent;
+}
+
+/*# sourceMappingURL=tooltip.css.map */

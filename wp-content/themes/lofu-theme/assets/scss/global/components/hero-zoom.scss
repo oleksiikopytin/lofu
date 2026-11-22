@@ -1,0 +1,12 @@
+.hero-zoom-bg {
+  overflow: hidden;
+
+  img, video {
+    transition: transform 10s 0.1s ease-out;
+  }
+  &.is-animating {
+    img, video {
+      transform: scale(1.3);
+    }
+  }
+}

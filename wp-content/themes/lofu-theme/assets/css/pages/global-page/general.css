@@ -1,0 +1,89 @@
+@keyframes hoverSetRevers {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverSet {
+  from {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverDef {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+.page-template-global-styles-page {
+  background: #fff;
+}
+.page-template-global-styles-page main {
+  padding-top: 10rem;
+}
+
+.color-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.color-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.table {
+  width: 100%;
+}
+.table th {
+  font-weight: 600;
+  border-bottom: 2px solid #D8D8D8;
+  padding: 1rem;
+}
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid #D8D8D8;
+}
+
+.list-unstyled {
+  list-style: none;
+  padding-left: 0;
+}
+
+.code-example {
+  margin-bottom: 2rem;
+}
+
+.ptl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.ptl .glyph {
+  width: calc(25% - 1rem);
+  box-sizing: border-box;
+  background: #FCF1E6;
+  padding: 2rem;
+  border-right: 2rem;
+}
+.ptl .hidden-true,
+.ptl .unitRight {
+  display: none;
+}
+.ptl .pbs span {
+  display: block;
+  margin-bottom: 1rem;
+}
+.ptl .unit {
+  border: none;
+  width: 100%;
+  height: 3rem;
+  background: none;
+}
+
+/*# sourceMappingURL=general.css.map */

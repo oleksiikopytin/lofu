@@ -1,0 +1,232 @@
+@keyframes hoverSetRevers {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverSet {
+  from {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverDef {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+.bg--primary {
+  --bg-opacity: 1;
+  background-color: rgba(94, 22, 166, var(--bg-opacity)) !important;
+}
+
+.text--primary {
+  --text-opacity: 1;
+  color: rgba(94, 22, 166, var(--text-opacity)) !important;
+}
+
+.border--primary {
+  --border-opacity: 1;
+  border-color: rgba(94, 22, 166, var(--border-opacity)) !important;
+}
+
+.bg--secondary {
+  --bg-opacity: 1;
+  background-color: rgba(181, 152, 211, var(--bg-opacity)) !important;
+}
+
+.text--secondary {
+  --text-opacity: 1;
+  color: rgba(181, 152, 211, var(--text-opacity)) !important;
+}
+
+.border--secondary {
+  --border-opacity: 1;
+  border-color: rgba(181, 152, 211, var(--border-opacity)) !important;
+}
+
+.bg--success {
+  --bg-opacity: 1;
+  background-color: rgba(7, 148, 85, var(--bg-opacity)) !important;
+}
+
+.text--success {
+  --text-opacity: 1;
+  color: rgba(7, 148, 85, var(--text-opacity)) !important;
+}
+
+.border--success {
+  --border-opacity: 1;
+  border-color: rgba(7, 148, 85, var(--border-opacity)) !important;
+}
+
+.bg--info {
+  --bg-opacity: 1;
+  background-color: rgba(252, 241, 230, var(--bg-opacity)) !important;
+}
+
+.text--info {
+  --text-opacity: 1;
+  color: rgba(252, 241, 230, var(--text-opacity)) !important;
+}
+
+.border--info {
+  --border-opacity: 1;
+  border-color: rgba(252, 241, 230, var(--border-opacity)) !important;
+}
+
+.bg--warning {
+  --bg-opacity: 1;
+  background-color: rgba(249, 143, 114, var(--bg-opacity)) !important;
+}
+
+.text--warning {
+  --text-opacity: 1;
+  color: rgba(249, 143, 114, var(--text-opacity)) !important;
+}
+
+.border--warning {
+  --border-opacity: 1;
+  border-color: rgba(249, 143, 114, var(--border-opacity)) !important;
+}
+
+.bg--danger {
+  --bg-opacity: 1;
+  background-color: rgba(172, 32, 32, var(--bg-opacity)) !important;
+}
+
+.text--danger {
+  --text-opacity: 1;
+  color: rgba(172, 32, 32, var(--text-opacity)) !important;
+}
+
+.border--danger {
+  --border-opacity: 1;
+  border-color: rgba(172, 32, 32, var(--border-opacity)) !important;
+}
+
+.bg--light {
+  --bg-opacity: 1;
+  background-color: rgba(216, 216, 216, var(--bg-opacity)) !important;
+}
+
+.text--light {
+  --text-opacity: 1;
+  color: rgba(216, 216, 216, var(--text-opacity)) !important;
+}
+
+.border--light {
+  --border-opacity: 1;
+  border-color: rgba(216, 216, 216, var(--border-opacity)) !important;
+}
+
+.bg--dark {
+  --bg-opacity: 1;
+  background-color: rgba(21, 7, 37, var(--bg-opacity)) !important;
+}
+
+.text--dark {
+  --text-opacity: 1;
+  color: rgba(21, 7, 37, var(--text-opacity)) !important;
+}
+
+.border--dark {
+  --border-opacity: 1;
+  border-color: rgba(21, 7, 37, var(--border-opacity)) !important;
+}
+
+.bg--white {
+  --bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--bg-opacity)) !important;
+}
+
+.text--white {
+  --text-opacity: 1;
+  color: rgba(255, 255, 255, var(--text-opacity)) !important;
+}
+
+.border--white {
+  --border-opacity: 1;
+  border-color: rgba(255, 255, 255, var(--border-opacity)) !important;
+}
+
+.border-opacity-5 {
+  --border-opacity: 0.05;
+}
+
+.bg-opacity-5 {
+  --bg-opacity: 0.05;
+}
+
+.text-opacity-5 {
+  --text-opacity: 0.05;
+}
+
+.border-opacity-25 {
+  --border-opacity: 0.25;
+}
+
+.bg-opacity-25 {
+  --bg-opacity: 0.25;
+}
+
+.text-opacity-25 {
+  --text-opacity: 0.25;
+}
+
+.border-opacity-40 {
+  --border-opacity: 0.4;
+}
+
+.bg-opacity-40 {
+  --bg-opacity: 0.4;
+}
+
+.text-opacity-40 {
+  --text-opacity: 0.4;
+}
+
+.border-opacity-50 {
+  --border-opacity: 0.5;
+}
+
+.bg-opacity-50 {
+  --bg-opacity: 0.5;
+}
+
+.text-opacity-50 {
+  --text-opacity: 0.5;
+}
+
+.border-opacity-70 {
+  --border-opacity: 0.7;
+}
+
+.bg-opacity-70 {
+  --bg-opacity: 0.7;
+}
+
+.text-opacity-70 {
+  --text-opacity: 0.7;
+}
+
+.border-opacity-90 {
+  --border-opacity: 0.9;
+}
+
+.bg-opacity-90 {
+  --bg-opacity: 0.9;
+}
+
+.text-opacity-90 {
+  --text-opacity: 0.9;
+}
+
+/*# sourceMappingURL=colors.css.map */

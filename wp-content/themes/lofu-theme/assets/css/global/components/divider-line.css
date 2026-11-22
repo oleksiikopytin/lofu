@@ -1,0 +1,22 @@
+.divider-line {
+  margin: 10rem 0;
+  overflow: hidden;
+}
+.divider-line img {
+  display: block;
+  width: 100%;
+  height: auto;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.5s ease-in-out;
+}
+.divider-line.is-visible img {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (max-width: 1024px) {
+  .divider-line {
+    margin: 6rem 0;
+  }
+}
+
+/*# sourceMappingURL=divider-line.css.map */

@@ -1,0 +1,12 @@
+:root {
+  --grid-gutter-width: 30px;
+  --border-opacity: 1;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --grid-gutter-width: 40px;
+  }
+}
+
+/*# sourceMappingURL=hero.css.map */

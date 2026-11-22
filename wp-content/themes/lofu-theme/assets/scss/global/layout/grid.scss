@@ -1,0 +1,215 @@
+@import '../utils/variables';
+@import '../mixins/grid';
+@for $i from 1 through $grid-columns {
+  .ia-col-offset-#{$i} {
+    margin-left: percentage($i / $grid-columns);
+  }
+}
+@for $i from 1 through $grid-columns {
+  .ia-col-offset-#{$i} {
+    margin-left: percentage($i / $grid-columns);
+  }
+  .ia-col-#{$i} {
+    @include make-col($i);
+  }
+}
+.ia-container,
+.inner {
+  @include container;
+  box-sizing: border-box;
+}
+
+.ia-row {
+  @include make-grid;
+}
+.ia-col {
+  padding-left: calc(var(--grid-gutter-width) / 2);
+  padding-right: calc(var(--grid-gutter-width) / 2);
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: calc(var(--grid-gutter-width) );
+}
+// generation for def
+@for $i from 1 through $grid-columns {
+  .ia-col-#{$i} {
+    @include make-col($i);
+  }
+  .ia-col-offset-#{$i} {
+    margin-left: percentage($i / $grid-columns);
+  }
+}
+
+// generation for xs
+@for $i from 1 through $grid-columns {
+  .ia-col-xs-#{$i} {
+    @include make-col($i);
+  }
+  .ia-col-offset-xs-#{$i} {
+    margin-left: percentage($i / $grid-columns);
+  }
+}
+// generation for sm
+@include respond-to(sm) {
+  @for $i from 1 through $grid-columns {
+    .ia-col-sm-#{$i} {
+      @include make-col($i);
+    }
+    .ia-col-offset-sm-#{$i} {
+      margin-left: percentage($i / $grid-columns);
+    }
+  }
+}
+// generation for md
+@include respond-to(md) {
+  @for $i from 1 through $grid-columns {
+    .ia-col-md-#{$i} {
+      @include make-col($i);
+    }
+    .ia-col-offset-md-#{$i} {
+      margin-left: percentage($i / $grid-columns);
+    }
+  }
+}
+// generation for lg
+@include respond-to(lg) {
+  @for $i from 1 through $grid-columns {
+    .ia-col-lg-#{$i} {
+      @include make-col($i);
+    }
+    .ia-col-offset-lg-#{$i} {
+      margin-left: percentage($i / $grid-columns);
+    }
+  }
+}
+.module {
+  margin: map-get($element-spacing, 'module') 0;
+  &.module--filled {
+    margin: 0;
+    padding: map-get($element-spacing, 'module') 0;
+    &.bg--white {
+      + .module--filled {
+        &.bg--white {
+          padding-top: 0;
+        }
+      }
+    }
+
+  }
+}
+@media (max-width: 1024px) {
+  .module {
+    margin: map-get($mobile-spacing, 'module') 0;
+    &.module--filled {
+      padding: map-get($mobile-spacing, 'module') 0;
+    }
+  }
+}
+//@media (max-width: 1200px) {
+//  .module {
+//    margin: 8rem 0;
+//    &.module--filled {
+//      padding: 8rem 0;
+//    }
+//  }
+//}
+//@media (max-width: 1023px) {
+//  .module {
+//    margin: 8rem 0;
+//    &.module--filled {
+//      padding: 8rem 0;
+//    }
+//  }
+//}
+@media (max-width: 767px) {
+  .module {
+    margin: map-get($mobile-spacing, 'module') 0;
+    &.module--filled {
+      padding: map-get($mobile-spacing, 'module') 0;
+    }
+  }
+}
+
+//////////////////////////////////////////
+.two-columns {
+  padding: 3rem 0 1px;
+  .two-columns-list {
+    font-size: 0;
+    display: flex;
+    flex-wrap: wrap;
+    .column {
+      width: 48.5%;
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 3%;
+      margin-bottom: 4rem;
+      will-change: transform;
+      .case-studies-item {
+        .case-studies-img {
+          padding-bottom: 46%;
+        }
+      }
+      &:nth-child(2n+1) {
+        margin-left: 0;
+      }
+
+    }
+  }
+}
+.three-columns {
+  padding: 3rem 0;
+  h3 {
+    margin-bottom: 5rem;
+  }
+  .three-columns-list {
+    font-size: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    .column {
+      width: calc(33.3% - 2rem);
+      display: inline-block;
+      vertical-align: top;
+      .case-studies-item {
+        .case-studies-img {
+          padding-bottom: 57%;
+        }
+      }
+
+    }
+  }
+}
+@media (max-width: 767px) {
+  .three-columns {
+    .three-columns-list {
+      gap: 2rem;
+      .column {
+        width: calc(50% - 1.5rem);
+      }
+    }
+  }
+
+}
+@media (max-width: 550px) {
+  .two-columns {
+    .two-columns-list {
+      .column {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+  }
+  .three-columns {
+    .three-columns-list {
+      .column {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        &:nth-child(3n+1) {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

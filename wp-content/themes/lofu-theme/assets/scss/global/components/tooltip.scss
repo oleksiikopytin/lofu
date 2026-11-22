@@ -1,0 +1,81 @@
+@import '../utils/variables';
+@import '../mixins/mixin';
+
+.grid-tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  border-bottom: 2px dotted $dark;
+  color: inherit;
+  line-height: 1.1;
+  text-decoration: none;
+
+  &__content {
+    visibility: hidden;
+    width: 300px;
+    max-width: 80vw;
+    color: $dark;
+    text-align: center;
+    padding: 1.7rem;
+    position: absolute;
+    z-index: 100;
+    top: calc(100% + 2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    --arrow-left: 50%;
+    margin-left: 0;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    font-family: $font-base;
+    font-weight: 500;
+    //background: $white;
+    pointer-events: none;
+    //box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    &:before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      --cut: 8px;
+      background: $secondary;
+      //box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+      clip-path: polygon(var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)), 0 var(--cut));
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: var(--arrow-left, 50%);
+      margin-left: -12px;
+      border-width: 0 12px 20px 12px;
+      border-style: solid;
+      border-color: transparent transparent rgba($secondary, 1) transparent;
+    }
+    span {
+      position: relative;
+      z-index: 5;
+    }
+  }
+
+  &:hover {
+    .grid-tooltip__content {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+.bg--secondary,
+.bg--primary,
+.bg--dark {
+  .grid-tooltip__content {
+    &:before {
+      background: $white;
+    }
+
+    &:after {
+      border-color: transparent transparent rgba($white, 1) transparent;
+    }
+  }
+
+}

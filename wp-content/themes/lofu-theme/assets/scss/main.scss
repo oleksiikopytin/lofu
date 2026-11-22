@@ -1,0 +1,40 @@
+// Variables
+@import "global/utils/variables";
+@import "global/utils/borders";
+@import "global/utils/spacing";
+@import "global/utils/flex";
+@import "global/utils/colors";
+
+//Mixins
+@import "global/mixins/mixin";
+@import "global/mixins/grid";
+//@import "global/mixins/button";
+
+//Base styles
+@import "global/base/reset";
+@import "global/content/typography";
+//@import "global/content/table";NEED CHECK DESIGN INNER PAGES
+
+//Grid
+@import "global/utils/grid-helper";
+@import "global/layout/grid";
+
+//Components
+//@import "global/components/icons";NEED TO REMOVE
+@import "global/components/button";
+//@import "global/components/pagination"; NEED CHECK DESIGN INNER PAGES
+//@import "global/components/breadcrumbs"; NEED CHECK DESIGN INNER PAGES
+//@import "global/components/close"; NEED TO REMOVE
+@import "global/components/links";
+//@import "global/components/tabs";NEED CHECK DESIGN INNER PAGES
+//@import "global/components/accordion"; NEED CHECK DESIGN INNER PAGES
+@import "global/components/form-elements";
+
+// @import "pages/global-page/general"; // Add pages/global-page/general.scss when needed
+
+@import "global/slick";
+/* header */
+@import "header/header";
+
+/* footer */
+@import "footer/footer";

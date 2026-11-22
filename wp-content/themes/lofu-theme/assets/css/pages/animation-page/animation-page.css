@@ -1,0 +1,90 @@
+.animation-doc-page {
+  background: #f8f9fa;
+  padding: 10rem 0;
+}
+.animation-doc-page .animation-doc-header {
+  margin-bottom: 6rem;
+  text-align: center;
+}
+.animation-doc-page .animation-doc-header h1 {
+  margin-bottom: 2rem;
+}
+.animation-doc-page .animation-doc-header p {
+  max-width: 80rem;
+  margin: 0 auto;
+  font-size: 1.8rem;
+  color: #666;
+}
+.animation-doc-page .animation-doc-section {
+  margin-bottom: 8rem;
+  background: #fff;
+  padding: 4rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+.animation-doc-page .animation-doc-section h2 {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1.5rem;
+  margin-bottom: 3rem;
+}
+.animation-doc-page .animation-doc-section p {
+  margin-bottom: 3rem;
+}
+.animation-doc-page .animation-example {
+  margin-bottom: 4rem;
+}
+.animation-doc-page .animation-example h3 {
+  margin-bottom: 1rem;
+}
+.animation-doc-page .animation-example code {
+  display: inline-block;
+  background: #eee;
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.4rem;
+  font-family: monospace;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+.animation-doc-page .animation-example-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+}
+@media (max-width: 767px) {
+  .animation-doc-page .animation-example-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.animation-doc-page .example-box {
+  background: #fdfdfd;
+  border: 1px dashed #ccc;
+  padding: 4rem;
+  min-height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+.animation-doc-page .example-box h2, .animation-doc-page .example-box h3, .animation-doc-page .example-box h4, .animation-doc-page .example-box p {
+  margin-bottom: 0;
+}
+.animation-doc-page .example-box img {
+  max-width: 40rem;
+  height: auto;
+}
+.animation-doc-page .box {
+  width: 15rem;
+  height: 15rem;
+  background: #007bff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=animation-page.css.map */

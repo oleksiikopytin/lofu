@@ -1,0 +1,100 @@
+@import '../utils/variables';
+@import '../mixins/button';
+.ia-btn,
+.btn {
+  display: inline-flex;
+  gap: 2rem;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-family: $font-base;
+  line-height: 1;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: all 0.3s;
+  box-sizing: border-box;
+  color: $white;
+  background: $primary;
+}
+
+
+@each $name, $color in $theme-colors {
+  // Button Classes
+  .btn--#{$name},
+  .ia-btn--#{$name} {
+    background: $color;
+
+  }
+  .bg--dark .btn--#{$name},
+  .bg--dark .ia-btn--#{$name} {
+    &:hover {
+      @media (min-width: 1024px) {
+        background-color: $white;
+        color: $dark;
+        &:after {
+          --color: #{$dark};
+        }
+      }
+
+    }
+  }
+
+  .ia-btn--outline-#{$name} {
+    border-color: $color;
+    background: none;
+    color: $color;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      z-index: 1;
+      border: 2px solid $color;
+      transition: opacity 0.3s;
+      border-radius: $button-border-radius - .1;
+    }
+    &:hover {
+      background-color: rgba($color, 0.1);
+      color: $color;
+      &:before {
+        opacity: 1;
+      }
+    }
+  }
+
+
+}
+
+.ia-btn {
+  @include button($button-padding-md, $button-font-size-md);
+}
+.ia-btn--sm {
+  @include button($button-padding-sm, $button-font-size-sm);
+}
+.ia-btn--md {
+  @include button($button-padding-md, $button-font-size-md);
+}
+.ia-btn--lg {
+  @include button($button-padding-lg, $button-font-size-lg);
+}
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 767px) {
+  .ia-btn--sm {
+    @include button($button-padding-sm, 1.2rem);
+  }
+  .ia-btn--md {
+    @include button(1.5rem 2.5rem, 1.6rem);
+  }
+  .ia-btn {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, calc(18px) 100%, 0% calc(100% - 18px));
+    @include button(1.5rem 2.5rem, 1.6rem);
+  }
+  .ia-btn--lg {
+    @include button(2rem 3rem, 1.6rem);
+  }
+}

@@ -1,0 +1,267 @@
+@keyframes hoverSetRevers {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverSet {
+  from {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverDef {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+/* custom select*/
+div.fancy-select {
+  position: relative;
+}
+div.fancy-select.disabled {
+  opacity: 0.5;
+}
+div.fancy-select .wpcf7-not-valid + div.trigger {
+  border-color: #AC2020 !important;
+}
+div.fancy-select div.trigger {
+  border: 2px solid transparent;
+  background: #fff;
+  width: 100%;
+  display: block;
+  font-size: 1.6rem;
+  text-align: left;
+  color: #0c0c0c;
+  box-sizing: border-box;
+  padding: 0 4.5rem 0 2rem;
+  line-height: 5rem;
+  height: 5rem;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Google Sans Flex", sans-serif;
+  cursor: pointer;
+  transition: all 240ms ease-out;
+}
+div.fancy-select div.trigger:after {
+  content: "";
+  width: 24px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  margin-top: -6px;
+  right: 25px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="12" viewBox="0 0 24 12" fill="none"><path d="M10.1961 10.3325L0.71276 0.701608M13.0079 10.3639L22.6753 0.917786" stroke="black" stroke-width="2" stroke-linejoin="round"/></svg>') no-repeat 0 0;
+}
+div.fancy-select div.trigger.open:after {
+  transform: scaleY(-1);
+}
+div.fancy-select ul.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  -webkit-transition: max-height 0.5s;
+  transition: max-height 0.5s;
+  background: #fff;
+  overflow-y: auto;
+  max-height: 0px;
+  text-align: left;
+  margin-left: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  z-index: 99;
+  box-shadow: 0 3px 5px 0 rgba(4, 2, 24, 0.15);
+}
+div.fancy-select ul.options li {
+  font-size: 1.6rem;
+  color: #0c0c0c;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 1rem 2rem;
+}
+div.fancy-select ul.options li.selected, div.fancy-select ul.options li:hover, div.fancy-select ul.options li.hover {
+  background: #253FDA;
+  color: #fff;
+}
+div.fancy-select ul.options.open {
+  max-height: 250px;
+}
+div.fancy-select ul.options.overflowing {
+  top: auto;
+  bottom: 100%;
+}
+div.fancy-select ul.options.overflowing.open {
+  top: auto;
+  bottom: 100%;
+}
+
+.wpcf7-form .wpcf7-not-valid-tip {
+  color: #fff !important;
+  background: #AC2020;
+  padding: 1rem 1.5rem;
+  font-size: 1.6rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 10;
+}
+.wpcf7-form .wpcf7-spinner {
+  background: #AC2020;
+  display: block;
+  margin: 5px auto 0;
+}
+.wpcf7-form .wpcf7-spinner:before {
+  background: #253FDA;
+}
+.wpcf7-form h3 {
+  color: #fff;
+}
+.wpcf7-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 1.4rem;
+}
+.wpcf7-form label em {
+  color: #AC2020;
+  font-style: normal;
+}
+.wpcf7-form .wpcf7-form-control-wrap {
+  display: block;
+  margin-bottom: 2.5rem;
+}
+.wpcf7-form .wpcf7-form-control-wrap input[type=url],
+.wpcf7-form .wpcf7-form-control-wrap input[type=text],
+.wpcf7-form .wpcf7-form-control-wrap input[type=tel],
+.wpcf7-form .wpcf7-form-control-wrap input[type=email],
+.wpcf7-form .wpcf7-form-control-wrap input[type=password],
+.wpcf7-form .wpcf7-form-control-wrap textarea {
+  background: #fff;
+  border: 2px solid transparent;
+  height: 5rem;
+  box-sizing: border-box;
+  width: 100%;
+  color: #0c0c0c;
+  padding: 0 1.5rem;
+  font-family: "Google Sans Flex", sans-serif;
+  font-size: 1.6rem;
+}
+.wpcf7-form .wpcf7-form-control-wrap input[type=url].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap input[type=text].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap input[type=tel].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap input[type=email].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap input[type=password].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap textarea.wpcf7-not-valid {
+  border-color: #AC2020;
+}
+.wpcf7-form .wpcf7-form-control-wrap textarea {
+  padding: 2rem;
+  height: 19rem;
+  box-sizing: border-box;
+  display: block;
+}
+.wpcf7-form .btn {
+  margin-top: 1rem;
+  width: 100%;
+}
+.wpcf7-form .wpcf7 {
+  position: relative;
+}
+.wpcf7-form .wpcf7-spinner {
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+
+input {
+  font-family: "Google Sans Flex", sans-serif;
+}
+
+.cf7-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.7rem;
+}
+.cf7-row input[type=url],
+.cf7-row input[type=text],
+.cf7-row input[type=tel],
+.cf7-row input[type=email],
+.cf7-row input[type=password] {
+  width: 100%;
+  height: 5rem;
+  box-sizing: border-box;
+  background: #fff;
+  margin-bottom: 0;
+  font-size: 1.4rem;
+}
+.cf7-row .cf7-col {
+  width: 50%;
+}
+.cf7-row .cf7-col-full {
+  width: 100%;
+}
+.cf7-row .cf7-col--end {
+  margin-top: 2rem;
+  text-align: right;
+}
+.cf7-row .title-label {
+  font-size: 1.6rem;
+  color: #F7F775;
+  margin-bottom: 1rem;
+  display: block;
+}
+.cf7-row .title-label em {
+  font-style: normal;
+  color: #F15E35;
+}
+.cf7-row br {
+  display: none;
+}
+.cf7-row textarea {
+  width: 100%;
+  height: 14rem;
+  font-family: "Google Sans Flex", sans-serif;
+  resize: none;
+  font-size: 1.6rem;
+}
+
+@media (max-width: 767px) {
+  div.fancy-select div.trigger {
+    height: 4rem;
+    line-height: 4rem;
+    font-size: 1.6rem;
+  }
+  .cf7-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .cf7-row .cf7-col {
+    width: 100%;
+  }
+  .wpcf7-form .wpcf7-form-control-wrap {
+    margin-bottom: 1.6rem;
+  }
+  .wpcf7-form .wpcf7-form-control-wrap input[type=url], .wpcf7-form .wpcf7-form-control-wrap input[type=text], .wpcf7-form .wpcf7-form-control-wrap input[type=tel], .wpcf7-form .wpcf7-form-control-wrap input[type=email], .wpcf7-form .wpcf7-form-control-wrap input[type=password] {
+    height: 4rem;
+  }
+  .wpcf7-form .wpcf7-form-control-wrap textarea {
+    height: 19rem;
+  }
+  .wpcf7-form .wpcf7-not-valid-tip {
+    font-size: 1.4rem;
+    position: static;
+  }
+}
+
+/*# sourceMappingURL=form-elements.css.map */

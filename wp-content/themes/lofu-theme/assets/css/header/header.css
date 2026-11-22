@@ -1,0 +1,35 @@
+:root {
+  --grid-gutter-width: 30px;
+  --border-opacity: 1;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --grid-gutter-width: 40px;
+  }
+}
+.header__top {
+  padding: 0.8rem 0;
+}
+.header__top a {
+  display: flex;
+  align-items: center;
+  transition: color 0.35s;
+  line-height: 1.2;
+  gap: 0.6rem;
+}
+.header__top a:hover, .header__top a.active {
+  color: #171db6;
+  text-decoration: underline;
+}
+.header__top a.active {
+  pointer-events: none;
+}
+.header__top-left {
+  gap: 2.4rem;
+}
+.header__top-right {
+  gap: 2.4rem;
+}
+
+/*# sourceMappingURL=header.css.map */

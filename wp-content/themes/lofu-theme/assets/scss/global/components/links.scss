@@ -1,0 +1,82 @@
+@import '../utils/variables';
+.skip-to-main-content-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1em;
+  background-color: black;
+  color: white;
+  opacity: 0;
+}
+.skip-to-main-content-link:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+}
+
+a {
+  color: $primary;
+  transition: all .3s;
+  text-decoration: none;
+  background: linear-gradient(to right, currentColor, currentColor) 0 min(100%, 1.2lh) / 100% 1px no-repeat;
+  &:hover {
+    text-decoration: none;
+    background-size: 0 2px;
+  }
+
+}
+.single .long-text a[target="_blank"]:after {
+  display: none;
+}
+// .reversed-link {
+//
+//  background: linear-gradient(to right, currentColor, currentColor) 0 min(100%, 1.2lh) / 0 1px no-repeat;
+// }
+// .group:hover .reversed-link, .reversed-link.hover\:show:hover {
+//
+//background-size: 100% 1px;
+// }
+
+.ia-link {
+  font-size: 1.8rem;
+  position: relative;
+  display: inline-block;
+  color: $black;
+  text-decoration: none;
+  transition: background 0.3s ease-in-out;
+  background: linear-gradient(to right, currentColor, currentColor) 0 min(100%, 1.2lh) / 100% 1px no-repeat;
+  &:hover{
+    @media (min-width: $breakpoint-md) {
+
+        background-size: 0 2px;
+
+    }
+  }
+}
+.ia-link--xs {
+  font-size: 1.6rem;
+  padding-right: 50px;
+  &:after {
+    width: 20px;
+    height: 14px;
+  }
+}
+@each $name, $color in $theme-colors {
+  // Link Classes
+  .ia-link--#{$name} {
+    color: #{$color};
+    border-bottom-color: #{$color};
+    &:after {
+      background: #{$color};
+    }
+  }
+}
+@media (max-width: $breakpoint-sm - 1px) {
+  .ia-link {
+    font-size: 1.4rem;
+    &:after {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

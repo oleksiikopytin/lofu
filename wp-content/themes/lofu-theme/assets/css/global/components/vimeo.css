@@ -1,0 +1,43 @@
+:root {
+  --grid-gutter-width: 30px;
+  --border-opacity: 1;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --grid-gutter-width: 40px;
+  }
+}
+.vimeo-wrapper {
+  margin: 3rem 0;
+}
+
+.vimeo-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.vimeo-video a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: none !important;
+}
+.vimeo-video a:hover .play-btn {
+  opacity: 0.8;
+}
+
+.vimeo-title {
+  font-size: 1.4rem;
+  margin-top: 1.4rem;
+}
+
+/*# sourceMappingURL=vimeo.css.map */

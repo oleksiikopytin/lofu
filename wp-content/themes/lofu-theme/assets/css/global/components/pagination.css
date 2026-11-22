@@ -1,0 +1,89 @@
+@keyframes hoverSetRevers {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverSet {
+  from {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@keyframes hoverDef {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+.pagination {
+  text-align: center;
+}
+.pagination .wp-pagenavi {
+  padding: 5rem 0;
+}
+.pagination .wp-pagenavi span,
+.pagination .wp-pagenavi a {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 25px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0c0c0c;
+  border-radius: 3px;
+  margin: 0 5px;
+}
+.pagination .wp-pagenavi span.previouspostslink, .pagination .wp-pagenavi span.nextpostslink,
+.pagination .wp-pagenavi a.previouspostslink,
+.pagination .wp-pagenavi a.nextpostslink {
+  position: relative;
+  width: 25px;
+  text-indent: 999px;
+  overflow: hidden;
+}
+.pagination .wp-pagenavi span.previouspostslink:before, .pagination .wp-pagenavi span.nextpostslink:before,
+.pagination .wp-pagenavi a.previouspostslink:before,
+.pagination .wp-pagenavi a.nextpostslink:before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-right: 2px solid #0c0c0c;
+  border-top: 2px solid #0c0c0c;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin-left: -3px;
+  margin-top: -4px;
+}
+.pagination .wp-pagenavi span.previouspostslink,
+.pagination .wp-pagenavi a.previouspostslink {
+  transform: scaleX(-1);
+}
+.pagination .wp-pagenavi span.current,
+.pagination .wp-pagenavi a.current {
+  background: #E0D9D1;
+}
+.pagination .wp-pagenavi span.last, .pagination .wp-pagenavi span.first, .pagination .wp-pagenavi span.pages,
+.pagination .wp-pagenavi a.last,
+.pagination .wp-pagenavi a.first,
+.pagination .wp-pagenavi a.pages {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .pagination .wp-pagenavi {
+    padding: 0 0 3rem;
+  }
+}
+
+/*# sourceMappingURL=pagination.css.map */
