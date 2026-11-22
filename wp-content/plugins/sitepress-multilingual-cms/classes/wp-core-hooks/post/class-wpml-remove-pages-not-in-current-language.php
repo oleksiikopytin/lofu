@@ -1,0 +1,140 @@
+<?php
+
+use WPML\FP\Logic;
+use WPML\FP\Obj;
+use WPML\FP\Fns;
+use WPML\FP\Lst;
+use function WPML\FP\pipe;
+use WPML\API\PostTypes;
+
+class WPML_Remove_Pages_Not_In_Current_Language {
+	private $wpdb;
+	private $sitepress;
+
+	private static $memo = [];
+
+	public static function reset() {
+		self::$memo = [];
+	}
+
+	public function __construct( wpdb $wpdb, SitePress $sitepress ) {
+		$this->wpdb      = $wpdb;
+		$this->sitepress = $sitepress;
+	}
+
+
+	function filter_pages( $posts, $get_page_arguments ) {
+		$filtered_posts   = $posts;
+		$current_language = $this->sitepress->get_current_language();
+
+		if ( 'all' !== $current_language && 0 !== count( $posts ) ) {
+			$post_type = $this->find_post_type( $get_page_arguments, $posts );
+
+			if ( $post_type && Lst::includes( $post_type, PostTypes::getTranslatable() ) ) {
+				$white_list = $this->memo( 'get_posts_in_current_languages', $post_type, $current_language );
+				if ( $this->sitepress->is_display_as_translated_post_type( $post_type ) ) {
+					$original_posts_in_other_language = $this->memo( 'get_original_posts_in_other_languages', $post_type, $current_language );
+					$white_list                       = Lst::concat( $white_list, $original_posts_in_other_language );
+				}
+				$get_post_id          = Logic::ifElse( 'is_numeric', Fns::identity(), Obj::prop( 'ID' ) );
+				$filter_not_belonging = Fns::filter( pipe( $get_post_id, Lst::includes( Fns::__, $white_list ) ) );
+				$filtered_posts       = $filter_not_belonging( $posts );
+			}
+		}
+
+		return $filtered_posts;
+	}
+
+	private function memo( $reader, $post_type, $language ) {
+		$generation = (string) wp_cache_get_last_changed( 'posts' );
+		$key        = implode( '|', [ $reader, $this->wpdb->prefix, $post_type, $language, $generation ] );
+		if ( ! array_key_exists( $key, self::$memo ) ) {
+			foreach ( array_keys( self::$memo ) as $kept ) {
+				if ( substr( $kept, strrpos( $kept, '|' ) + 1 ) !== $generation ) {
+					unset( self::$memo[ $kept ] );
+				}
+			}
+			self::$memo[ $key ] = $this->$reader( $post_type, $language );
+		}
+
+		return self::$memo[ $key ];
+	}
+
+	private function get_posts_in_current_languages( $post_type, $current_language ) {
+		$wpdb = $this->wpdb;
+
+		return Fns::map(
+			Fns::unary( 'intval' ),
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT p.ID FROM {$wpdb->posts} p
+					JOIN {$wpdb->prefix}icl_translations wpml_translations ON p.ID = wpml_translations.element_id
+					WHERE wpml_translations.element_type=%s AND p.post_type=%s AND wpml_translations.language_code = %s",
+					'post_' . $post_type,
+					$post_type,
+					$current_language
+				)
+			)
+		);
+	}
+
+	private function get_original_posts_in_other_languages( $post_type, $current_language ) {
+		$wpdb = $this->wpdb;
+
+		return Fns::map(
+			Fns::unary( 'intval' ),
+			$wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT p.ID FROM {$wpdb->posts} p
+					JOIN {$wpdb->prefix}icl_translations wpml_translations ON p.ID = wpml_translations.element_id
+					WHERE wpml_translations.element_type=%s
+				  AND p.post_type=%s
+				  AND wpml_translations.language_code <> %s
+				  AND wpml_translations.source_language_code IS NULL
+				  AND NOT EXISTS (
+					      SELECT translation_id FROM {$wpdb->prefix}icl_translations as other_translation
+					      WHERE other_translation.trid = wpml_translations.trid AND other_translation.language_code = %s
+					)",
+					'post_' . $post_type,
+					$post_type,
+					$current_language,
+					$current_language
+				)
+			)
+		);
+	}
+
+	private function find_post_type( $get_page_arguments, $new_arr ) {
+		$post_type = 'page';
+		if ( array_key_exists( 'post_type', $get_page_arguments ) ) {
+			$post_type = $get_page_arguments['post_type'];
+
+			return $post_type;
+		} else {
+			$temp_items = array_values( $new_arr );
+			$first_item = $temp_items[0];
+			if ( is_object( $first_item ) ) {
+				$first_item = object_to_array( $first_item );
+			}
+			if ( is_array( $first_item ) ) {
+				if ( array_key_exists( 'post_type', $first_item ) ) {
+					$post_type = $first_item['post_type'];
+
+					return $post_type;
+				} elseif ( array_key_exists( 'ID', $first_item ) ) {
+					$post_type = $this->sitepress->get_wp_api()->get_post_type( $first_item['ID'] );
+
+					return $post_type;
+				}
+
+				return $post_type;
+			} elseif ( is_numeric( $first_item ) ) {
+				$post_type = $this->sitepress->get_wp_api()->get_post_type( $first_item );
+
+				return $post_type;
+			}
+
+			return $post_type;
+		}
+	}
+}

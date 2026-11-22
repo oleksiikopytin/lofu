@@ -1,0 +1,180 @@
+<?php
+
+use WPML\FP\Cast;
+use WPML\FP\Fns;
+use WPML\FP\Logic;
+use WPML\FP\Lst;
+use WPML\FP\Relation;
+use WPML\LIB\WP\User;
+use WPML\TM\API\Translators;
+use WPML\TM\Jobs\Query\OrderQueryHelper;
+
+class WPML_TM_Rest_Jobs_Criteria_Parser {
+	public function build_criteria( WP_REST_Request $request ) {
+		$params = new WPML_TM_Jobs_Search_Params();
+
+		$params = $this->set_scope( $params, $request );
+		$params = $this->set_pagination( $params, $request );
+		$params = $this->set_filters( $params, $request );
+		$params = $this->set_sorting( $params, $request );
+
+		return $params;
+	}
+
+	private function set_scope( WPML_TM_Jobs_Search_Params $params, WP_REST_Request $request ) {
+		$scope = $request->get_param( 'scope' );
+		if ( WPML_TM_Jobs_Search_Params::is_valid_scope( $scope ) ) {
+			$params->set_scope( $scope );
+		}
+
+		return $params;
+	}
+
+	private function set_pagination( WPML_TM_Jobs_Search_Params $params, WP_REST_Request $request ) {
+		$limit = (int) $request->get_param( 'limit' );
+		if ( $limit > 0 ) {
+			$params->set_limit( $limit );
+
+			$offset = (int) $request->get_param( 'offset' );
+			if ( $offset > 0 ) {
+				$params->set_offset( $offset );
+			}
+		}
+
+		return $params;
+	}
+
+	private function set_filters( WPML_TM_Jobs_Search_Params $params, WP_REST_Request $request ) {
+		foreach ( [ 'id', 'source_language', 'translated_by', 'element_type' ] as $key ) {
+			$value = (string) $request->get_param( $key );
+			if ( $value ) {
+				$params->{'set_' . $key}( $value );
+			}
+		}
+
+		$translate_job_id = (int) $request->get_param( 'job_id' );
+		if ( $translate_job_id ) {
+			$params->set_translate_job_id( $translate_job_id );
+		}
+
+		foreach ( [ 'ids', 'local_job_ids', 'title', 'target_language', 'batch_name' ] as $key ) {
+			$value = (string) $request->get_param( $key );
+			if ( strlen( $value ) ) {
+				$params->{'set_' . $key}( explode( ',', $value ) );
+			}
+		}
+
+		if ( $request->get_param( 'status' ) !== null ) {
+			$statuses = Fns::map( Cast::toInt(), explode( ',', $request->get_param( 'status' ) ) );
+
+			$params->set_status( Fns::reject( Relation::equals( ICL_TM_NEEDS_REVIEW ), $statuses ) );
+			$params->set_needs_review( Lst::includes( ICL_TM_NEEDS_REVIEW, $statuses ) );
+		}
+		$params->set_exclude_cancelled();
+
+		if ( $request->get_param( 'needs_update' ) ) {
+			$params->set_needs_update( new WPML_TM_Jobs_Needs_Update_Param( $request->get_param( 'needs_update' ) ) );
+		}
+
+		if ( $request->get_param( 'only_automatic' ) ) {
+			$params->set_exclude_manual( true );
+		}
+
+		$date_range_values = array( 'sent', 'deadline' );
+		foreach ( $date_range_values as $date_range_value ) {
+			$from = $request->get_param( $date_range_value . '_from' );
+			$to   = $request->get_param( $date_range_value . '_to' );
+
+			if ( $from || $to ) {
+				$from = $from ? new DateTime( $from ) : null;
+				$to   = $to ? new DateTime( $to ) : null;
+
+				if ( $from && $to && $from > $to ) {
+					continue;
+				}
+
+				$params->{'set_' . $date_range_value}( new WPML_TM_Jobs_Date_Range( $from, $to ) );
+			}
+		}
+
+		global $wpdb;
+		$where     = [];
+		$isQueue   = $request->get_param( 'pageName' ) === \WPML_TM_Jobs_List_Script_Data::TRANSLATION_QUEUE_PAGE;
+		$isManager = User::canManageTranslations();
+
+		if ( $isQueue || ! $isManager ) {
+			$where[] = $wpdb->prepare( "(
+				(translate_job.translator_id = %d OR translate_job.translator_id = 0 OR translate_job.translator_id IS NULL)
+				OR (automatic = 1 OR review_status = 'NEEDS_REVIEW')
+			)", User::getCurrentId() );
+		}
+
+		if ( $isQueue ) {
+			if ( ! $request->get_param( 'includeTranslationServiceJobs' ) ) {
+				$where[] = "translation_status.translation_service = 'local'";
+			}
+			$where[] = "( automatic = 0 OR review_status = 'NEEDS_REVIEW' )";
+		}
+
+		if ( $isQueue || ! $isManager ) {
+			$where[] = $this->buildLanguagePairsCriteria();
+		}
+
+		if ( $where ) {
+			$params->set_custom_where_conditions( $where );
+		}
+
+		return $params;
+	}
+
+	private function buildLanguagePairsCriteria() {
+		global $wpdb;
+
+		$translator = Translators::getCurrent();
+
+		$buildWhereForPair = function ( $targets, $source ) use ( $wpdb ) {
+			return $wpdb->prepare(
+				'( translations.source_language_code = %s AND translations.language_code IN (',
+				$source
+			) . wpml_prepare_in( $targets ) . ') )';
+		};
+
+		$pairs = \wpml_collect( $translator->language_pairs )
+			->filter( Logic::complement( Logic::isEmpty() ) )
+			->map( $buildWhereForPair )
+			->implode( ' OR ' );
+
+		if ( '' === $pairs ) {
+			return '( 1 = 0 )';
+		}
+
+		return '( ' . $pairs . ' ) ';
+	}
+
+	private function set_sorting( WPML_TM_Jobs_Search_Params $params, WP_REST_Request $request ) {
+		$sorting = [];
+
+		$sortingParams = $request->get_param( 'sorting' );
+		if ( $sortingParams ) {
+			$sorting = $this->build_sorting_params( $sortingParams );
+		}
+
+		if ( $request->get_param( 'pageName' ) === \WPML_TM_Jobs_List_Script_Data::TRANSLATION_QUEUE_PAGE ) {
+			$sorting[] = new \WPML_TM_Jobs_Sorting_Param( OrderQueryHelper::QUEUE_PRIORITY, 'ASC' );
+			$sorting[] = new \WPML_TM_Jobs_Sorting_Param( 'translator_id', 'DESC' );
+			$sorting[] = new \WPML_TM_Jobs_Sorting_Param( 'translate_job_id', 'DESC' );
+		}
+
+		$params->set_sorting( $sorting );
+
+		return $params;
+	}
+
+	private function build_sorting_params( array $request_param ) {
+		return \wpml_collect( $request_param )->map(
+			function ( $direction, $column ) {
+				return new WPML_TM_Jobs_Sorting_Param( $column, $direction );
+			}
+		)->toArray();
+	}
+}

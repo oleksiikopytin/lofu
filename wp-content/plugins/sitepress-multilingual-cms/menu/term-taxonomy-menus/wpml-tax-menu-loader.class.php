@@ -1,0 +1,141 @@
+<?php
+
+class WPML_Tax_Menu_Loader {
+
+	private $sitepress;
+	public $wpdb;
+	private $taxonomy;
+
+	public function __construct( $wpdb, $sitepress, $taxonomy ) {
+		$this->sitepress = $sitepress;
+		$this->wpdb      = $wpdb;
+		$this->taxonomy  = $taxonomy;
+
+		add_action( 'init', [ $this, 'init' ] );
+		add_action( 'after-category-table', [ $this, 'category_display_action' ], 1, 0 );
+		add_filter( 'wp_redirect', [ $this, 'preserve_lang_param' ] );
+	}
+
+	public function get_wpdb() {
+		return $this->wpdb;
+	}
+
+	public function init() {
+		$tax_get = filter_input( INPUT_GET, 'taxonomy' );
+		$trid    = filter_input( INPUT_GET, 'trid' );
+		if ( $trid
+			 && ( $source_lang = filter_input( INPUT_GET, 'source_lang' ) )
+			 && get_taxonomy( $tax_get ) !== false
+		) {
+			$translations = $this->sitepress->get_element_translations( $trid, 'tax_' . $this->taxonomy );
+			$lang         = isset( $_GET['lang'] ) ? sanitize_text_field( wp_unslash( $_GET['lang'] ) ) : '';
+			if ( $lang && isset( $translations[ $lang ] ) && ! empty( $translations[ $lang ]->term_id ) ) {
+				$edit_link = get_edit_term_link( $translations[ $lang ]->term_id, $tax_get );
+				if ( $edit_link ) {
+					wp_safe_redirect( $edit_link );
+				}
+				exit;
+			} else {
+				add_action( 'admin_notices', [ $this, '_tax_adding' ] );
+			}
+		}
+
+		add_action( $this->taxonomy . '_edit_form', [ $this, 'wpml_edit_term_form' ] );
+		add_action( $this->taxonomy . '_add_form', [ $this, 'wpml_edit_term_form' ] );
+
+		add_action( 'admin_print_scripts-edit-tags.php', [ $this, 'js_scripts_tags' ] );
+		add_action( 'admin_print_scripts-term.php', [ $this, 'js_scripts_tags' ] );
+		add_filter( 'wp_dropdown_cats', [ $this, 'wp_dropdown_cats_select_parent' ], 10, 2 );
+		if ( ! $this->sitepress->get_wp_api()->is_term_edit_page() ) {
+			$term_lang_filter = new WPML_Term_Language_Filter( $this->wpdb, $this->sitepress );
+			add_action( 'admin_footer', [ $term_lang_filter, 'terms_language_filter' ], 0 );
+		}
+	}
+
+	public function category_display_action() {
+		global $wpml_term_translations;
+
+		$default_categories = (array) $this->sitepress->get_setting( 'default_categories', array() );
+		$default_cat_ids    = array();
+
+		foreach ( $default_categories as $term_taxonomy_id ) {
+			$term_id = (int) $wpml_term_translations->adjust_term_id_for_ttid( (int) $term_taxonomy_id );
+			if ( $term_id && ! in_array( $term_id, $default_cat_ids, true ) ) {
+				$default_cat_ids[] = $term_id;
+			}
+		}
+
+		if ( $default_cat_ids ) {
+			echo '<div id="icl-default-category-ids" style="display: none;">'
+				 . wp_json_encode( $default_cat_ids ) . '</div>';
+		}
+	}
+
+	public function js_scripts_tags() {
+		wp_enqueue_script( 'sitepress-tags', ICL_PLUGIN_URL . '/res/js/tags.js', array( 'sitepress-scripts' ), ICL_SITEPRESS_SCRIPT_VERSION );
+	}
+
+	function wp_dropdown_cats_select_parent( $html, $args ) {
+		$wpdb = $this->wpdb;
+
+		if ( ( $trid = filter_input( INPUT_GET, 'trid', FILTER_SANITIZE_NUMBER_INT ) ) ) {
+			$element_type     = $taxonomy = isset( $args['taxonomy'] ) ? $args['taxonomy'] : 'post_tag';
+			$icl_element_type = 'tax_' . $element_type;
+			$source_lang      = isset( $_GET['source_lang'] )
+				? filter_input( INPUT_GET, 'source_lang', FILTER_SANITIZE_FULL_SPECIAL_CHARS )
+				: $this->sitepress->get_default_language();
+			$parent           = $wpdb->get_var(
+				$wpdb->prepare(
+					"
+				SELECT parent
+				FROM {$wpdb->term_taxonomy} tt
+					JOIN {$wpdb->prefix}icl_translations tr ON tr.element_id=tt.term_taxonomy_id
+                    AND tr.element_type=%s AND tt.taxonomy=%s
+				WHERE trid=%d AND tr.language_code=%s
+			",
+					$icl_element_type,
+					$taxonomy,
+					$trid,
+					$source_lang
+				)
+			);
+			if ( $parent ) {
+				$parent = (int) icl_object_id( (int) $parent, $element_type );
+				$html   = str_replace( 'value="' . $parent . '"', 'value="' . $parent . '" selected="selected"', $html );
+			}
+		}
+
+		return $html;
+	}
+
+	public function wpml_edit_term_form( $term ) {
+		include WPML_PLUGIN_PATH . '/menu/term-taxonomy-menus/taxonomy-menu.php';
+	}
+
+	function _tax_adding() {
+		$trid         = filter_input( INPUT_GET, 'trid', FILTER_SANITIZE_NUMBER_INT );
+		$taxonomy     = filter_input( INPUT_GET, 'taxonomy' );
+		$translations = $trid && $taxonomy ?
+			$this->sitepress->get_element_translations( $trid, 'tax_' . $taxonomy ) : array();
+		$name         = isset( $translations[ $_GET['source_lang'] ] ) ? $translations[ filter_input( INPUT_GET, 'source_lang', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ]
+			: false;
+		$name         = isset( $name->name ) ? $name->name : false;
+		if ( $name !== false ) {
+			$tax_name = apply_filters( 'the_category', $name );
+			// translators: %s is replaced by the name of the taxonomy.
+			$notice = sprintf( esc_html__( 'Adding translation for: %s.', 'sitepress' ), $tax_name );
+			echo '<div id="icl_tax_adding_notice" class="updated fade"><p>' . esc_html( $notice ) . '</p></div>';
+		}
+	}
+
+	public function preserve_lang_param( $location ) {
+		global $wpml_url_converter;
+
+		$get_lang = $wpml_url_converter->get_language_from_url(
+			(string) filter_input( INPUT_POST, '_wp_http_referer' )
+		);
+		$location = $get_lang ? add_query_arg( 'lang', $get_lang, $location ) : $location;
+
+		return $location;
+	}
+}

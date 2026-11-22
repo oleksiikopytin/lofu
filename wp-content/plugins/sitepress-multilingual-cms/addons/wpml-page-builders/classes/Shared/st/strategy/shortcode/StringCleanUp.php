@@ -1,0 +1,40 @@
+<?php
+
+namespace WPML\PB\Shortcode;
+
+use WPML\FP\Fns;
+
+class StringCleanUp {
+
+	private $existingStrings;
+
+	private $shortcodeStrategy;
+
+	private $pass;
+
+	public function __construct( $postId, \WPML_PB_Shortcode_Strategy $shortcodeStrategy ) {
+		$this->shortcodeStrategy = $shortcodeStrategy;
+		$this->existingStrings   = $shortcodeStrategy->get_package_strings_by_name( $shortcodeStrategy->get_package_key( $postId ) );
+	}
+
+	public function get() {
+		return $this->existingStrings;
+	}
+
+	public function remove( $value ) {
+		unset( $this->existingStrings[ md5( $value ) ] );
+	}
+
+	public function getPass() {
+		if ( ! $this->pass ) {
+			$this->pass = new RegistrationPass();
+		}
+
+		return $this->pass;
+	}
+
+	public function cleanUp() {
+		Fns::each( [ $this->shortcodeStrategy, 'remove_string' ], $this->existingStrings );
+	}
+
+}

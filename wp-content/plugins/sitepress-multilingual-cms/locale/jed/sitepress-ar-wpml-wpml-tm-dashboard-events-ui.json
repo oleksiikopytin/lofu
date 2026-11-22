@@ -1,0 +1,21 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);",
+            "lang": "ar"
+         },
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "لم يقبل نظام الترجمة لدينا هذا الطلب (كان الرد %d). انتظر دقيقة ثم حاول مرة أخرى، واتصل بدعم WPML إذا استمر حدوث ذلك."
+         ],
+         "The site stopped answering before this translation was confirmed. If it was not saved, the next download takes it again.": [
+            "توقف الموقع عن الاستجابة قبل تأكيد هذه الترجمة. إذا لم يتم حفظها، فسيتم جلبها مرة أخرى في التنزيل التالي."
+         ],
+         "This translation is ready, but its job could not be loaded, so it was not downloaded. The next download takes it.": [
+            "هذه الترجمة جاهزة، ولكن تعذر تحميل مهمتها، لذا لم يتم تنزيلها. سيتم جلبها في التنزيل التالي."
+         ]
+      }
+   }
+}

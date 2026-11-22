@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{let e=document.querySelector("#WPLANG");if(!e)return;e.disabled=!0;let t=document.createElement("p");t.className="description",t.insertAdjacentHTML("beforeend",wpmlOptionsGeneral.languageSelectMessage),e.parentNode.appendChild(t)});

@@ -1,0 +1,36 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "zh_TW"
+         },
+         "Before proceeding, we recommend that you read these two pages:": [
+            "在繼續之前，我們建議您閱讀這兩個頁面："
+         ],
+         "How Browser Language Redirect Affects Google Indexing": [
+            "瀏覽器語言重新導向如何影響 Google 索引"
+         ],
+         "Documentation": [
+            "說明文件"
+         ],
+         "Browser redirect affects Google indexing and search results": [
+            "瀏覽器重新導向會影響 Google 索引和搜尋結果"
+         ],
+         "Got it, activate anyway": [
+            "了解，仍然啟用"
+         ],
+         "Cancel": [
+            "取消"
+         ],
+         "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
+            "當您根據訪客的語言進行重新導向時，您也會重新導向 Google。Google 希望看到您的網站與訪客看到的完全一致，包括您套用的任何重新導向。"
+         ],
+         "It is OK to redirect visitors based on their language, but you need to realize that this feature affects SEO.": [
+            "根據訪客的語言進行重新導向是可以的，但您需要意識到此功能會影響 SEO。"
+         ]
+      }
+   }
+}

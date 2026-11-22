@@ -1,0 +1,462 @@
+<?php
+
+use WPML\LanguageSwitcher\LandmarkLabels;
+
+class WPML_LS_Model_Build extends WPML_SP_User {
+
+	const LINK_CSS_CLASS = 'wpml-ls-link';
+
+	private $settings;
+
+	private $mobile_detect;
+
+	private $is_touch_screen = false;
+
+	private $css_prefix;
+
+	private $allowed_vars = [
+		'languages'              => 'array',
+		'current_language_code'  => 'string',
+		'css_classes'            => 'string',
+		'css_classes_link'       => 'string',
+		'backward_compatibility' => 'array',
+		'ls_aria_label'          => 'string',
+		'dropdown_ls_aria_label'   => 'string',
+		'dropdown_click_ls_aria_label' => 'string',
+		'has_alternatives'       => 'bool',
+	];
+
+	private $allowed_language_vars = [
+		'code'                   => 'string',
+		'hreflang'               => 'string',
+		'url'                    => 'string',
+		'flag_url'               => 'string',
+		'flag_title'             => 'string',
+		'flag_alt'               => 'string',
+		'native_name'            => 'string',
+		'display_name'           => 'string',
+		'is_current'             => 'bool',
+		'css_classes'            => 'string',
+		'db_id'                  => 'string',
+		'menu_item_parent'       => 'mixed',
+		'is_parent'              => 'bool',
+		'backward_compatibility' => 'array',
+		'flag_width'             => 'int',
+		'flag_height'            => 'int',
+		'menu_item_label'        => 'string',
+	];
+
+	public function __construct( $settings, $sitepress, $css_prefix ) {
+		$this->settings   = $settings;
+		$this->css_prefix = $css_prefix;
+		parent::__construct( $sitepress );
+	}
+
+	public function get( $slot, $template_data = [] ) {
+		$vars = [];
+
+		$vars['current_language_code'] = $this->sitepress->get_current_language();
+		$vars['languages']             = $this->get_language_items( $slot, $template_data );
+		$vars['has_alternatives']      = $this->has_alternatives( $vars['languages'] );
+		$vars['css_classes']           = $this->get_wrapper_css_classes( $slot );
+		$vars['css_classes_link']      = self::LINK_CSS_CLASS;
+		/* translators: The name of the WPML language switcher: the name of the Language Switcher block and widget, a keyword for finding the block in the editor, and the text read out by screen readers for the switcher on the site. */
+		$vars['ls_aria_label']         = __( 'Language Switcher', 'sitepress' );
+		$vars['dropdown_ls_aria_label']  = __( 'Language switcher, press tab to navigate to other languages', 'sitepress' );
+		$vars['dropdown_click_ls_aria_label'] = __( 'Language switcher, click to open then tab to navigate', 'sitepress' );
+
+		$vars = $this->add_backward_compatibility_to_wrapper( $vars, $slot );
+
+		return $this->sanitize_vars( $vars, $this->allowed_vars );
+	}
+
+	public function printed_ls_aria_label( $slot ) {
+		/* translators: The name of the WPML language switcher: the name of the Language Switcher block and widget, a keyword for finding the block in the editor, and the text read out by screen readers for the switcher on the site. */
+		$plain = __( 'Language Switcher', 'sitepress' );
+
+		$label = LandmarkLabels::unique( $plain, $this->get_qualified_ls_aria_label( $slot, $plain ) );
+
+		return apply_filters( 'wpml_ls_aria_label', $label, $slot, LandmarkLabels::instances() );
+	}
+
+	private function get_qualified_ls_aria_label( $slot, $plain ) {
+		if ( $slot->is_footer() ) {
+			/* translators: Screen reader name of the footer language switcher, on a page with another language switcher. */
+			return __( 'Language switcher (footer)', 'sitepress' );
+		}
+
+		if ( $slot->is_menu() ) {
+			/* translators: Screen reader name of the menu language switcher, on a page with another language switcher. */
+			return __( 'Language switcher (menu)', 'sitepress' );
+		}
+
+		if ( $slot->is_sidebar() ) {
+			/* translators: Screen reader name of the widget language switcher, on a page with another language switcher. */
+			return __( 'Language switcher (widget)', 'sitepress' );
+		}
+
+		if ( $slot->is_shortcode_actions() ) {
+			/* translators: Screen reader name of the shortcode language switcher, on a page with another language switcher. */
+			return __( 'Language switcher (shortcode)', 'sitepress' );
+		}
+
+		return $plain;
+	}
+
+	private function has_alternatives( array $languages ) {
+		foreach ( $languages as $language ) {
+			if ( empty( $language['is_current'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public function get_wrapper_css_classes( $slot ) {
+		return $this->add_backward_compatibility_to_wrapper_classes( $this->get_slot_css_classes( $slot ), $slot );
+	}
+
+	public function get_slot_css_classes( $slot ) {
+		$classes = [ $this->get_slot_css_main_class( $slot->group(), $slot->slug() ) ];
+
+		$classes[] = trim( $this->css_prefix, '-' );
+
+		if ( $this->sitepress->is_rtl( $this->sitepress->get_current_language() ) ) {
+			$classes[] = $this->css_prefix . 'rtl';
+		}
+
+		$classes = $this->add_user_agent_touch_device_classes( $classes );
+
+		$classes = apply_filters( 'wpml_ls_model_css_classes', $classes );
+
+		return implode( ' ', $classes );
+	}
+
+	public function get_slot_css_main_class( $group, $slug ) {
+		return $this->css_prefix . $group . '-' . $slug;
+	}
+
+	public function get_css_prefix() {
+		return $this->css_prefix;
+	}
+
+	private function get_language_items( $slot, $template_data ) {
+		$ret = [];
+
+		$is_root_request  = WPML_Root_Page::is_configured_root_request();
+		$current_language = $is_root_request ? null : $this->sitepress->get_current_language();
+
+		$get_ls_args = [
+			'skip_missing' => ! $this->settings->get_setting( 'link_empty' ),
+		];
+
+		if ( $slot->is_post_translations() ) {
+			$get_ls_args['skip_missing'] = true;
+		} elseif ( $is_root_request ) {
+			$get_ls_args['skip_missing'] = false;
+		}
+
+		$flag_width  = $slot->get( 'include_flag_width' );
+		$flag_height = $slot->get( 'include_flag_height' );
+
+		$languages = $this->sitepress->get_ls_languages( $get_ls_args );
+		$languages = is_array( $languages ) ? $languages : [];
+
+		if ( $languages ) {
+
+			$has_other_language = (bool) array_diff( array_keys( $languages ), [ (string) $current_language ] );
+
+			foreach ( $languages as $code => $data ) {
+
+				$is_current_language = null !== $current_language && $code === $current_language;
+
+				if ( ! $slot->get( 'display_link_for_current_lang' ) && $is_current_language ) {
+					continue;
+				}
+
+				$ret[ $code ] = [
+					'code'     => $code,
+					'hreflang' => \WPML\Languages\HreflangTag::forLanguage( (array) $data ) ?: $code,
+					'url'      => $data['url'],
+				];
+
+				if ( $flag_width ) {
+					$ret[ $code ]['flag_width'] = $flag_width;
+				}
+				if ( $flag_height ) {
+					$ret[ $code ]['flag_height'] = $flag_height;
+				}
+
+				$ret[ $code ]['url'] = apply_filters( 'WPML_filter_link', $ret[ $code ]['url'], $data );
+
+				$ret[ $code ]['url'] = apply_filters( 'wpml_ls_language_url', $ret[ $code ]['url'], $data );
+
+				$ret[ $code ]['url'] = $this->sitepress->get_wp_api()->is_admin() ? '#' : $ret[ $code ]['url'];
+
+				$css_classes = $this->get_language_css_classes( $slot, $code );
+
+				$display_native = $slot->get( 'display_names_in_native_lang' );
+				$display_name   = $slot->get( 'display_names_in_current_lang' );
+
+				if ( $slot->get( 'display_flags' ) ) {
+					$ret[ $code ]['flag_url']   = $this->filter_flag_url( $data['country_flag_url'], $template_data );
+					$ret[ $code ]['flag_title'] = $data['native_name'];
+					$ret[ $code ]['flag_alt']   = ( $display_name || $display_native ) ? '' : $data['translated_name'];
+				}
+
+				if ( $display_native ) {
+					$ret[ $code ]['native_name'] = $data['native_name'];
+				}
+
+				if ( $display_name ) {
+					$ret[ $code ]['display_name'] = $data['translated_name'];
+				}
+
+				$language_name = WPML_LS_Language_Name::compose(
+					$data['native_name'],
+					$data['translated_name'],
+					(bool) $display_native,
+					(bool) $display_name
+				);
+
+				$ret[ $code ]['menu_item_label'] = sprintf(
+					/* translators: Screen reader name of an item of the language switcher. %s: the name of the language it switches to. */
+					__( 'Switch to %s', 'sitepress' ),
+					$language_name
+				);
+
+				if ( $is_current_language ) {
+					$ret[ $code ]['is_current'] = true;
+					array_push( $css_classes, $this->css_prefix . 'current-language' );
+				}
+
+				if ( $slot->is_menu() ) {
+					$ret[ $code ]['db_id']            = $this->get_menu_item_id( $code, $slot );
+					$ret[ $code ]['menu_item_parent'] = $slot->get( 'is_hierarchical' ) && null !== $current_language && ! $is_current_language && $slot->get( 'display_link_for_current_lang' )
+							? $this->get_menu_item_id( $current_language, $slot ) : 0;
+					$ret[ $code ]['is_parent']        = $slot->get( 'is_hierarchical' ) && $is_current_language && $has_other_language;
+
+					array_unshift( $css_classes, 'menu-item' );
+					array_push( $css_classes, $this->css_prefix . 'menu-item' );
+				}
+
+				$ret[ $code ]['css_classes'] = $css_classes;
+			}
+
+			$i = 1;
+			foreach ( $ret as &$lang ) {
+				if ( $i === 1 ) {
+					array_push( $lang['css_classes'], $this->css_prefix . 'first-item' );
+				}
+
+				if ( $i === count( $ret ) ) {
+					array_push( $lang['css_classes'], $this->css_prefix . 'last-item' );
+				}
+
+				$lang = $this->add_backward_compatibility_to_languages( $lang, $slot );
+
+				$lang['css_classes'] = apply_filters( 'wpml_ls_model_language_css_classes', $lang['css_classes'] );
+
+				$lang['css_classes'] = implode( ' ', $lang['css_classes'] );
+
+				$lang = $this->sanitize_vars( $lang, $this->allowed_language_vars );
+				$i++;
+			}
+
+		}
+
+		return $ret;
+	}
+
+	private function filter_flag_url( $url, $template_data = [] ) {
+		$wp_upload_dir   = wp_upload_dir();
+		$has_custom_flag = strpos( $url, $wp_upload_dir['baseurl'] . '/flags/' ) === 0 ? true : false;
+
+		if ( ! $has_custom_flag && ! empty( $template_data['flags_base_uri'] ) ) {
+			$url = trailingslashit( $template_data['flags_base_uri'] ) . basename( $url );
+
+			if ( isset( $template_data['flag_extension'] ) ) {
+				$old_ext = pathinfo( $url, PATHINFO_EXTENSION );
+				$url     = preg_replace( '#' . preg_quote( $old_ext, '#' ) . '$#', $template_data['flag_extension'], $url, 1 );
+			}
+		}
+
+		return $url;
+	}
+
+	private function get_language_css_classes( $slot, $code ) {
+		return [
+			$this->css_prefix . 'slot-' . $slot->slug(),
+			$this->css_prefix . 'item',
+			$this->css_prefix . 'item-' . $code,
+		];
+	}
+
+	private function add_user_agent_touch_device_classes( $classes ) {
+
+		if ( is_null( $this->mobile_detect ) ) {
+			require_once WPML_PLUGIN_PATH . '/lib/mobile-detect.php';
+			$this->mobile_detect   = new WPML_Mobile_Detect();
+			$this->is_touch_screen = $this->mobile_detect->isMobile() || $this->mobile_detect->isTablet();
+		}
+
+		if ( $this->is_touch_screen ) {
+			$classes[] = $this->css_prefix . 'touch-device';
+		}
+
+		return $classes;
+	}
+
+	private function needs_backward_compatibility() {
+		return (bool) $this->settings->get_setting( 'migrated' );
+	}
+
+	private function get_menu_item_id( $code, $slot ) {
+		return $this->css_prefix . $slot->slug() . '-' . $code;
+	}
+
+	private function sanitize_vars( $vars, $allowed_vars ) {
+		$sanitized = [];
+
+		foreach ( $allowed_vars as $allowed_var => $type ) {
+			if ( isset( $vars[ $allowed_var ] ) ) {
+				switch ( $type ) {
+					case 'array':
+						$sanitized[ $allowed_var ] = (array) $vars[ $allowed_var ];
+						break;
+
+					case 'string':
+						$sanitized[ $allowed_var ] = (string) $vars[ $allowed_var ];
+						break;
+
+					case 'int':
+						$sanitized[ $allowed_var ] = (int) $vars[ $allowed_var ];
+						break;
+
+					case 'bool':
+						$sanitized[ $allowed_var ] = (bool) $vars[ $allowed_var ];
+						break;
+
+					case 'mixed':
+						$sanitized[ $allowed_var ] = $vars[ $allowed_var ];
+						break;
+				}
+			}
+		}
+
+		return $sanitized;
+	}
+
+	private function add_backward_compatibility_to_languages( $lang, $slot ) {
+
+		if ( $this->needs_backward_compatibility() ) {
+
+			$is_current_language = isset( $lang['is_current'] ) && $lang['is_current'];
+
+			if ( $slot->is_menu() ) {
+
+				if ( $is_current_language ) {
+					array_unshift( $lang['css_classes'], 'menu-item-language-current' );
+				}
+
+				array_unshift( $lang['css_classes'], 'menu-item-language' );
+			}
+
+			if ( $slot->is_sidebar() || $slot->is_shortcode_actions() ) {
+
+				if ( $this->is_legacy_template( $slot->template(), 'list-vertical' )
+					 || $this->is_legacy_template( $slot->template(), 'list-horizontal' )
+				) {
+					array_unshift( $lang['css_classes'], 'icl-' . $lang['code'] );
+					$lang['backward_compatibility']['css_classes_a'] = $is_current_language ?
+						'lang_sel_sel' : 'lang_sel_other';
+				}
+
+				if ( $this->is_legacy_template( $slot->template(), 'dropdown' )
+					 || $this->is_legacy_template( $slot->template(), 'dropdown-click' )
+				) {
+
+					if ( $is_current_language ) {
+						$lang['backward_compatibility']['css_classes_a'] = 'lang_sel_sel icl-' . $lang['code'];
+					} else {
+						array_unshift( $lang['css_classes'], 'icl-' . $lang['code'] );
+					}
+				}
+			}
+		}
+
+		return $lang;
+	}
+
+	private function add_backward_compatibility_to_wrapper( $vars, $slot ) {
+
+		if ( $this->needs_backward_compatibility() ) {
+
+			if ( $slot->is_sidebar() || $slot->is_shortcode_actions() ) {
+
+				if ( $this->is_legacy_template( $slot->template(), 'list-vertical' )
+					 || $this->is_legacy_template( $slot->template(), 'list-horizontal' )
+				) {
+					$vars['backward_compatibility']['css_id'] = 'lang_sel_list';
+				}
+
+				if ( $this->is_legacy_template( $slot->template(), 'dropdown' ) ) {
+					$vars['backward_compatibility']['css_id'] = 'lang_sel';
+				}
+
+				if ( $this->is_legacy_template( $slot->template(), 'dropdown-click' ) ) {
+					$vars['backward_compatibility']['css_id'] = 'lang_sel_click';
+				}
+			}
+
+			if ( $slot->is_footer() ) {
+				$vars['backward_compatibility']['css_id'] = 'lang_sel_footer';
+			}
+
+			$vars['backward_compatibility']['css_classes_flag']    = 'iclflag';
+			$vars['backward_compatibility']['css_classes_native']  = 'icl_lang_sel_native';
+			$vars['backward_compatibility']['css_classes_display'] = 'icl_lang_sel_translated';
+			$vars['backward_compatibility']['css_classes_bracket'] = 'icl_lang_sel_bracket';
+		}
+
+		return $vars;
+	}
+
+	private function add_backward_compatibility_to_wrapper_classes( $css_classes, $slot ) {
+
+		if ( ! $this->needs_backward_compatibility() ) {
+			return $css_classes;
+		}
+
+		if ( $slot->is_sidebar() || $slot->is_shortcode_actions() ) {
+
+			if ( $this->is_legacy_template( $slot->template(), 'list-vertical' )
+				 || $this->is_legacy_template( $slot->template(), 'list-horizontal' )
+			) {
+				if ( $this->is_legacy_template( $slot->template(), 'list-horizontal' ) ) {
+					$css_classes = 'lang_sel_list_horizontal ' . $css_classes;
+				} else {
+					$css_classes = 'lang_sel_list_vertical ' . $css_classes;
+				}
+			}
+		}
+
+		if ( $slot->is_post_translations() ) {
+			$css_classes = 'icl_post_in_other_langs ' . $css_classes;
+		}
+
+		return $css_classes;
+	}
+
+	private function is_legacy_template( $template_slug, $type = null ) {
+		$templates = $this->settings->get_core_templates();
+		$ret       = in_array( $template_slug, $templates, true );
+
+		if ( $ret && array_key_exists( $type, $templates ) ) {
+			$ret = $templates[ $type ] === $template_slug;
+		}
+
+		return $ret;
+	}
+}

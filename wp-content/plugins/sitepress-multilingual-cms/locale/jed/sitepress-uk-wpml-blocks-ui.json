@@ -1,0 +1,225 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
+            "lang": "uk"
+         },
+         "Advanced": [
+            "Додатково"
+         ],
+         "HTML anchor": [
+            "HTML-якір"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "Додайте ярлик до цього блоку під час завантаження сторінки за допомогою URL-адреси «#anchor»."
+         ],
+         "Additional CSS class(es)": [
+            "Додаткові класи CSS"
+         ],
+         "Separate multiple classes with spaces.": [
+            "Розділяйте кілька класів пробілами."
+         ],
+         "Color": [
+            "Колір"
+         ],
+         "px": [
+            "px"
+         ],
+         "%": [
+            "%"
+         ],
+         "Dimensions": [
+            "Розміри"
+         ],
+         "BLOCK": [
+            "БЛОК"
+         ],
+         "Block margin": [
+            "Відступ блоку (margin)"
+         ],
+         "Block padding": [
+            "Внутрішній відступ блоку (padding)"
+         ],
+         "LANGUAGE": [
+            "МОВА"
+         ],
+         "Language spacing": [
+            "Інтервал між мовами"
+         ],
+         "Language padding": [
+            "Внутрішній відступ мови"
+         ],
+         "Show flag": [
+            "Показувати прапор"
+         ],
+         "Show current language": [
+            "Показувати поточну мову"
+         ],
+         "Not available while the flag is hidden. Enable Show flag to hide the language name.": [
+            "Недоступно, коли прапор приховано. Увімкніть «Показувати прапор», щоб приховати назву мови."
+         ],
+         "Must be enabled while the language name is hidden. Enable Full name or Code to hide the flag.": [
+            "Має бути ввімкнено, коли назву мови приховано. Увімкніть «Повна назва» або «Код», щоб приховати прапор."
+         ],
+         "Not available in the Dropdown layout. Switch the layout to List to hide the current language.": [
+            "Недоступно в макеті «Спадний список». Перемкніть макет на «Список», щоб приховати поточну мову."
+         ],
+         "Example:": [
+            "Приклад:"
+         ],
+         "Display": [
+            "Відображення"
+         ],
+         "Language name": [
+            "Назва мови"
+         ],
+         "Full name written in": [
+            "Повна назва мови"
+         ],
+         "Style": [
+            "Стиль"
+         ],
+         "Flag settings": [
+            "Налаштування прапорів"
+         ],
+         "Width": [
+            "Ширина"
+         ],
+         "Height": [
+            "Висота"
+         ],
+         "Spacing": [
+            "Інтервал"
+         ],
+         "Switch to %s": [
+            "Перемкнути на %s"
+         ],
+         "Available languages": [
+            "Доступні мови"
+         ],
+         "Allow wrapping to multiple lines": [
+            "Дозволити перенесення на кілька рядків"
+         ],
+         "Open on click": [
+            "Відкривати після клацання"
+         ],
+         "Show arrow": [
+            "Показувати стрілку"
+         ],
+         "Layout": [
+            "Макет"
+         ],
+         "Justification": [
+            "Вирівнювання"
+         ],
+         "Orientation": [
+            "Орієнтація"
+         ],
+         "Language Switcher": [
+            "Перемикач мов"
+         ],
+         "Language switcher, press tab to navigate to other languages": [
+            "Перемикач мов, натисніть Tab для переходу до інших мов"
+         ],
+         "Typography": [
+            "Типографіка"
+         ],
+         "Background": [
+            "Фон"
+         ],
+         "Language Text": [
+            "Текст мови"
+         ],
+         "Language Background": [
+            "Фон мови"
+         ],
+         "Current language text": [
+            "Текст поточної мови"
+         ],
+         "Current language background": [
+            "Фон поточної мови"
+         ],
+         "Full name": [
+            "Повна назва"
+         ],
+         "Code": [
+            "Код"
+         ],
+         "Native": [
+            "Рідна"
+         ],
+         "Translated": [
+            "Перекладено"
+         ],
+         "Both": [
+            "Обидві"
+         ],
+         "Hidden": [
+            "Приховано"
+         ],
+         "Dropdown": [
+            "Випадне меню"
+         ],
+         "List": [
+            "Список"
+         ],
+         "Justify items left": [
+            "Вирівняти елементи за лівим краєм"
+         ],
+         "Justify items center": [
+            "Вирівняти елементи по центру"
+         ],
+         "Justify items right": [
+            "Вирівняти елементи за правим краєм"
+         ],
+         "Justify items space between": [
+            "Розподілити елементи рівномірно"
+         ],
+         "Horizontal": [
+            "Горизонтальна"
+         ],
+         "Vertical": [
+            "Вертикальна"
+         ],
+         "Normal": [
+            "Звичайна"
+         ],
+         "Medium": [
+            "Середня"
+         ],
+         "Large": [
+            "Велика"
+         ],
+         "X-Large": [
+            "Дуже велика"
+         ],
+         "Ab": [
+            "Аб"
+         ],
+         "AB": [
+            "АБ"
+         ],
+         "ab": [
+            "аб"
+         ],
+         "Small": [
+            "Мала"
+         ],
+         "displays the WPML Language Switcher": [
+            "відображає перемикач мов WPML"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "Відображає перемикач мов WPML."
+         ],
+         "Navigation Language Switcher": [
+            "Навігаційний перемикач мов"
+         ],
+         "Reset all": [
+            "Скинути все"
+         ]
+      }
+   }
+}

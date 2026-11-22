@@ -1,0 +1,562 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);",
+            "lang": "ar"
+         },
+         "%1$s and %2$s": [
+            "%1$s و %2$s"
+         ],
+         "Start batch sync": [
+            "بدء مزامنة الدفعة"
+         ],
+         "Cancel job": [
+            "إلغاء الوظيفة"
+         ],
+         "Continue reviewing": [
+            "متابعة المراجعة"
+         ],
+         "Start downloading XLIFF file": [
+            "بدء تنزيل ملف XLIFF"
+         ],
+         "Edit": [
+            "تعديل"
+         ],
+         "Get translation": [
+            "الحصول على الترجمة"
+         ],
+         "Edit Translation": [
+            "تعديل الترجمة"
+         ],
+         "Continue Translating": [
+            "متابعة الترجمة"
+         ],
+         "Resign": [
+            "استقالة"
+         ],
+         "Review": [
+            "مراجعة"
+         ],
+         "Translate": [
+            "ترجمة"
+         ],
+         "Take and Translate": [
+            "الاستلام والترجمة"
+         ],
+         "This job was created by Translate Everything and cannot be cancelled on its own. To stop it, turn off Translate Everything from the Translation Dashboard.": [
+            "تم إنشاء مهمة الترجمة هذه بواسطة ترجم كل شيء ولا يمكن إلغاؤها بشكل مستقل. لإيقافها، قم بإيقاف تشغيل ترجم كل شيء من لوحة إدارة الترجمة."
+         ],
+         "View": [
+            "عرض"
+         ],
+         "Never mind. I want to review these translations.": [
+            "لا بأس. أريد مراجعة هذه الترجمات."
+         ],
+         "Cancel": [
+            "إلغاء"
+         ],
+         "This will remove the selected jobs from the Translations Queue without publishing them. What would you like to do with the translations?": [
+            "سيؤدي هذا إلى إزالة الوظائف المحددة من قائمة انتظار الترجمة دون نشرها. ماذا تريد أن تفعل بالترجمات؟"
+         ],
+         "Cancel Translation Review": [
+            "إلغاء مراجعة الترجمة"
+         ],
+         "Delete Translations": [
+            "حذف الترجمات"
+         ],
+         "Keep Translations as Draft": [
+            "الاحتفاظ بالترجمات كمسودة"
+         ],
+         "Bulk actions": [
+            "إجراءات جماعية"
+         ],
+         "Apply": [
+            "طبِّق"
+         ],
+         "Actions applied to multiple translation jobs can take a few seconds. Please do not leave the page.": [
+            "قد تستغرق الإجراءات المطبقة على عدة مهام ترجمة بضع ثوانٍ. يُرجى عدم مغادرة الصفحة."
+         ],
+         "Actions applied to multiple translation jobs can take a few minutes. Please do not leave the page.": [
+            "قد تستغرق الإجراءات المطبقة على عدة مهام ترجمة بضع دقائق. يُرجى عدم مغادرة الصفحة."
+         ],
+         "Select translator": [
+            "اختر المترجم"
+         ],
+         "Assign": [
+            "تعيين"
+         ],
+         "Cancelled": [
+            "ملغاة"
+         ],
+         "Waiting for payment": [
+            "في انتظار الدفع"
+         ],
+         "Needs translation": [
+            "بحاجة إلى ترجمة"
+         ],
+         "Waiting for words": [
+            "في انتظار الكلمات"
+         ],
+         "Insufficient funds": [
+            "رصيد غير كافٍ"
+         ],
+         "Sending": [
+            "جارٍ الإرسال"
+         ],
+         "Automatic translation was paused by a temporary error and retries automatically — no action needed. If the status has not changed in about 30 minutes, contact WPML support.": [
+            "توقفت الترجمة التلقائية مؤقتًا بسبب خطأ مؤقت وستتم إعادة المحاولة تلقائيًا — لا يلزم اتخاذ أي إجراء. إذا لم تتغير الحالة خلال 30 دقيقة تقريبًا، فاتصل بدعم WPML."
+         ],
+         "In progress": [
+            "قيد التنفيذ"
+         ],
+         "Translation ready to download": [
+            "الترجمة جاهزة للتنزيل"
+         ],
+         "Automatic translation failed repeatedly and WPML stopped retrying. Resend or discard the job from the Translation Dashboard, or cancel it here.": [
+            "فشلت الترجمة التلقائية بشكل متكرر وتوقف WPML عن المحاولة. أعد إرسال مهمة الترجمة أو تجاهلها من لوحة إدارة الترجمة، أو قم بإلغائها من هنا."
+         ],
+         "Completed": [
+            "مكتمل"
+         ],
+         "Needs update": [
+            "بحاجة إلى تحديث"
+         ],
+         "Failed - needs attention": [
+            "فشل - يحتاج إلى اهتمام"
+         ],
+         "Scheduled — Pending review": [
+            "مجدول — في انتظار المراجعة"
+         ],
+         "Private — Pending review": [
+            "خاص — في انتظار المراجعة"
+         ],
+         "Draft — Pending review": [
+            "مسودة — في انتظار المراجعة"
+         ],
+         "Published — Review in progress": [
+            "منشور — المراجعة قيد التنفيذ"
+         ],
+         "Scheduled — Review in progress": [
+            "مجدول — المراجعة قيد التنفيذ"
+         ],
+         "Private — Review in progress": [
+            "خاص — المراجعة قيد التنفيذ"
+         ],
+         "Draft — Review in progress": [
+            "مسودة — المراجعة قيد التنفيذ"
+         ],
+         "%s terms are published immediately because they don't support draft mode.": [
+            "يتم نشر مصطلحات %s فورًا لأنها لا تدعم وضع المسودة."
+         ],
+         "%s are immediately published because they don't support draft mode.": [
+            "يتم نشر %s فورًا لأنها لا تدعم وضع المسودة."
+         ],
+         "Published — Pending review": [
+            "منشور — في انتظار المراجعة"
+         ],
+         "Review in progress": [
+            "المراجعة قيد التنفيذ"
+         ],
+         "Waiting for your Pay-As-You-Go payment": [
+            "في انتظار دفع رسوم الدفع حسب الاستخدام"
+         ],
+         "(no title)": [
+            "(بدون عنوان)"
+         ],
+         "%1$s (ID %2$d)": [
+            "%1$s (المعرف %2$d)"
+         ],
+         "View original": [
+            "عرض الأصل"
+         ],
+         "Automatic translation": [
+            "ترجمة تلقائية"
+         ],
+         "TP ID: %d": [
+            "معرف TP: %d"
+         ],
+         "Reset": [
+            "إعادة تعيين"
+         ],
+         "Filter": [
+            "تصفية"
+         ],
+         "Reference ID (%s)": [
+            "المعرف المرجعي (%s)"
+         ],
+         "Job ID (%s)": [
+            "معرف الوظيفة (%s)"
+         ],
+         "Title (%s)": [
+            "العنوان (%s)"
+         ],
+         "Type (%s)": [
+            "النوع (%s)"
+         ],
+         "Language (%s)": [
+            "اللغة (%s)"
+         ],
+         "Batch name (%s)": [
+            "اسم الدفعة (%s)"
+         ],
+         "Status (%s)": [
+            "الحالة (%s)"
+         ],
+         "Translated by (%s)": [
+            "ترجمة (%s)"
+         ],
+         "Sent date (%s)": [
+            "تاريخ الإرسال (%s)"
+         ],
+         "Deadline (%s)": [
+            "الموعد النهائي (%s)"
+         ],
+         "Clear all filters": [
+            "مسح كافة عوامل التصفية"
+         ],
+         "Any Translation Service": [
+            "أي خدمة ترجمة"
+         ],
+         "Any WordPress Translator": [
+            "أي مترجم WordPress"
+         ],
+         "From": [
+            "من"
+         ],
+         "To": [
+            "إلى"
+         ],
+         "Anyone": [
+            "أي شخص"
+         ],
+         "Include jobs from translation services": [
+            "تضمين الوظائف من خدمات الترجمة"
+         ],
+         "All types": [
+            "كافة الأنواع"
+         ],
+         "Select visible columns": [
+            "حدد الأعمدة المرئية"
+         ],
+         "No Data": [
+            "لا توجد بيانات"
+         ],
+         "Sort descending": [
+            "فرز تنازلي"
+         ],
+         "Sort ascending": [
+            "فرز تصاعدي"
+         ],
+         "Cancel sorting": [
+            "إلغاء الفرز"
+         ],
+         "The bulk action is running...": [
+            "الإجراء الجماعي قيد التشغيل..."
+         ],
+         "Export all jobs to XLIFF 1.0": [
+            "تصدير كافة الوظائف إلى XLIFF 1.0"
+         ],
+         "Export all filtered jobs to XLIFF 1.0": [
+            "تصدير كافة الوظائف المصفاة إلى XLIFF 1.0"
+         ],
+         "Export all jobs to XLIFF 1.1": [
+            "تصدير كافة الوظائف إلى XLIFF 1.1"
+         ],
+         "Export all filtered jobs to XLIFF 1.1": [
+            "تصدير كافة الوظائف المصفاة إلى XLIFF 1.1"
+         ],
+         "Export all jobs to XLIFF 1.2": [
+            "تصدير كافة الوظائف إلى XLIFF 1.2"
+         ],
+         "Export all filtered jobs to XLIFF 1.2": [
+            "تصدير كافة الوظائف المصفاة إلى XLIFF 1.2"
+         ],
+         "Export": [
+            "تصدير"
+         ],
+         "Select File": [
+            "حدد الملف"
+         ],
+         ".xliff .zip": [
+            ".xliff .zip"
+         ],
+         "Importing": [
+            "جاري الاستيراد"
+         ],
+         "Import": [
+            "استيراد"
+         ],
+         "Import / Export XLIFF": [
+            "استيراد / تصدير XLIFF"
+         ],
+         "Actions": [
+            "الإجراءات"
+         ],
+         "Batch name": [
+            "اسم الدفعة"
+         ],
+         "Filter by %s": [
+            "تصفية حسب %s"
+         ],
+         "WPML's id for this translation. It stays the same when the job is sent again.": [
+            "معرف WPML لهذه الترجمة. يبقى كما هو عند إرسال الوظيفة مرة أخرى."
+         ],
+         "The number in exported XLIFF file names. It changes when the job is sent again.": [
+            "الرقم الموجود في أسماء ملفات XLIFF المصدرة. يتغير عند إرسال الوظيفة مرة أخرى."
+         ],
+         "Title": [
+            "العنوان"
+         ],
+         "Approve translation reviews": [
+            "الموافقة على مراجعات الترجمة"
+         ],
+         "Cancel jobs": [
+            "إلغاء الوظائف"
+         ],
+         "Cancel translation reviews": [
+            "إلغاء مراجعات الترجمة"
+         ],
+         "Export to XLIFF %s": [
+            "تصدير إلى XLIFF %s"
+         ],
+         "Get translations": [
+            "الحصول على الترجمات"
+         ],
+         "This action does not apply to any of the selected translation jobs": [
+            "لا ينطبق هذا الإجراء على أي من مهام الترجمة المحددة"
+         ],
+         "%d translation is still in progress. You will not be charged for it.": [
+            "لا تزال هناك %d ترجمة قيد التنفيذ. لن يتم محاسبتك عليها.",
+            "لا تزال هناك %d ترجمة واحدة قيد التنفيذ. لن يتم محاسبتك عليها.",
+            "لا تزال هناك %d ترجمتان قيد التنفيذ. لن يتم محاسبتك عليهما.",
+            "لا تزال هناك %d ترجمة قيد التنفيذ. لن يتم محاسبتك عليها.",
+            "لا تزال هناك %d ترجمة قيد التنفيذ. لن يتم محاسبتك عليها.",
+            "لا تزال هناك %d ترجمة قيد التنفيذ. لن يتم محاسبتك عليها."
+         ],
+         "usage ledger": [
+            "سجل الاستخدام"
+         ],
+         "Cancelled. %1$d translation was in progress; its %2$s words are back on your account. Details:": [
+            "تم الإلغاء. كانت هناك %1$d ترجمة قيد التنفيذ؛ وقد عادت كلماتها البالغ عددها %2$s إلى حسابك. التفاصيل:",
+            "تم الإلغاء. كانت هناك %1$d ترجمة واحدة قيد التنفيذ؛ وقد عادت كلماتها البالغ عددها %2$s إلى حسابك. التفاصيل:",
+            "تم الإلغاء. كانت هناك %1$d ترجمتان قيد التنفيذ؛ وقد عادت كلماتهما البالغ عددها %2$s إلى حسابك. التفاصيل:",
+            "تم الإلغاء. كانت هناك %1$d ترجمة قيد التنفيذ؛ وقد عادت كلماتها البالغ عددها %2$s إلى حسابك. التفاصيل:",
+            "تم الإلغاء. كانت هناك %1$d ترجمة قيد التنفيذ؛ وقد عادت كلماتها البالغ عددها %2$s إلى حسابك. التفاصيل:",
+            "تم الإلغاء. كانت هناك %1$d ترجمة قيد التنفيذ؛ وقد عادت كلماتها البالغ عددها %2$s إلى حسابك. التفاصيل:"
+         ],
+         "Cancelled. We asked to return the words for %d translation in progress; the usage ledger shows it once confirmed.": [
+            "تم الإلغاء. لقد طلبنا استعادة الكلمات لـ %d ترجمة قيد التنفيذ؛ وسيظهر ذلك في سجل الاستخدام بمجرد التأكيد.",
+            "تم الإلغاء. لقد طلبنا استعادة الكلمات لـ %d ترجمة واحدة قيد التنفيذ؛ وسيظهر ذلك في سجل الاستخدام بمجرد التأكيد.",
+            "تم الإلغاء. لقد طلبنا استعادة الكلمات لـ %d ترجمتين قيد التنفيذ؛ وسيظهر ذلك في سجل الاستخدام بمجرد التأكيد.",
+            "تم الإلغاء. لقد طلبنا استعادة الكلمات لـ %d ترجمة قيد التنفيذ؛ وسيظهر ذلك في سجل الاستخدام بمجرد التأكيد.",
+            "تم الإلغاء. لقد طلبنا استعادة الكلمات لـ %d ترجمة قيد التنفيذ؛ وسيظهر ذلك في سجل الاستخدام بمجرد التأكيد.",
+            "تم الإلغاء. لقد طلبنا استعادة الكلمات لـ %d ترجمة قيد التنفيذ؛ وسيظهر ذلك في سجل الاستخدام بمجرد التأكيد."
+         ],
+         "Translations have been downloaded": [
+            "تم تنزيل الترجمات"
+         ],
+         "Translation has been downloaded": [
+            "تم تنزيل الترجمة"
+         ],
+         "Translations could not be downloaded": [
+            "تعذر تنزيل الترجمات"
+         ],
+         "Translation could not be downloaded": [
+            "تعذر تنزيل الترجمة"
+         ],
+         "paused after repeated failures, will be retried automatically — %s": [
+            "توقفت مؤقتًا بعد إخفاقات متكررة، ستتم إعادة المحاولة تلقائيًا — %s"
+         ],
+         "%d translation could not be downloaded": [
+            "تعذر تنزيل %d ترجمة",
+            "تعذر تنزيل %d ترجمة واحدة",
+            "تعذر تنزيل %d ترجمتين",
+            "تعذر تنزيل %d ترجمة",
+            "تعذر تنزيل %d ترجمة",
+            "تعذر تنزيل %d ترجمة"
+         ],
+         "%d translation has been downloaded": [
+            "تم تنزيل %d ترجمة",
+            "تم تنزيل %d ترجمة واحدة",
+            "تم تنزيل %d ترجمتين",
+            "تم تنزيل %d ترجمة",
+            "تم تنزيل %d ترجمة",
+            "تم تنزيل %d ترجمة"
+         ],
+         "No valid jobs selected to approve translations reviews!": [
+            "لم يتم تحديد وظائف صالحة للموافقة على مراجعات الترجمات!"
+         ],
+         "%1$s (%2$s)": [
+            "%1$s (%2$s)"
+         ],
+         "%s was not approved because it is still open for editing.": [
+            "لم تتم الموافقة على %s لأنها لا تزال مفتوحة للتعديل.",
+            "لم تتم الموافقة على %s لأنها لا تزال مفتوحة للتعديل.",
+            "لم تتم الموافقة على %s لأنهما لا تزالان مفتوحتين للتعديل.",
+            "لم تتم الموافقة على %s لأنها لا تزال مفتوحة للتعديل.",
+            "لم تتم الموافقة على %s لأنها لا تزال مفتوحة للتعديل.",
+            "لم تتم الموافقة على %s لأنها لا تزال مفتوحة للتعديل."
+         ],
+         "Approving it now would publish the translation without the edits.": [
+            "الموافقة عليها الآن ستنشر الترجمات بدون التعديلات.",
+            "الموافقة عليها الآن ستنشر الترجمة بدون التعديلات.",
+            "الموافقة عليهما الآن ستنشر الترجمتين بدون التعديلات.",
+            "الموافقة عليها الآن ستنشر الترجمات بدون التعديلات.",
+            "الموافقة عليها الآن ستنشر الترجمات بدون التعديلات.",
+            "الموافقة عليها الآن ستنشر الترجمات بدون التعديلات."
+         ],
+         "Click Continue reviewing, finish the edits and click Complete in the editor.": [
+            "انقر فوق متابعة المراجعة، وأنهِ التعديلات ثم انقر فوق مكتمل في المحرر."
+         ],
+         "Then approve the translation here.": [
+            "ثم وافق على الترجمات من هنا.",
+            "ثم وافق على الترجمة من هنا.",
+            "ثم وافق على الترجمتين من هنا.",
+            "ثم وافق على الترجمات من هنا.",
+            "ثم وافق على الترجمات من هنا.",
+            "ثم وافق على الترجمات من هنا."
+         ],
+         "If the editor does not open, send the content to translation again from the Translation Dashboard.": [
+            "إذا لم يفتح المحرر، فأرسل المحتوى إلى الترجمة مرة أخرى من لوحة إدارة الترجمة."
+         ],
+         "Approving translations reviews failed!": [
+            "فشلت الموافقة على مراجعات الترجمات!"
+         ],
+         "Failed approving translations for the following posts: ": [
+            "فشلت الموافقة على ترجمات المقالات التالية: "
+         ],
+         "Translations reviews approved successfully!": [
+            "تمت الموافقة على مراجعات الترجمات بنجاح!"
+         ],
+         "The translator has been assigned to the job": [
+            "تم تعيين المترجم لمهمة الترجمة"
+         ],
+         "The translator could not be assigned to the job": [
+            "تعذر تعيين المترجم للوظيفة"
+         ],
+         "The jobs have been cancelled": [
+            "تم إلغاء الوظائف"
+         ],
+         "The job has been cancelled": [
+            "تم إلغاء مهمة الترجمة"
+         ],
+         "The jobs could not be cancelled": [
+            "تعذر إلغاء مهام الترجمة"
+         ],
+         "The job could not be cancelled": [
+            "تعذر إلغاء الوظيفة"
+         ],
+         "Translation reviews have been canceled": [
+            "تم إلغاء مراجعات الترجمة"
+         ],
+         "Translation review has been canceled": [
+            "تم إلغاء مراجعة الترجمة"
+         ],
+         "Translation reviews could not be canceled": [
+            "تعذر إلغاء مراجعات الترجمة"
+         ],
+         "Translation review could not be canceled": [
+            "تعذر إلغاء مراجعة الترجمة"
+         ],
+         "Translated by": [
+            "ترجمة"
+         ],
+         "Sent on": [
+            "أُرسلت في"
+         ],
+         "Deadline": [
+            "الموعد النهائي"
+         ],
+         "Status": [
+            "الحالة"
+         ],
+         "Pending review": [
+            "في انتظار المراجعة"
+         ],
+         "Reference ID": [
+            "المعرف المرجعي"
+         ],
+         "Job ID": [
+            "معرف الوظيفة"
+         ],
+         "Type": [
+            "النوع"
+         ],
+         "Languages": [
+            "اللغات"
+         ],
+         "Download XLIFF file couldn't be finished": [
+            "تعذر إنهاء تنزيل ملف XLIFF"
+         ],
+         "Could not load jobs for export": [
+            "تعذر تحميل الوظائف للتصدير"
+         ],
+         "The export to XLIFF failed": [
+            "فشل التصدير إلى XLIFF"
+         ],
+         "Imported %d jobs": [
+            "تم استيراد %d وظيفة"
+         ],
+         "Imported one job": [
+            "تم استيراد وظيفة واحدة"
+         ],
+         "Could not import any job": [
+            "تعذر استيراد أي وظيفة"
+         ],
+         "Import failed!": [
+            "فشل الاستيراد!"
+         ],
+         "Loading translations queue": [
+            "جاري تحميل قائمة انتظار الترجمات"
+         ],
+         "Loading translation jobs": [
+            "جارٍ تحميل مهام الترجمة"
+         ],
+         "Jobs could not be loaded": [
+            "تعذر تحميل الوظائف"
+         ],
+         "This translator cannot translate this language pair.": [
+            "لا يمكن لهذا المترجم ترجمة زوج اللغات هذا."
+         ],
+         "This translator is no longer available. Reload the page and choose a translator again.": [
+            "هذا المترجم لم يعد متاحًا. أعد تحميل الصفحة واختر مترجمًا مرة أخرى."
+         ],
+         "Specify some jobs to resign": [
+            "حدد بعض الوظائف للاستقالة منها"
+         ],
+         "We could not resign jobs: %s": [
+            "تعذر علينا التخلي عن مهام الترجمة: %s"
+         ],
+         "Resigned from jobs": [
+            "تمت الاستقالة من الوظائف"
+         ],
+         "Resigned from job": [
+            "تمت الاستقالة من الوظيفة"
+         ],
+         "Failed to resign from jobs": [
+            "فشلت الاستقالة من الوظائف"
+         ],
+         "Synchronization with the Professional Translation service has failed": [
+            "فشلت المزامنة مع خدمة الترجمة الاحترافية"
+         ],
+         "%d batches are still being processed by the translation service. Check again in a few minutes.": [
+            "لا تزال هناك %d دفعة قيد المعالجة من قبل خدمة الترجمة. تحقق مرة أخرى خلال بضع دقائق."
+         ],
+         "Batch sync finished successfully!": [
+            "انتهت مزامنة الدفعة بنجاح!"
+         ],
+         "Batch sync couldn't be finished": [
+            "تعذر إنهاء مزامنة الدفعة"
+         ],
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "لم يقبل نظام الترجمة لدينا هذا الطلب (كان الرد %d). انتظر دقيقة ثم حاول مرة أخرى، واتصل بدعم WPML إذا استمر حدوث ذلك."
+         ],
+         "The site stopped answering before this translation was confirmed. If it was not saved, the next download takes it again.": [
+            "توقف الموقع عن الاستجابة قبل تأكيد هذه الترجمة. إذا لم يتم حفظها، فسيسترجعها التنزيل التالي مرة أخرى."
+         ]
+      }
+   }
+}

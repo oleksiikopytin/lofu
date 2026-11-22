@@ -1,0 +1,196 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "he_IL"
+         },
+         "Sending for translation": [
+            "שולח לתרגום"
+         ],
+         "The translation could not be started because the server did not answer.": [
+            "לא ניתן היה להתחיל בתרגום מכיוון שהשרת לא ענה."
+         ],
+         "Your session has expired. Refresh this page and try again.": [
+            "פג תוקף ההפעלה שלך. רענן דף זה ונסה שוב."
+         ],
+         "This translation cannot be opened right now.": [
+            "לא ניתן לפתוח תרגום זה כרגע."
+         ],
+         "Refresh this page": [
+            "רענן עמוד זה"
+         ],
+         "This content is being automatically translated. If you want to do something different with it cancel translation jobs first.": [
+            "תוכן זה מתורגם כעת באופן אוטומטי. אם ברצונך לבצע פעולה אחרת לגביו, עליך לבטל תחילה את משימות התרגום."
+         ],
+         "You don't have the rights to review this language": [
+            "אין לך הרשאות לסקור שפה זו"
+         ],
+         "%1$s and %2$s": [
+            "%1$s ו-%2$s"
+         ],
+         "Translating your content": [
+            "מתרגם את התוכן שלך"
+         ],
+         "Translate Everything is active": [
+            "האפשרות \"תרגם הכל\" פעילה"
+         ],
+         "%d translation notice": [
+            "הודעת תרגום %d",
+            "%d הודעות תרגום"
+         ],
+         "%d min remaining": [
+            "נותרו %d דקות"
+         ],
+         "less than 1 min remaining": [
+            "נותרה פחות מדקה אחת"
+         ],
+         "<b>Translate Everything Automatically</b> is temporarily paused": [
+            "<b>תרגם הכל אוטומטית</b> מושהה זמנית"
+         ],
+         "Automatic translation is temporarily paused": [
+            "התרגום האוטומטי מושהה זמנית"
+         ],
+         "We noticed something unexpected in your recent translation activity and paused automatic translation on your account. Contact support and we’ll review it with you.": [
+            "זיהינו פעילות בלתי צפויה בפעילות התרגום האחרונה שלך והשהינו את התרגום האוטומטי בחשבונך. צור קשר עם התמיכה ונסקור זאת יחד איתך."
+         ],
+         "<b>Translate Everything Automatically</b> is paused: monthly spending cap reached": [
+            "<b>תרגם הכל אוטומטית</b> מושהה: הגעת למגבלת ההוצאה החודשית"
+         ],
+         "Automatic translation is paused: monthly spending cap reached": [
+            "התרגום האוטומטי מושהה: הגעת למגבלת ההוצאה החודשית"
+         ],
+         "This website reached the monthly spending cap set for it. Translation continues when the cap is raised, or when the cap resets. You can raise it on the AI Translation: billing and usage page.": [
+            "אתר זה הגיע למגבלת ההוצאה החודשית שהוגדרה עבורו. התרגום יימשך כאשר המגבלה תועלה, או כאשר המגבלה תתאפס. ניתן להעלות אותה בדף תרגום AI: חיוב ושימוש."
+         ],
+         "Preparing content for translation": [
+            "מכין תוכן לתרגום"
+         ],
+         "Preparing more content for translation": [
+            "מכין תוכן נוסף לתרגום"
+         ],
+         "Your default language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "יש למפות את שפת ברירת המחדל שלך, %s, לשפה נתמכת כדי להשתמש בתרגום אוטומטי."
+         ],
+         "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "יש למפות את השפה שלך, %s, לשפה נתמכת כדי להשתמש בתרגום אוטומטי.",
+            "יש למפות את השפות הבאות באתר שלך לשפה נתמכת כדי להשתמש בתרגום אוטומטי: %s"
+         ],
+         "Automatic translation isn't available between %1$s and %2$s because they're recognized as the same language. Choose \"Duplicate\" instead to copy the content across.": [
+            "תרגום אוטומטי אינו זמין בין %1$s לבין %2$s מכיוון שהן מזוהות כאותה שפה. בחר באפשרות ”שכפול“ במקום זאת כדי להעתיק את התוכן.",
+            "תרגום אוטומטי אינו זמין בין %1$s לבין שפות אלה מכיוון שהן מזוהות כאותה שפה: %2$s. בחר באפשרות ”שכפול“ במקום זאת כדי להעתיק את התוכן."
+         ],
+         "%d translation waiting for review": [
+            "תרגום %d ממתין לסקירה",
+            "%d תרגומים ממתינים לסקירה"
+         ],
+         "<b>Translate Everything Automatically</b> has unresolved jobs": [
+            "ב-<b>תרגם הכל אוטומטית</b> יש עבודות שלא נפתרו"
+         ],
+         "Automatic translation has unresolved jobs": [
+            "בתרגום האוטומטי יש עבודות שלא נפתרו"
+         ],
+         "%d job couldn't be completed. Go to <b>Translation Dashboard</b> to review and resolve.": [
+            "לא ניתן היה להשלים עבודת תרגום %d. עבור אל <b>לוח בקרת תרגום</b> כדי לסקור ולפתור.",
+            "לא ניתן היה להשלים %d עבודות תרגום. עבור אל <b>לוח בקרת תרגום</b> כדי לסקור ולפתור."
+         ],
+         "%1$s custom field became translatable (%2$s). Decide what happens to the translations that already exist.": [
+            "שדה מותאם אישית %1$s הפך לניתן לתרגום ((%2$s)). החלט מה יקרה לתרגומים שכבר קיימים.",
+            "%1$s שדות מותאמים אישית הפכו לניתנים לתרגום ((%2$s)). החלט מה יקרה לתרגומים שכבר קיימים."
+         ],
+         "Review": [
+            "סקירה"
+         ],
+         "Automatic translation status": [
+            "סטטוס תרגום אוטומטי"
+         ],
+         "No translations in the queue": [
+            "אין תרגומים בתור"
+         ],
+         "Translate Everything Automatically": [
+            "תרגם הכל אוטומטית"
+         ],
+         "<b>Translate Everything Automatically</b> is active": [
+            "<b>תרגם הכל אוטומטית</b> פעיל"
+         ],
+         "<b>Translate Everything Automatically</b> is paused — payment required": [
+            "<b>תרגם הכל אוטומטית</b> מושהה — נדרש תשלום"
+         ],
+         "Automatic translation is paused — payment required": [
+            "התרגום האוטומטי מושהה — נדרש תשלום"
+         ],
+         "We couldn’t process your payment. Click “Pay now” to complete the transaction and resume automatic translation.": [
+            "לא הצלחנו לעבד את התשלום שלך. לחץ על ”שלם עכשיו“ כדי להשלים את העסקה ולחדש את התרגום האוטומטי."
+         ],
+         "<b>Translate Everything Automatically</b> is paused — unpaid balance on a linked account": [
+            "התכונה <b>תרגם הכל אוטומטית</b> מושהית — יתרה שלא שולמה בחשבון מקושר"
+         ],
+         "Automatic translation is paused — unpaid balance on a linked account": [
+            "התרגום האוטומטי מושהה — יתרה שלא שולמה בחשבון מקושר"
+         ],
+         "There is an unpaid balance on another account linked to this card. Settle it or contact support.": [
+            "קיימת יתרה שלא שולמה בחשבון אחר המקושר לכרטיס זה. יש להסדיר את התשלום או ליצור קשר עם התמיכה."
+         ],
+         "There is an unpaid balance on another account linked to this billing e-mail. Settle it or contact support.": [
+            "קיימת יתרה שלא שולמה בחשבון אחר המקושר לאימייל חיוב זה. יש להסדיר את התשלום או ליצור קשר עם התמיכה."
+         ],
+         "<b>Translate Everything</b> automatically is paused - not enough words": [
+            "<b>תרגם הכל אוטומטית</b> מושהה - אין מספיק מילים"
+         ],
+         "Automatic translation is paused — not enough words": [
+            "התרגום האוטומטי מושהה — אין מספיק מילים"
+         ],
+         "Translation will resume automatically once you assign more words.": [
+            "התרגום יתחדש אוטומטית ברגע שתקצה מילים נוספות."
+         ],
+         "You have %s prepaid translation words in your WPML account. Assign these words to this site to resume automatic translation": [
+            "יש לך מילה אחת בתשלום מראש %s בחשבון ה-WPML שלך. הקצה מילים אלו לאתר זה כדי לחדש את התרגום האוטומטי",
+            "יש לך %s מילים בתשלום מראש בחשבון ה-WPML שלך. הקצה מילים אלו לאתר זה כדי לחדש את התרגום האוטומטי"
+         ],
+         "Your site doesn't meet WPML's minimum requirements": [
+            "האתר שלך אינו עומד בדרישות המינימום של WPML"
+         ],
+         "Fix it": [
+            "תקן זאת"
+         ],
+         "Stop": [
+            "עצור"
+         ],
+         "Pay now": [
+            "שלם עכשיו"
+         ],
+         "Get more words": [
+            "קבל מילים נוספות"
+         ],
+         "Assign words": [
+            "הקצה מילים"
+         ],
+         "Go to Translation Jobs": [
+            "מעבר לעבודות תרגום"
+         ],
+         "Raise the cap": [
+            "העלה את המגבלה"
+         ],
+         "Contact support": [
+            "צור קשר עם התמיכה"
+         ],
+         "Go to billing": [
+            "עבור לחיוב"
+         ],
+         "Resume": [
+            "חדש"
+         ],
+         "Refreshing translation status. Please wait.": [
+            "מרענן את סטטוס התרגום. נא להמתין."
+         ],
+         "This translation couldn't be completed due to an unexpected error. Please try resending it.": [
+            "לא ניתן היה להשלים תרגום זה עקב שגיאה בלתי צפויה. אנא נסה לשלוח אותו שוב."
+         ],
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "מערכת התרגום שלנו לא קיבלה את הבקשה הזו (היא ענתה %d). המתן דקה ונסה שוב, וצור קשר עם התמיכה של WPML אם הבעיה נמשכת."
+         ]
+      }
+   }
+}

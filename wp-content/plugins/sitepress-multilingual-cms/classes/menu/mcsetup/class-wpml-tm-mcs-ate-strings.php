@@ -1,0 +1,123 @@
+<?php
+
+class WPML_TM_MCS_ATE_Strings {
+
+	const AMS_STATUS_ACTIVE_NOT_ALL_SUBSCRIBED = 'active-not-all-subscribed';
+	private $authentication;
+	private $authentication_data;
+	private $endpoints;
+	private $statuses;
+
+	public function __construct( WPML_TM_ATE_Authentication $authentication, WPML_TM_ATE_AMS_Endpoints $endpoints ) {
+		$this->authentication = $authentication;
+		$this->endpoints      = $endpoints;
+
+		$authentication_data       = get_option( WPML_TM_ATE_Authentication::AMS_DATA_KEY, array() );
+		$this->authentication_data = is_array( $authentication_data ) ? $authentication_data : array();
+
+		$this->statuses = array(
+			WPML_TM_ATE_Authentication::AMS_STATUS_NON_ACTIVE => array(
+				'type'    => 'error',
+				'message' => array(
+					'status' => __( 'Advanced Translation Editor is not active yet', 'sitepress' ),
+					'text'   => __(
+						'Request activation to receive an email with directions to activate the service.',
+						'sitepress'
+					),
+				),
+				/* translators: Button label: ask the site manager to turn the advanced editor on for you. Verb phrase, imperative. */
+				'button'  => __( 'Request activation', 'sitepress' ),
+			),
+			WPML_TM_ATE_Authentication::AMS_STATUS_ENABLED => array(
+				'type'    => 'info',
+				'message' => array(
+					'status' => __( 'Advanced Translation Editor is being activated', 'sitepress' ),
+					'text'   => '',
+				),
+				'button'  => '',
+			),
+			WPML_TM_ATE_Authentication::AMS_STATUS_ACTIVE  => array(
+				'type'    => 'success',
+				'message' => array(
+					'status' => __( 'Advanced Translation Editor is enabled and active', 'sitepress' ),
+					'text'   => '',
+				),
+				'button'  => __( 'Advanced Translation Editor is active', 'sitepress' ),
+			),
+			self::AMS_STATUS_ACTIVE_NOT_ALL_SUBSCRIBED     => array(
+				'type'    => 'success',
+				'message' => array(
+					'status' => __( "WPML's Advanced Translation Editor is enabled, but not all your translators can use it.", 'sitepress' ),
+					'text'   => '',
+				),
+				'button'  => __( 'Advanced Translation Editor is active', 'sitepress' ),
+			),
+		);
+	}
+
+	public function get_auto_login() {
+		$shared = null;
+		if ( array_key_exists( 'shared', $this->authentication_data ) ) {
+			$shared = $this->authentication_data['shared'];
+		}
+
+		if ( $shared ) {
+			$url = $this->endpoints->get_ams_auto_login();
+
+			$user = wp_get_current_user();
+
+			$user_email = $user->user_email;
+
+			return $this->authentication->get_signed_url_with_parameters(
+				'GET',
+				$url,
+				array(
+					'translation_manager' => $user_email,
+					'return_url'          => WPML_TM_Page::get_translators_url( array( 'refresh_subscriptions' => '1' ) ),
+				)
+			);
+		}
+
+		return '#';
+	}
+
+	public function get_status_HTML( $status, $all_users_have_subscription = true ) {
+		if ( $status === WPML_TM_ATE_Authentication::AMS_STATUS_ACTIVE && ! $all_users_have_subscription ) {
+			$status = self::AMS_STATUS_ACTIVE_NOT_ALL_SUBSCRIBED;
+		}
+		$message = $this->get_status_attribute( $status, 'message' );
+
+		return '<strong>' . $message['status'] . '</strong>' . $message['text'];
+	}
+
+	public function get_status() {
+		$ate_status = WPML_TM_ATE_Authentication::AMS_STATUS_NON_ACTIVE;
+		if ( array_key_exists( 'status', $this->authentication_data ) ) {
+			$ate_status = $this->authentication_data['status'];
+		}
+
+		return $ate_status;
+	}
+
+	public function get_current_status_attribute( $attribute, $default = null ) {
+		return $this->get_status_attribute( $this->get_status(), $attribute, $default );
+	}
+
+	public function get_status_attribute( $status, $attribute, $default = null ) {
+		$status_attributes = $this->statuses[ $status ];
+
+		if ( array_key_exists( $attribute, $status_attributes ) ) {
+			return $status_attributes[ $attribute ];
+		}
+
+		return $default;
+	}
+
+	public function get_statuses() {
+		return $this->statuses;
+	}
+
+	public function get_synchronize_button_text() {
+		return __( 'Synchronize translators and translation managers', 'sitepress' );
+	}
+}

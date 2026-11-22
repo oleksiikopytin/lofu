@@ -1,0 +1,225 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);",
+            "lang": "ar"
+         },
+         "Advanced": [
+            "متقدم"
+         ],
+         "HTML anchor": [
+            "مربط HTML"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "أضف اختصارًا لهذا المكون عند تحميل الصفحة باستخدام عنوان URL ”#anchor“."
+         ],
+         "Additional CSS class(es)": [
+            "فئة (فئات) CSS إضافية"
+         ],
+         "Separate multiple classes with spaces.": [
+            "افصل بين الفئات المتعددة بمسافات."
+         ],
+         "Color": [
+            "اللون"
+         ],
+         "px": [
+            "بكسل"
+         ],
+         "%": [
+            "%"
+         ],
+         "Dimensions": [
+            "الأبعاد"
+         ],
+         "BLOCK": [
+            "المكون"
+         ],
+         "Block margin": [
+            "هامش المكون"
+         ],
+         "Block padding": [
+            "حشوة المكون"
+         ],
+         "LANGUAGE": [
+            "اللغة"
+         ],
+         "Language spacing": [
+            "تباعد اللغة"
+         ],
+         "Language padding": [
+            "حشوة اللغة"
+         ],
+         "Show flag": [
+            "إظهار العلم"
+         ],
+         "Show current language": [
+            "إظهار اللغة الحالية"
+         ],
+         "Not available while the flag is hidden. Enable Show flag to hide the language name.": [
+            "غير متاح عندما يكون العلم مخفيًا. فعّل ”إظهار العلم“ لإخفاء اسم اللغة."
+         ],
+         "Must be enabled while the language name is hidden. Enable Full name or Code to hide the flag.": [
+            "يجب تمكينه عندما يكون اسم اللغة مخفيًا. فعّل ”الاسم الكامل“ أو ”الرمز“ لإخفاء العلم."
+         ],
+         "Not available in the Dropdown layout. Switch the layout to List to hide the current language.": [
+            "غير متاح في تخطيط القائمة المنسدلة. قم بتبديل التخطيط إلى ”قائمة“ لإخفاء اللغة الحالية."
+         ],
+         "Example:": [
+            "مثال:"
+         ],
+         "Display": [
+            "العرض"
+         ],
+         "Language name": [
+            "اسم اللغة"
+         ],
+         "Full name written in": [
+            "الاسم الكامل مكتوب بـ"
+         ],
+         "Style": [
+            "النمط"
+         ],
+         "Flag settings": [
+            "إعدادات العلم"
+         ],
+         "Width": [
+            "العرض"
+         ],
+         "Height": [
+            "الارتفاع"
+         ],
+         "Spacing": [
+            "التباعد"
+         ],
+         "Switch to %s": [
+            "التبديل إلى %s"
+         ],
+         "Available languages": [
+            "اللغات المتاحة"
+         ],
+         "Allow wrapping to multiple lines": [
+            "السماح بالالتفاف إلى أسطر متعددة"
+         ],
+         "Open on click": [
+            "الفتح عند النقر"
+         ],
+         "Show arrow": [
+            "إظهار السهم"
+         ],
+         "Layout": [
+            "التخطيط"
+         ],
+         "Justification": [
+            "المحاذاة"
+         ],
+         "Orientation": [
+            "الاتجاه"
+         ],
+         "Language Switcher": [
+            "مبدل اللغة"
+         ],
+         "Language switcher, press tab to navigate to other languages": [
+            "مبدل اللغة، اضغط على مفتاح tab للتنقل إلى لغات أخرى"
+         ],
+         "Typography": [
+            "تنسيق الخط"
+         ],
+         "Background": [
+            "الخلفية"
+         ],
+         "Language Text": [
+            "نص اللغة"
+         ],
+         "Language Background": [
+            "خلفية اللغة"
+         ],
+         "Current language text": [
+            "نص اللغة الحالية"
+         ],
+         "Current language background": [
+            "خلفية اللغة الحالية"
+         ],
+         "Full name": [
+            "الاسم الكامل"
+         ],
+         "Code": [
+            "الرمز"
+         ],
+         "Native": [
+            "الأصلية"
+         ],
+         "Translated": [
+            "مترجم"
+         ],
+         "Both": [
+            "كلاهما"
+         ],
+         "Hidden": [
+            "مخفي"
+         ],
+         "Dropdown": [
+            "قائمة منسدلة"
+         ],
+         "List": [
+            "قائمة"
+         ],
+         "Justify items left": [
+            "محاذاة العناصر لليسار"
+         ],
+         "Justify items center": [
+            "محاذاة العناصر للمركز"
+         ],
+         "Justify items right": [
+            "محاذاة العناصر لليمين"
+         ],
+         "Justify items space between": [
+            "توزيع العناصر بمسافات متساوية"
+         ],
+         "Horizontal": [
+            "أفقي"
+         ],
+         "Vertical": [
+            "عمودي"
+         ],
+         "Normal": [
+            "عادي"
+         ],
+         "Medium": [
+            "متوسط"
+         ],
+         "Large": [
+            "كبير"
+         ],
+         "X-Large": [
+            "كبير جدًا"
+         ],
+         "Ab": [
+            "أب"
+         ],
+         "AB": [
+            "أب"
+         ],
+         "ab": [
+            "أب"
+         ],
+         "Small": [
+            "صغير"
+         ],
+         "displays the WPML Language Switcher": [
+            "يعرض مبدل لغة WPML"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "يعرض مبدل لغة WPML."
+         ],
+         "Navigation Language Switcher": [
+            "مبدل لغة التصفح"
+         ],
+         "Reset all": [
+            "إعادة تعيين الكل"
+         ]
+      }
+   }
+}

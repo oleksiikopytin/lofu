@@ -1,0 +1,217 @@
+<?php
+
+class WPML_Update_Term_Action extends WPML_WPDB_And_SP_User {
+
+	private $is_valid = true;
+	private $is_update;
+	private $wp_new_term_args = array();
+	private $taxonomy;
+	private $trid;
+	private $lang_code;
+	private $source_lang_code = null;
+	private $existing_translations = array();
+	private $term_id;
+	private $old_slug;
+	private $invalid_reason = '';
+	private $error = null;
+
+	public function __construct( &$wpdb, &$sitepress, $args ) {
+		parent::__construct( $wpdb, $sitepress );
+		$term     = false;
+		$slug     = '';
+		$taxonomy = '';
+		$lang_code = '';
+		$trid      = null;
+		$original_tax_id = false;
+		$parent          = 0;
+		$description     = false;
+		$term_group      = false;
+		$source_language = null;
+
+		extract( $args, EXTR_OVERWRITE );
+
+		if ( (string) $term !== '' && $taxonomy ) {
+			$this->wp_new_term_args['name'] = $term;
+			$this->taxonomy                 = $taxonomy;
+		} else {
+			$this->is_valid       = false;
+			$this->invalid_reason = $taxonomy ? 'the term name is empty' : 'no taxonomy was given';
+
+			return;
+		}
+		if ( $parent ) {
+			$this->wp_new_term_args['parent'] = $parent;
+		}
+		if ( $description ) {
+			$this->wp_new_term_args['description'] = $description;
+		}
+		if ( $term_group ) {
+			$this->wp_new_term_args['term_group'] = $term_group;
+		}
+		$this->wp_new_term_args['term_group'] = $term_group;
+		$this->is_valid                       = $this->set_language_information( $trid, $original_tax_id, $lang_code, $source_language );
+		$this->set_action_type();
+		if ( ! $this->is_update || ( $this->is_update && $slug != $this->old_slug && ! empty( $slug ) ) ) {
+			if ( trim( $slug ) == '' ) {
+				$slug = sanitize_title( $term );
+			}
+			$slug                           = WPML_Terms_Translations::term_unique_slug( $slug, $taxonomy, $lang_code );
+			$this->wp_new_term_args['slug'] = $slug;
+		}
+	}
+
+	public function execute() {
+		global $sitepress;
+
+		$switch_lang = new WPML_Temporary_Switch_Language( $sitepress, $this->lang_code );
+
+		remove_action( 'create_term', array( $sitepress, 'create_term' ), 1 );
+		remove_action( 'edit_term', array( $sitepress, 'create_term' ), 1 );
+		add_action( 'create_term', array( $this, 'add_term_language_action' ), 1, 3 );
+		add_filter( 'get_terms', array( 'WPML_Terms_Translations', 'get_terms_filter' ), 10, 2 );
+		$new_term    = false;
+		$this->error = null;
+
+		if ( $this->is_valid ) {
+			if ( $this->is_update && $this->term_id ) {
+				$new_term = wp_update_term( $this->term_id, $this->taxonomy, $this->wp_new_term_args );
+			} else {
+				$new_term = wp_insert_term( $this->wp_new_term_args['name'], $this->taxonomy, $this->wp_new_term_args );
+			}
+			if ( is_wp_error( $new_term ) ) {
+				$this->error = $new_term;
+			}
+		} else {
+			$this->error = new WP_Error( 'wpml_term_write_invalid', $this->invalid_reason ?: 'the write is not valid' );
+		}
+		add_action( 'create_term', array( $sitepress, 'create_term' ), 1, 3 );
+		add_action( 'edit_term', array( $sitepress, 'create_term' ), 1, 3 );
+		remove_action( 'create_term', array( $this, 'add_term_language_action' ), 1 );
+		remove_filter( 'get_terms', array( 'WPML_Terms_Translations', 'get_terms_filter' ), 10 );
+
+		if ( ! is_array( $new_term ) ) {
+			$new_term = false;
+		}
+
+		unset( $switch_lang );
+
+		if ( $new_term && ! $this->is_update && ! empty( $new_term['term_taxonomy_id'] ) && $this->lang_code ) {
+			do_action( 'wpml_term_translation_created', (int) $new_term['term_taxonomy_id'], $this->lang_code, $this->taxonomy );
+		}
+
+		return $new_term;
+	}
+
+	public function get_error() {
+		return $this->error;
+	}
+
+	public function add_term_language_action( $term_id, $term_taxonomy_id, $taxonomy ) {
+		if ( $this->is_valid && ! $this->is_update && $this->taxonomy == $taxonomy ) {
+			$this->sitepress->set_element_language_details(
+				$term_taxonomy_id,
+				'tax_' . $taxonomy,
+				$this->trid,
+				$this->lang_code,
+				$this->source_lang_code
+			);
+		}
+	}
+
+	private function is_site_language( $lang_code ) {
+		return $this->sitepress->is_active_language( $lang_code )
+			|| array_key_exists( (string) $lang_code, (array) $this->sitepress->get_languages( false, true ) );
+	}
+
+	private function set_language_information( $trid, $original_tax_id, $lang_code, $source_language ) {
+		if ( ! $lang_code || ! $this->is_site_language( $lang_code ) ) {
+			$this->invalid_reason = $lang_code ? sprintf( 'the language %s is not active', $lang_code ) : 'no language was given';
+
+			return false;
+		} else {
+			$this->lang_code = $lang_code;
+		}
+		if ( ! $trid && $original_tax_id ) {
+			$trid = $this->sitepress->get_element_trid( $original_tax_id, 'tax_' . $this->taxonomy );
+		}
+		if ( $trid ) {
+			$this->trid                  = $trid;
+			$this->existing_translations = $this->sitepress->get_element_translations( $trid, 'tax_' . $this->taxonomy );
+
+			if ( is_string( $source_language ) && '' !== $source_language && $source_language !== $lang_code ) {
+				$this->source_lang_code = $source_language;
+
+				return true;
+			}
+
+			foreach ( $this->existing_translations as $lang => $translation ) {
+				if ( $original_tax_id && isset( $translation->element_id ) && $translation->element_id == $original_tax_id && isset( $translation->language_code ) && $translation->language_code ) {
+					$this->source_lang_code = $translation->language_code;
+					break;
+				} elseif ( isset( $translation->language_code ) && $translation->language_code && ! $translation->source_language_code ) {
+					$this->source_lang_code = $translation->language_code;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	private function set_action_type() {
+		$wpdb = $this->wpdb;
+
+		if ( ! $this->trid ) {
+			$this->is_update = false;
+		} elseif ( isset( $this->existing_translations[ $this->lang_code ] ) ) {
+			$existing_db_entry = $this->existing_translations[ $this->lang_code ];
+			if ( isset( $existing_db_entry->element_id ) && $existing_db_entry->element_id ) {
+				$term = $wpdb->get_row(
+					$wpdb->prepare(
+						"SELECT t.term_id, t.slug FROM {$wpdb->terms} AS t
+						 JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id=tt.term_id
+						 WHERE term_taxonomy_id=%d",
+						$existing_db_entry->element_id
+					)
+				);
+				if ( $term && $term->term_id && $term->slug ) {
+					$this->is_update = true;
+					$this->term_id   = $term->term_id;
+					$this->old_slug  = $term->slug;
+				} else {
+					$this->free_translation_entry_for_the_new_term( $existing_db_entry );
+					$this->is_update = false;
+				}
+			} else {
+				$this->free_translation_entry_for_the_new_term( $existing_db_entry );
+				$this->is_update = false;
+			}
+		} else {
+			$this->is_update = false;
+		}
+	}
+
+	private function free_translation_entry_for_the_new_term( $existing_db_entry ) {
+		$where   = array(
+			'trid'          => $this->trid,
+			'element_type'  => 'tax_' . $this->taxonomy,
+			'language_code' => $this->lang_code,
+		);
+		$formats = array( '%d', '%s', '%s' );
+
+		if ( isset( $existing_db_entry->translation_id ) && $existing_db_entry->translation_id ) {
+			$where   = array( 'translation_id' => (int) $existing_db_entry->translation_id );
+			$formats = array( '%d' );
+		}
+
+		$this->wpdb->update(
+			$this->wpdb->prefix . 'icl_translations',
+			array( 'element_id' => null ),
+			$where,
+			array( '%d' ),
+			$formats
+		);
+
+		WPML_Set_Language::flush_element_language_details_cache();
+		WPML_Translations::flush_cache_for_trids( array( $this->trid ) );
+	}
+}

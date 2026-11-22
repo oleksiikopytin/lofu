@@ -1,0 +1,36 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "nl_NL"
+         },
+         "Before proceeding, we recommend that you read these two pages:": [
+            "Voordat u verdergaat, raden we u aan deze twee pagina's te lezen:"
+         ],
+         "How Browser Language Redirect Affects Google Indexing": [
+            "Hoe browser-taalomleiding de Google-indexering beïnvloedt"
+         ],
+         "Documentation": [
+            "Documentatie"
+         ],
+         "Browser redirect affects Google indexing and search results": [
+            "Browser-omleiding beïnvloedt de Google-indexering en zoekresultaten"
+         ],
+         "Got it, activate anyway": [
+            "Begrepen, toch activeren"
+         ],
+         "Cancel": [
+            "Annuleren"
+         ],
+         "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
+            "Wanneer u bezoekers omleidt op basis van hun taal, leidt u ook Google om. Google wil uw site precies zo zien als bezoekers deze zien, inclusief eventuele omleidingen die u toepast."
+         ],
+         "It is OK to redirect visitors based on their language, but you need to realize that this feature affects SEO.": [
+            "Het is prima om bezoekers om te leiden op basis van hun taal, maar u moet zich realiseren dat deze functie invloed heeft op de SEO."
+         ]
+      }
+   }
+}

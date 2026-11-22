@@ -1,0 +1,57 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
+            "lang": "uk"
+         },
+         "Accepted": [
+            "Прийнято"
+         ],
+         "Approved!": [
+            "Схвалено!"
+         ],
+         "Loading the next translation for review...": [
+            "Завантаження наступного перекладу для перевірки..."
+         ],
+         "Back": [
+            "Назад"
+         ],
+         "Turn off to not automatically load the next translation after finishing this review.": [
+            "Вимкніть, щоб автоматично не завантажувати наступний переклад після завершення цієї перевірки."
+         ],
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "Увімкніть, щоб автоматично завантажувати наступний переклад після завершення цієї перевірки."
+         ],
+         "Edit": [
+            "Редагувати"
+         ],
+         "Edit translation": [
+            "Редагувати переклад"
+         ],
+         "Next review": [
+            "Наступна перевірка"
+         ],
+         "Publish this translation": [
+            "Опублікувати цей переклад"
+         ],
+         "Accept this translation": [
+            "Прийняти цей переклад"
+         ],
+         "Published!": [
+            "Опубліковано!"
+         ],
+         "Please wait, applying translation..": [
+            "Будь ласка, зачекайте, застосовується переклад..."
+         ],
+         "There was an error in applying translation.": [
+            "Під час застосування перекладу сталася помилка."
+         ],
+         "Someone is already reviewing this translation. Please try again later.": [
+            "Хтось уже перевіряє цей переклад. Будь ласка, спробуйте пізніше."
+         ]
+      }
+   }
+}

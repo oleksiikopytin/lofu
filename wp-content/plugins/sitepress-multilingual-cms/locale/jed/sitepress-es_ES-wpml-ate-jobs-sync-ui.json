@@ -1,0 +1,196 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "es_ES"
+         },
+         "Sending for translation": [
+            "Enviando para traducción"
+         ],
+         "The translation could not be started because the server did not answer.": [
+            "La traducción no se ha podido iniciar porque el servidor no ha respondido."
+         ],
+         "Your session has expired. Refresh this page and try again.": [
+            "Su sesión ha caducado. Actualice esta página e inténtelo de nuevo."
+         ],
+         "This translation cannot be opened right now.": [
+            "Esta traducción no se puede abrir en este momento."
+         ],
+         "Refresh this page": [
+            "Actualizar esta página"
+         ],
+         "This content is being automatically translated. If you want to do something different with it cancel translation jobs first.": [
+            "Este contenido se está traduciendo automáticamente. Si desea hacer algo diferente con él, cancele primero los trabajos de traducción."
+         ],
+         "You don't have the rights to review this language": [
+            "No tiene permisos para revisar este idioma"
+         ],
+         "%1$s and %2$s": [
+            "%1$s y %2$s"
+         ],
+         "Translating your content": [
+            "Traduciendo su contenido"
+         ],
+         "Translate Everything is active": [
+            "Traducir todo está activo"
+         ],
+         "%d translation notice": [
+            "%d aviso de traducción",
+            "%d avisos de traducción"
+         ],
+         "%d min remaining": [
+            "quedan %d min"
+         ],
+         "less than 1 min remaining": [
+            "queda menos de 1 min"
+         ],
+         "<b>Translate Everything Automatically</b> is temporarily paused": [
+            "<b>Traducir todo automáticamente</b> se ha pausado temporalmente"
+         ],
+         "Automatic translation is temporarily paused": [
+            "La traducción automática se ha pausado temporalmente"
+         ],
+         "We noticed something unexpected in your recent translation activity and paused automatic translation on your account. Contact support and we’ll review it with you.": [
+            "Hemos detectado algo inesperado en su actividad de traducción reciente y hemos pausado la traducción automática en su cuenta. Póngase en contacto con el soporte técnico y lo revisaremos con usted."
+         ],
+         "<b>Translate Everything Automatically</b> is paused: monthly spending cap reached": [
+            "<b>Traducir todo automáticamente</b> está en pausa: se ha alcanzado el límite de gasto mensual"
+         ],
+         "Automatic translation is paused: monthly spending cap reached": [
+            "La traducción automática está en pausa: se ha alcanzado el límite de gasto mensual"
+         ],
+         "This website reached the monthly spending cap set for it. Translation continues when the cap is raised, or when the cap resets. You can raise it on the AI Translation: billing and usage page.": [
+            "Este sitio web ha alcanzado el límite de gasto mensual establecido. La traducción continuará cuando se aumente el límite o cuando se restablezca. Puede aumentarlo en la página Traducción por IA: facturación y uso."
+         ],
+         "Preparing content for translation": [
+            "Preparando el contenido para la traducción"
+         ],
+         "Preparing more content for translation": [
+            "Preparando más contenido para la traducción"
+         ],
+         "Your default language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "Su idioma predeterminado, %s, debe estar asignado a un idioma compatible para poder utilizar la traducción automática."
+         ],
+         "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "Su idioma, %s, debe estar asignado a un idioma compatible para poder utilizar la traducción automática.",
+            "Los siguientes idiomas de su sitio deben estar asignados a un idioma compatible para poder utilizar la traducción automática: %s"
+         ],
+         "Automatic translation isn't available between %1$s and %2$s because they're recognized as the same language. Choose \"Duplicate\" instead to copy the content across.": [
+            "La traducción automática no está disponible entre %1$s y %2$s porque se reconocen como el mismo idioma. Elija «Duplicar» en su lugar para copiar el contenido.",
+            "La traducción automática no está disponible entre %1$s y estos idiomas porque se reconocen como el mismo idioma: %2$s. Elija «Duplicar» en su lugar para copiar el contenido."
+         ],
+         "%d translation waiting for review": [
+            "%d traducción esperando revisión",
+            "%d traducciones esperando revisión"
+         ],
+         "<b>Translate Everything Automatically</b> has unresolved jobs": [
+            "<b>Traducir todo automáticamente</b> tiene trabajos sin resolver"
+         ],
+         "Automatic translation has unresolved jobs": [
+            "La traducción automática tiene trabajos sin resolver"
+         ],
+         "%d job couldn't be completed. Go to <b>Translation Dashboard</b> to review and resolve.": [
+            "%d trabajo no se ha podido completar. Vaya al <b>Escritorio de traducción</b> para revisarlo y resolverlo.",
+            "%d trabajos no se han podido completar. Vaya al <b>Escritorio de traducción</b> para revisarlos y resolverlos."
+         ],
+         "%1$s custom field became translatable (%2$s). Decide what happens to the translations that already exist.": [
+            "%1$s campo personalizado pasó a ser traducible: (%2$s). Decida qué ocurre con las traducciones ya existentes.",
+            "%1$s campos personalizados pasaron a ser traducibles: (%2$s). Decida qué ocurre con las traducciones ya existentes."
+         ],
+         "Review": [
+            "Revisar"
+         ],
+         "Automatic translation status": [
+            "Estado de la traducción automática"
+         ],
+         "No translations in the queue": [
+            "No hay traducciones en la cola"
+         ],
+         "Translate Everything Automatically": [
+            "Traducir todo automáticamente"
+         ],
+         "<b>Translate Everything Automatically</b> is active": [
+            "<b>Traducir todo automáticamente</b> está activo"
+         ],
+         "<b>Translate Everything Automatically</b> is paused — payment required": [
+            "<b>Traducir todo automáticamente</b> está en pausa: se requiere el pago"
+         ],
+         "Automatic translation is paused — payment required": [
+            "La traducción automática está en pausa: se requiere el pago"
+         ],
+         "We couldn’t process your payment. Click “Pay now” to complete the transaction and resume automatic translation.": [
+            "No hemos podido procesar su pago. Haga clic en “Pagar ahora” para completar la transacción y reanudar la traducción automática."
+         ],
+         "<b>Translate Everything Automatically</b> is paused — unpaid balance on a linked account": [
+            "<b>Traducir todo automáticamente</b> está pausado: saldo pendiente en una cuenta vinculada"
+         ],
+         "Automatic translation is paused — unpaid balance on a linked account": [
+            "La traducción automática está pausada: saldo pendiente en una cuenta vinculada"
+         ],
+         "There is an unpaid balance on another account linked to this card. Settle it or contact support.": [
+            "Hay un saldo pendiente en otra cuenta vinculada a esta tarjeta. Liquídelo o contacte con soporte."
+         ],
+         "There is an unpaid balance on another account linked to this billing e-mail. Settle it or contact support.": [
+            "Hay un saldo pendiente en otra cuenta vinculada a este correo electrónico de facturación. Liquídelo o contacte con soporte."
+         ],
+         "<b>Translate Everything</b> automatically is paused - not enough words": [
+            "<b>Traducir todo</b> automáticamente está en pausa: no hay suficientes palabras"
+         ],
+         "Automatic translation is paused — not enough words": [
+            "La traducción automática está en pausa: no hay suficientes palabras"
+         ],
+         "Translation will resume automatically once you assign more words.": [
+            "La traducción se reanudará automáticamente una vez que asigne más palabras."
+         ],
+         "You have %s prepaid translation words in your WPML account. Assign these words to this site to resume automatic translation": [
+            "Tiene %s palabra de traducción prepagada en su cuenta de WPML. Asigne esta palabra a este sitio para reanudar la traducción automática",
+            "Tiene %s palabras de traducción prepagadas en su cuenta de WPML. Asigne estas palabras a este sitio para reanudar la traducción automática"
+         ],
+         "Your site doesn't meet WPML's minimum requirements": [
+            "Su sitio no cumple los requisitos mínimos de WPML"
+         ],
+         "Fix it": [
+            "Corregir"
+         ],
+         "Stop": [
+            "Detener"
+         ],
+         "Pay now": [
+            "Pagar ahora"
+         ],
+         "Get more words": [
+            "Obtener más palabras"
+         ],
+         "Assign words": [
+            "Asignar palabras"
+         ],
+         "Go to Translation Jobs": [
+            "Ir a Trabajos de traducción"
+         ],
+         "Raise the cap": [
+            "Aumentar el límite"
+         ],
+         "Contact support": [
+            "Contactar con soporte"
+         ],
+         "Go to billing": [
+            "Ir a facturación"
+         ],
+         "Resume": [
+            "Reanudar"
+         ],
+         "Refreshing translation status. Please wait.": [
+            "Actualizando el estado de la traducción. Espere, por favor."
+         ],
+         "This translation couldn't be completed due to an unexpected error. Please try resending it.": [
+            "Esta traducción no se ha podido completar debido a un error inesperado. Por favor, intente enviarla de nuevo."
+         ],
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "Nuestro sistema de traducción no ha aceptado esta solicitud (ha respondido %d). Espere un minuto e inténtelo de nuevo; si el problema persiste, póngase en contacto con el soporte de WPML."
+         ]
+      }
+   }
+}

@@ -1,0 +1,57 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "ja"
+         },
+         "Accepted": [
+            "承認済み"
+         ],
+         "Approved!": [
+            "承認されました！"
+         ],
+         "Loading the next translation for review...": [
+            "レビュー対象の次の翻訳を読み込んでいます..."
+         ],
+         "Back": [
+            "戻る"
+         ],
+         "Turn off to not automatically load the next translation after finishing this review.": [
+            "このレビューの終了後に次の翻訳を自動的に読み込まない場合は、オフにしてください。"
+         ],
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "オンにすると、このレビューの完了後に次の翻訳が自動的に読み込まれます。"
+         ],
+         "Edit": [
+            "編集"
+         ],
+         "Edit translation": [
+            "翻訳を編集"
+         ],
+         "Next review": [
+            "次のレビュー"
+         ],
+         "Publish this translation": [
+            "この翻訳を公開する"
+         ],
+         "Accept this translation": [
+            "この翻訳を承認"
+         ],
+         "Published!": [
+            "公開されました！"
+         ],
+         "Please wait, applying translation..": [
+            "翻訳を適用しています。しばらくお待ちください..."
+         ],
+         "There was an error in applying translation.": [
+            "翻訳の適用中にエラーが発生しました。"
+         ],
+         "Someone is already reviewing this translation. Please try again later.": [
+            "他の誰かが既にこの翻訳をレビューしています。後でもう一度お試しください。"
+         ]
+      }
+   }
+}

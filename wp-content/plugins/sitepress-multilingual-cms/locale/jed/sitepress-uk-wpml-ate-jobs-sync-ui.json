@@ -1,0 +1,203 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
+            "lang": "uk"
+         },
+         "Sending for translation": [
+            "Надсилання на переклад"
+         ],
+         "The translation could not be started because the server did not answer.": [
+            "Не вдалося розпочати переклад, оскільки сервер не відповів."
+         ],
+         "Your session has expired. Refresh this page and try again.": [
+            "Термін дії вашої сесії минув. Оновіть цю сторінку та спробуйте знову."
+         ],
+         "This translation cannot be opened right now.": [
+            "Зараз неможливо відкрити цей переклад."
+         ],
+         "Refresh this page": [
+            "Оновити цю сторінку"
+         ],
+         "This content is being automatically translated. If you want to do something different with it cancel translation jobs first.": [
+            "Цей вміст перекладається автоматично. Якщо ви хочете зробити з ним щось інше, спочатку скасуйте завдання на переклад."
+         ],
+         "You don't have the rights to review this language": [
+            "У вас немає прав для перевірки цієї мови"
+         ],
+         "%1$s and %2$s": [
+            "%1$s та %2$s"
+         ],
+         "Translating your content": [
+            "Переклад вашого вмісту"
+         ],
+         "Translate Everything is active": [
+            "Режим «Перекладати все» активний"
+         ],
+         "%d translation notice": [
+            "%d сповіщення про переклад",
+            "%d сповіщення про переклад",
+            "%d сповіщень про переклад"
+         ],
+         "%d min remaining": [
+            "залишилося %d хв"
+         ],
+         "less than 1 min remaining": [
+            "залишилося менше 1 хв"
+         ],
+         "<b>Translate Everything Automatically</b> is temporarily paused": [
+            "<b>Автоматично перекладати все</b> тимчасово призупинено"
+         ],
+         "Automatic translation is temporarily paused": [
+            "Автоматичний переклад тимчасово призупинено"
+         ],
+         "We noticed something unexpected in your recent translation activity and paused automatic translation on your account. Contact support and we’ll review it with you.": [
+            "Ми помітили щось неочікуване у вашій нещодавній активності з перекладу та призупинили автоматичний переклад у вашому акаунті. Зверніться до служби підтримки, і ми перевіримо це разом із вами."
+         ],
+         "<b>Translate Everything Automatically</b> is paused: monthly spending cap reached": [
+            "<b>Автоматично перекладати все</b> призупинено: досягнуто місячного ліміту витрат"
+         ],
+         "Automatic translation is paused: monthly spending cap reached": [
+            "Автоматичний переклад призупинено: досягнуто місячного ліміту витрат"
+         ],
+         "This website reached the monthly spending cap set for it. Translation continues when the cap is raised, or when the cap resets. You can raise it on the AI Translation: billing and usage page.": [
+            "Цей сайт досяг установленого щомісячного ліміту витрат. Переклад продовжиться після збільшення ліміту або його оновлення. Ви можете збільшити його на сторінці «ШІ-переклад: рахунки та використання»."
+         ],
+         "Preparing content for translation": [
+            "Підготовка вмісту до перекладу"
+         ],
+         "Preparing more content for translation": [
+            "Підготовка додаткового вмісту до перекладу"
+         ],
+         "Your default language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "Ваша мова за замовчуванням, %s, має бути зіставлена з підтримуваною мовою, щоб використовувати автоматичний переклад."
+         ],
+         "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "Ваша мова, %s, має бути зіставлена з підтримуваною мовою, щоб використовувати автоматичний переклад.",
+            "Наступні мови на вашому сайті мають бути зіставлені з підтримуваною мовою, щоб використовувати автоматичний переклад: %s",
+            "Наступні мови на вашому сайті мають бути зіставлені з підтримуваною мовою, щоб використовувати автоматичний переклад: %s"
+         ],
+         "Automatic translation isn't available between %1$s and %2$s because they're recognized as the same language. Choose \"Duplicate\" instead to copy the content across.": [
+            "Автоматичний переклад недоступний між %1$s та %2$s, оскільки вони розпізнаються як однакова мова. Натомість виберіть «Дублювати», щоб скопіювати вміст.",
+            "Автоматичний переклад недоступний між %1$s і цими мовами, оскільки вони розпізнаються як однакова мова: %2$s. Натомість виберіть «Дублювати», щоб скопіювати вміст.",
+            "Автоматичний переклад недоступний між %1$s і цими мовами, оскільки вони розпізнаються як однакова мова: %2$s. Натомість виберіть «Дублювати», щоб скопіювати вміст."
+         ],
+         "%d translation waiting for review": [
+            "%d переклад очікує на перевірку",
+            "%d переклади очікують на перевірку",
+            "%d перекладів очікують на перевірку"
+         ],
+         "<b>Translate Everything Automatically</b> has unresolved jobs": [
+            "<b>Автоматично перекладати все</b> має невирішені завдання"
+         ],
+         "Automatic translation has unresolved jobs": [
+            "Автоматичний переклад має невирішені завдання"
+         ],
+         "%d job couldn't be completed. Go to <b>Translation Dashboard</b> to review and resolve.": [
+            "Не вдалося завершити %d завдання. Перейдіть до <b>Панелі керування перекладами</b>, щоб переглянути та вирішити проблему.",
+            "Не вдалося завершити %d завдання. Перейдіть до <b>Панелі керування перекладами</b>, щоб переглянути та вирішити проблему.",
+            "Не вдалося завершити %d завдань. Перейдіть до <b>Панелі керування перекладами</b>, щоб переглянути та вирішити проблему."
+         ],
+         "%1$s custom field became translatable (%2$s). Decide what happens to the translations that already exist.": [
+            "%1$s додаткове поле стало перекладним: (%2$s). Вирішіть, що робити з перекладами, які вже існують.",
+            "%1$s додаткових поля стали перекладними: (%2$s). Вирішіть, що робити з перекладами, які вже існують.",
+            "%1$s додаткових полів стали перекладними: (%2$s). Вирішіть, що робити з перекладами, які вже існують."
+         ],
+         "Review": [
+            "Переглянути"
+         ],
+         "Automatic translation status": [
+            "Статус автоматичного перекладу"
+         ],
+         "No translations in the queue": [
+            "У черзі немає перекладів"
+         ],
+         "Translate Everything Automatically": [
+            "Автоматично перекладати все"
+         ],
+         "<b>Translate Everything Automatically</b> is active": [
+            "<b>Автоматично перекладати все</b> активно"
+         ],
+         "<b>Translate Everything Automatically</b> is paused — payment required": [
+            "<b>Автоматично перекладати все</b> призупинено — потрібна оплата"
+         ],
+         "Automatic translation is paused — payment required": [
+            "Автоматичний переклад призупинено — потрібна оплата"
+         ],
+         "We couldn’t process your payment. Click “Pay now” to complete the transaction and resume automatic translation.": [
+            "Ми не змогли обробити ваш платіж. Натисніть «Оплатити зараз», щоб завершити транзакцію та відновити автоматичний переклад."
+         ],
+         "<b>Translate Everything Automatically</b> is paused — unpaid balance on a linked account": [
+            "Режим <b>Translate Everything Automatically</b> призупинено — несплачений баланс на пов'язаному акаунті"
+         ],
+         "Automatic translation is paused — unpaid balance on a linked account": [
+            "Автоматичний переклад призупинено — несплачений баланс на пов'язаному акаунті"
+         ],
+         "There is an unpaid balance on another account linked to this card. Settle it or contact support.": [
+            "На іншому акаунті, пов'язаному з цією карткою, є несплачений баланс. Сплатіть його або зверніться до служби підтримки."
+         ],
+         "There is an unpaid balance on another account linked to this billing e-mail. Settle it or contact support.": [
+            "На іншому акаунті, пов'язаному з цією платіжною електронною адресою, є несплачений баланс. Сплатіть його або зверніться до служби підтримки."
+         ],
+         "<b>Translate Everything</b> automatically is paused - not enough words": [
+            "<b>Автоматично перекладати все</b> призупинено — недостатньо слів"
+         ],
+         "Automatic translation is paused — not enough words": [
+            "Автоматичний переклад призупинено — недостатньо слів"
+         ],
+         "Translation will resume automatically once you assign more words.": [
+            "Переклад відновиться автоматично, щойно ви призначите більше слів."
+         ],
+         "You have %s prepaid translation words in your WPML account. Assign these words to this site to resume automatic translation": [
+            "У вашому акаунті WPML є %s передплачене слово для перекладу. Призначте ці слова цьому сайту, щоб відновити автоматичний переклад",
+            "У вашому акаунті WPML є %s передплачені слова для перекладу. Призначте ці слова цьому сайту, щоб відновити автоматичний переклад",
+            "У вашому акаунті WPML є %s передплачених слів для перекладу. Призначте ці слова цьому сайту, щоб відновити автоматичний переклад"
+         ],
+         "Your site doesn't meet WPML's minimum requirements": [
+            "Ваш сайт не відповідає мінімальним вимогам WPML"
+         ],
+         "Fix it": [
+            "Виправити"
+         ],
+         "Stop": [
+            "Зупинити"
+         ],
+         "Pay now": [
+            "Оплатити зараз"
+         ],
+         "Get more words": [
+            "Отримати більше слів"
+         ],
+         "Assign words": [
+            "Призначити слова"
+         ],
+         "Go to Translation Jobs": [
+            "Перейти до завдань на переклад"
+         ],
+         "Raise the cap": [
+            "Збільшити ліміт"
+         ],
+         "Contact support": [
+            "Зв’язатися зі службою підтримки"
+         ],
+         "Go to billing": [
+            "Перейти до оплати"
+         ],
+         "Resume": [
+            "Відновити"
+         ],
+         "Refreshing translation status. Please wait.": [
+            "Оновлення статусу перекладу. Будь ласка, зачекайте."
+         ],
+         "This translation couldn't be completed due to an unexpected error. Please try resending it.": [
+            "Цей переклад не вдалося завершити через неочікувану помилку. Будь ласка, спробуйте надіслати його повторно."
+         ],
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "Наша система перекладу не прийняла цей запит (відповідь: %d). Зачекайте хвилину і спробуйте ще раз, а якщо проблема не зникне, зверніться до служби підтримки WPML."
+         ]
+      }
+   }
+}

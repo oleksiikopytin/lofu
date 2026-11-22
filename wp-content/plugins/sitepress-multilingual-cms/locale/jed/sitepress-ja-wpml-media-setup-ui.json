@@ -1,0 +1,18 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "ja"
+         },
+         "But...": [
+            "しかし..."
+         ],
+         "Wait to translate any content that contains media until we're finished configuring it. It will be just a moment.": [
+            "メディアの構成が完了するまで、メディアを含むコンテンツの翻訳はお待ちください。まもなく完了します。"
+         ]
+      }
+   }
+}

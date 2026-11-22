@@ -1,0 +1,225 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "zh_TW"
+         },
+         "Advanced": [
+            "進階"
+         ],
+         "HTML anchor": [
+            "HTML 錨點"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "使用「#anchor」URL 載入頁面時，為此區塊新增捷徑。"
+         ],
+         "Additional CSS class(es)": [
+            "額外的 CSS 類別"
+         ],
+         "Separate multiple classes with spaces.": [
+            "請使用空格分隔多個類別。"
+         ],
+         "Color": [
+            "顏色"
+         ],
+         "px": [
+            "px"
+         ],
+         "%": [
+            "%"
+         ],
+         "Dimensions": [
+            "尺寸"
+         ],
+         "BLOCK": [
+            "區塊"
+         ],
+         "Block margin": [
+            "區塊邊距"
+         ],
+         "Block padding": [
+            "區塊內距"
+         ],
+         "LANGUAGE": [
+            "語言"
+         ],
+         "Language spacing": [
+            "語言間距"
+         ],
+         "Language padding": [
+            "語言內距"
+         ],
+         "Show flag": [
+            "顯示國旗"
+         ],
+         "Show current language": [
+            "顯示目前語言"
+         ],
+         "Not available while the flag is hidden. Enable Show flag to hide the language name.": [
+            "隱藏國旗時無法使用。請啟用「顯示國旗」以隱藏語言名稱。"
+         ],
+         "Must be enabled while the language name is hidden. Enable Full name or Code to hide the flag.": [
+            "隱藏語言名稱時必須啟用。請啟用「全名」或「代碼」以隱藏國旗。"
+         ],
+         "Not available in the Dropdown layout. Switch the layout to List to hide the current language.": [
+            "下拉式選單版型中無法使用。請將版型切換為「清單」以隱藏目前語言。"
+         ],
+         "Example:": [
+            "範例："
+         ],
+         "Display": [
+            "顯示"
+         ],
+         "Language name": [
+            "語言名稱"
+         ],
+         "Full name written in": [
+            "全名顯示語言"
+         ],
+         "Style": [
+            "樣式"
+         ],
+         "Flag settings": [
+            "國旗設定"
+         ],
+         "Width": [
+            "寬度"
+         ],
+         "Height": [
+            "高度"
+         ],
+         "Spacing": [
+            "間距"
+         ],
+         "Switch to %s": [
+            "切換至 %s"
+         ],
+         "Available languages": [
+            "可用語言"
+         ],
+         "Allow wrapping to multiple lines": [
+            "允許換行至多行"
+         ],
+         "Open on click": [
+            "點選時開啟"
+         ],
+         "Show arrow": [
+            "顯示箭頭"
+         ],
+         "Layout": [
+            "版面配置"
+         ],
+         "Justification": [
+            "對齊方式"
+         ],
+         "Orientation": [
+            "方向"
+         ],
+         "Language Switcher": [
+            "語言切換器"
+         ],
+         "Language switcher, press tab to navigate to other languages": [
+            "語言切換器，按 Tab 鍵導覽至其他語言"
+         ],
+         "Typography": [
+            "字體排版"
+         ],
+         "Background": [
+            "背景"
+         ],
+         "Language Text": [
+            "語言文字"
+         ],
+         "Language Background": [
+            "語言背景"
+         ],
+         "Current language text": [
+            "目前語言文字"
+         ],
+         "Current language background": [
+            "目前語言背景"
+         ],
+         "Full name": [
+            "全名"
+         ],
+         "Code": [
+            "代碼"
+         ],
+         "Native": [
+            "母語名稱"
+         ],
+         "Translated": [
+            "已翻譯"
+         ],
+         "Both": [
+            "兩者皆顯示"
+         ],
+         "Hidden": [
+            "隱藏"
+         ],
+         "Dropdown": [
+            "下拉選單"
+         ],
+         "List": [
+            "清單"
+         ],
+         "Justify items left": [
+            "項目靠左對齊"
+         ],
+         "Justify items center": [
+            "項目置中對齊"
+         ],
+         "Justify items right": [
+            "項目靠右對齊"
+         ],
+         "Justify items space between": [
+            "項目平均分配間距"
+         ],
+         "Horizontal": [
+            "水平"
+         ],
+         "Vertical": [
+            "垂直"
+         ],
+         "Normal": [
+            "標準"
+         ],
+         "Medium": [
+            "中"
+         ],
+         "Large": [
+            "大"
+         ],
+         "X-Large": [
+            "特大"
+         ],
+         "Ab": [
+            "Ab"
+         ],
+         "AB": [
+            "AB"
+         ],
+         "ab": [
+            "ab"
+         ],
+         "Small": [
+            "小"
+         ],
+         "displays the WPML Language Switcher": [
+            "顯示 WPML 語言切換器"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "顯示 WPML 語言切換器。"
+         ],
+         "Navigation Language Switcher": [
+            "導覽語言切換器"
+         ],
+         "Reset all": [
+            "全部重設"
+         ]
+      }
+   }
+}

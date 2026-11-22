@@ -1,0 +1,225 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "sv_SE"
+         },
+         "Advanced": [
+            "Avancerat"
+         ],
+         "HTML anchor": [
+            "HTML-ankare"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "Lägg till en genväg till det här blocket när sidan laddas med URL:en “#anchor”."
+         ],
+         "Additional CSS class(es)": [
+            "Extra CSS-klasser"
+         ],
+         "Separate multiple classes with spaces.": [
+            "Separera flera klasser med mellanslag."
+         ],
+         "Color": [
+            "Färg"
+         ],
+         "px": [
+            "px"
+         ],
+         "%": [
+            "%"
+         ],
+         "Dimensions": [
+            "Mått"
+         ],
+         "BLOCK": [
+            "BLOCK"
+         ],
+         "Block margin": [
+            "Blockmarginal"
+         ],
+         "Block padding": [
+            "Blockutfyllnad"
+         ],
+         "LANGUAGE": [
+            "SPRÅK"
+         ],
+         "Language spacing": [
+            "Språkavstånd"
+         ],
+         "Language padding": [
+            "Språkutfyllnad"
+         ],
+         "Show flag": [
+            "Visa flagga"
+         ],
+         "Show current language": [
+            "Visa aktuellt språk"
+         ],
+         "Not available while the flag is hidden. Enable Show flag to hide the language name.": [
+            "Inte tillgängligt så länge flaggan är dold. Aktivera Visa flagga för att dölja språknamnet."
+         ],
+         "Must be enabled while the language name is hidden. Enable Full name or Code to hide the flag.": [
+            "Måste vara aktiverat så länge språknamnet är dolt. Aktivera Fullständigt namn eller Kod för att dölja flaggan."
+         ],
+         "Not available in the Dropdown layout. Switch the layout to List to hide the current language.": [
+            "Inte tillgängligt i rullgardinslayouten. Ändra layouten till Lista för att dölja det aktuella språket."
+         ],
+         "Example:": [
+            "Exempel:"
+         ],
+         "Display": [
+            "Visning"
+         ],
+         "Language name": [
+            "Språknamn"
+         ],
+         "Full name written in": [
+            "Fullständigt namn skrivet på"
+         ],
+         "Style": [
+            "Stil"
+         ],
+         "Flag settings": [
+            "Flagginställningar"
+         ],
+         "Width": [
+            "Bredd"
+         ],
+         "Height": [
+            "Höjd"
+         ],
+         "Spacing": [
+            "Avstånd"
+         ],
+         "Switch to %s": [
+            "Byt till %s"
+         ],
+         "Available languages": [
+            "Tillgängliga språk"
+         ],
+         "Allow wrapping to multiple lines": [
+            "Tillåt radbrytning till flera rader"
+         ],
+         "Open on click": [
+            "Öppna vid klick"
+         ],
+         "Show arrow": [
+            "Visa pil"
+         ],
+         "Layout": [
+            "Layout"
+         ],
+         "Justification": [
+            "Justering"
+         ],
+         "Orientation": [
+            "Orientering"
+         ],
+         "Language Switcher": [
+            "Språkväljare"
+         ],
+         "Language switcher, press tab to navigate to other languages": [
+            "Språkväljare, tryck på tab för att navigera till andra språk"
+         ],
+         "Typography": [
+            "Typografi"
+         ],
+         "Background": [
+            "Bakgrund"
+         ],
+         "Language Text": [
+            "Språktext"
+         ],
+         "Language Background": [
+            "Språkbakgrund"
+         ],
+         "Current language text": [
+            "Text för nuvarande språk"
+         ],
+         "Current language background": [
+            "Nuvarande språks bakgrund"
+         ],
+         "Full name": [
+            "Fullständigt namn"
+         ],
+         "Code": [
+            "Kod"
+         ],
+         "Native": [
+            "Modersmål"
+         ],
+         "Translated": [
+            "Översatt"
+         ],
+         "Both": [
+            "Båda"
+         ],
+         "Hidden": [
+            "Dolt"
+         ],
+         "Dropdown": [
+            "Rullgardinsmeny"
+         ],
+         "List": [
+            "Lista"
+         ],
+         "Justify items left": [
+            "Vänsterjustera objekt"
+         ],
+         "Justify items center": [
+            "Centrera objekt"
+         ],
+         "Justify items right": [
+            "Högerjustera objekt"
+         ],
+         "Justify items space between": [
+            "Justera objekt med jämnt mellanrum"
+         ],
+         "Horizontal": [
+            "Horisontell"
+         ],
+         "Vertical": [
+            "Vertikal"
+         ],
+         "Normal": [
+            "Normal"
+         ],
+         "Medium": [
+            "Medium"
+         ],
+         "Large": [
+            "Stor"
+         ],
+         "X-Large": [
+            "Extra stor"
+         ],
+         "Ab": [
+            "Ab"
+         ],
+         "AB": [
+            "AB"
+         ],
+         "ab": [
+            "ab"
+         ],
+         "Small": [
+            "Liten"
+         ],
+         "displays the WPML Language Switcher": [
+            "visar WPML:s språkväljare"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "Visar WPML:s språkväljare."
+         ],
+         "Navigation Language Switcher": [
+            "Navigeringsspråkväljare"
+         ],
+         "Reset all": [
+            "Återställ alla"
+         ]
+      }
+   }
+}

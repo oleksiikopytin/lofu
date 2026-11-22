@@ -1,0 +1,30 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "nl_NL"
+         },
+         "Choose the image file type for flags": [
+            "Kies het bestandstype voor vlaggen"
+         ],
+         "This option affects only the built-in WPML flags, not the custom uploaded ones.": [
+            "Deze optie heeft alleen invloed op de ingebouwde WPML-vlaggen, niet op de aangepaste geüploade vlaggen."
+         ],
+         "%s format": [
+            "%s-indeling"
+         ],
+         "Save": [
+            "Opslaan"
+         ],
+         "The new format has been saved.": [
+            "De nieuwe indeling is opgeslagen."
+         ],
+         "Failed to save the new format": [
+            "Het opslaan van de nieuwe indeling is mislukt"
+         ]
+      }
+   }
+}

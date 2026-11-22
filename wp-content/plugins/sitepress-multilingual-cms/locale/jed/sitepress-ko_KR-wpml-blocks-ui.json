@@ -1,0 +1,225 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "ko_KR"
+         },
+         "Advanced": [
+            "고급"
+         ],
+         "HTML anchor": [
+            "HTML 앵커"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "“#anchor” URL을 사용하여 페이지를 로드할 때 이 블록에 대한 바로가기를 추가합니다."
+         ],
+         "Additional CSS class(es)": [
+            "추가 CSS 클래스"
+         ],
+         "Separate multiple classes with spaces.": [
+            "공백으로 여러 클래스를 구분합니다."
+         ],
+         "Color": [
+            "색상"
+         ],
+         "px": [
+            "px"
+         ],
+         "%": [
+            "%"
+         ],
+         "Dimensions": [
+            "크기"
+         ],
+         "BLOCK": [
+            "블록"
+         ],
+         "Block margin": [
+            "블록 여백"
+         ],
+         "Block padding": [
+            "블록 패딩"
+         ],
+         "LANGUAGE": [
+            "언어"
+         ],
+         "Language spacing": [
+            "언어 간격"
+         ],
+         "Language padding": [
+            "언어 패딩"
+         ],
+         "Show flag": [
+            "국기 표시"
+         ],
+         "Show current language": [
+            "현재 언어 표시"
+         ],
+         "Not available while the flag is hidden. Enable Show flag to hide the language name.": [
+            "국기가 숨김 상태인 동안에는 사용할 수 없습니다. 언어 이름을 숨기려면 국기 표시를 활성화하세요."
+         ],
+         "Must be enabled while the language name is hidden. Enable Full name or Code to hide the flag.": [
+            "언어 이름이 숨김 상태인 동안에는 활성화해야 합니다. 국기를 숨기려면 전체 이름 또는 코드를 활성화하세요."
+         ],
+         "Not available in the Dropdown layout. Switch the layout to List to hide the current language.": [
+            "드롭다운 레이아웃에서는 사용할 수 없습니다. 현재 언어를 숨기려면 레이아웃을 목록으로 전환하세요."
+         ],
+         "Example:": [
+            "예:"
+         ],
+         "Display": [
+            "표시"
+         ],
+         "Language name": [
+            "언어 이름"
+         ],
+         "Full name written in": [
+            "전체 이름 표기 방식"
+         ],
+         "Style": [
+            "스타일"
+         ],
+         "Flag settings": [
+            "국기 설정"
+         ],
+         "Width": [
+            "너비"
+         ],
+         "Height": [
+            "높이"
+         ],
+         "Spacing": [
+            "간격"
+         ],
+         "Switch to %s": [
+            "%s(으)로 전환"
+         ],
+         "Available languages": [
+            "사용 가능한 언어"
+         ],
+         "Allow wrapping to multiple lines": [
+            "여러 줄로 줄 바꿈 허용"
+         ],
+         "Open on click": [
+            "클릭 시 열기"
+         ],
+         "Show arrow": [
+            "화살표 표시"
+         ],
+         "Layout": [
+            "레이아웃"
+         ],
+         "Justification": [
+            "정렬"
+         ],
+         "Orientation": [
+            "방향"
+         ],
+         "Language Switcher": [
+            "언어 전환기"
+         ],
+         "Language switcher, press tab to navigate to other languages": [
+            "언어 전환기, 다른 언어로 이동하려면 Tab 키를 누르세요"
+         ],
+         "Typography": [
+            "타이포그래피"
+         ],
+         "Background": [
+            "배경"
+         ],
+         "Language Text": [
+            "언어 텍스트"
+         ],
+         "Language Background": [
+            "언어 배경"
+         ],
+         "Current language text": [
+            "현재 언어 텍스트"
+         ],
+         "Current language background": [
+            "현재 언어 배경"
+         ],
+         "Full name": [
+            "전체 이름"
+         ],
+         "Code": [
+            "코드"
+         ],
+         "Native": [
+            "원어"
+         ],
+         "Translated": [
+            "번역됨"
+         ],
+         "Both": [
+            "둘 다"
+         ],
+         "Hidden": [
+            "숨김"
+         ],
+         "Dropdown": [
+            "드롭다운"
+         ],
+         "List": [
+            "목록"
+         ],
+         "Justify items left": [
+            "왼쪽 정렬"
+         ],
+         "Justify items center": [
+            "가운데 정렬"
+         ],
+         "Justify items right": [
+            "오른쪽 정렬"
+         ],
+         "Justify items space between": [
+            "양끝 정렬"
+         ],
+         "Horizontal": [
+            "가로"
+         ],
+         "Vertical": [
+            "세로"
+         ],
+         "Normal": [
+            "보통"
+         ],
+         "Medium": [
+            "중간"
+         ],
+         "Large": [
+            "크게"
+         ],
+         "X-Large": [
+            "매우 크게"
+         ],
+         "Ab": [
+            "가나"
+         ],
+         "AB": [
+            "가나"
+         ],
+         "ab": [
+            "가나"
+         ],
+         "Small": [
+            "작게"
+         ],
+         "displays the WPML Language Switcher": [
+            "WPML 언어 전환기를 표시합니다"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "WPML 언어 전환기를 표시합니다."
+         ],
+         "Navigation Language Switcher": [
+            "네비게이션 언어 전환기"
+         ],
+         "Reset all": [
+            "모두 재설정"
+         ]
+      }
+   }
+}

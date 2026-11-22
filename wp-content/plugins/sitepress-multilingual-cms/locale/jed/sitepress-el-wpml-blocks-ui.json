@@ -1,0 +1,225 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "el"
+         },
+         "Advanced": [
+            "Προηγμένες"
+         ],
+         "HTML anchor": [
+            "Άγκυρα HTML"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "Προσθέστε μια συντόμευση σε αυτό το μπλοκ κατά τη φόρτωση της σελίδας χρησιμοποιώντας το URL “#anchor”."
+         ],
+         "Additional CSS class(es)": [
+            "Πρόσθετες κλάσεις CSS"
+         ],
+         "Separate multiple classes with spaces.": [
+            "Διαχωρίστε τις πολλαπλές κλάσεις με κενά."
+         ],
+         "Color": [
+            "Χρώμα"
+         ],
+         "px": [
+            "px"
+         ],
+         "%": [
+            "%"
+         ],
+         "Dimensions": [
+            "Διαστάσεις"
+         ],
+         "BLOCK": [
+            "ΜΠΛΟΚ"
+         ],
+         "Block margin": [
+            "Περιθώριο μπλοκ"
+         ],
+         "Block padding": [
+            "Εσωτερικό περιθώριο μπλοκ"
+         ],
+         "LANGUAGE": [
+            "ΓΛΩΣΣΑ"
+         ],
+         "Language spacing": [
+            "Απόσταση γλωσσών"
+         ],
+         "Language padding": [
+            "Εσωτερικό περιθώριο γλώσσας"
+         ],
+         "Show flag": [
+            "Εμφάνιση σημαίας"
+         ],
+         "Show current language": [
+            "Εμφάνιση τρέχουσας γλώσσας"
+         ],
+         "Not available while the flag is hidden. Enable Show flag to hide the language name.": [
+            "Μη διαθέσιμο όσο η σημαία είναι κρυφή. Ενεργοποιήστε την «Εμφάνιση σημαίας» για να αποκρύψετε το όνομα γλώσσας."
+         ],
+         "Must be enabled while the language name is hidden. Enable Full name or Code to hide the flag.": [
+            "Πρέπει να είναι ενεργοποιημένο όσο το όνομα γλώσσας είναι κρυφό. Ενεργοποιήστε το «Πλήρες όνομα» ή τον «Κωδικό» για να αποκρύψετε τη σημαία."
+         ],
+         "Not available in the Dropdown layout. Switch the layout to List to hide the current language.": [
+            "Μη διαθέσιμο στη διάταξη «Αναπτυσσόμενο». Αλλάξτε τη διάταξη σε «Λίστα» για να αποκρύψετε την τρέχουσα γλώσσα."
+         ],
+         "Example:": [
+            "Παράδειγμα:"
+         ],
+         "Display": [
+            "Εμφάνιση"
+         ],
+         "Language name": [
+            "Όνομα γλώσσας"
+         ],
+         "Full name written in": [
+            "Πλήρες όνομα γραμμένο στα"
+         ],
+         "Style": [
+            "Στυλ"
+         ],
+         "Flag settings": [
+            "Ρυθμίσεις σημαίας"
+         ],
+         "Width": [
+            "Πλάτος"
+         ],
+         "Height": [
+            "Ύψος"
+         ],
+         "Spacing": [
+            "Απόσταση"
+         ],
+         "Switch to %s": [
+            "Αλλαγή σε %s"
+         ],
+         "Available languages": [
+            "Διαθέσιμες γλώσσες"
+         ],
+         "Allow wrapping to multiple lines": [
+            "Να επιτρέπεται η αναδίπλωση σε πολλαπλές γραμμές"
+         ],
+         "Open on click": [
+            "Άνοιγμα με κλικ"
+         ],
+         "Show arrow": [
+            "Εμφάνιση βέλους"
+         ],
+         "Layout": [
+            "Διάταξη"
+         ],
+         "Justification": [
+            "Στοίχιση"
+         ],
+         "Orientation": [
+            "Προσανατολισμός"
+         ],
+         "Language Switcher": [
+            "Εναλλάκτης γλώσσας"
+         ],
+         "Language switcher, press tab to navigate to other languages": [
+            "Εναλλάκτης γλώσσας, πατήστε το πλήκτρο tab για πλοήγηση σε άλλες γλώσσες"
+         ],
+         "Typography": [
+            "Τυπογραφία"
+         ],
+         "Background": [
+            "Φόντο"
+         ],
+         "Language Text": [
+            "Κείμενο γλώσσας"
+         ],
+         "Language Background": [
+            "Φόντο γλώσσας"
+         ],
+         "Current language text": [
+            "Κείμενο τρέχουσας γλώσσας"
+         ],
+         "Current language background": [
+            "Φόντο τρέχουσας γλώσσας"
+         ],
+         "Full name": [
+            "Πλήρες όνομα"
+         ],
+         "Code": [
+            "Κωδικός"
+         ],
+         "Native": [
+            "Εγγενής"
+         ],
+         "Translated": [
+            "Μεταφρασμένο"
+         ],
+         "Both": [
+            "Και τα δύο"
+         ],
+         "Hidden": [
+            "Κρυφό"
+         ],
+         "Dropdown": [
+            "Αναπτυσσόμενο μενού"
+         ],
+         "List": [
+            "Λίστα"
+         ],
+         "Justify items left": [
+            "Στοίχιση αντικειμένων αριστερά"
+         ],
+         "Justify items center": [
+            "Στοίχιση αντικειμένων στο κέντρο"
+         ],
+         "Justify items right": [
+            "Στοίχιση αντικειμένων δεξιά"
+         ],
+         "Justify items space between": [
+            "Στοίχιση αντικειμένων με διάστημα μεταξύ τους"
+         ],
+         "Horizontal": [
+            "Οριζόντια"
+         ],
+         "Vertical": [
+            "Κατακόρυφα"
+         ],
+         "Normal": [
+            "Κανονικό"
+         ],
+         "Medium": [
+            "Μεσαίο"
+         ],
+         "Large": [
+            "Μεγάλο"
+         ],
+         "X-Large": [
+            "Πολύ μεγάλο"
+         ],
+         "Ab": [
+            "Αβ"
+         ],
+         "AB": [
+            "ΑΒ"
+         ],
+         "ab": [
+            "αβ"
+         ],
+         "Small": [
+            "Μικρό"
+         ],
+         "displays the WPML Language Switcher": [
+            "εμφανίζει τον εναλλάκτη γλώσσας του WPML"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "Εμφανίζει τον εναλλάκτη γλώσσας του WPML."
+         ],
+         "Navigation Language Switcher": [
+            "Εναλλάκτης γλώσσας πλοήγησης"
+         ],
+         "Reset all": [
+            "Επαναφορά όλων"
+         ]
+      }
+   }
+}

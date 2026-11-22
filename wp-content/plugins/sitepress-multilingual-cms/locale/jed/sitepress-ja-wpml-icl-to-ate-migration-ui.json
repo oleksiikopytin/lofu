@@ -1,0 +1,255 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "ja"
+         },
+         "Select %s": [
+            "%s を選択"
+         ],
+         "From:": [
+            "元言語："
+         ],
+         "--Choose language--": [
+            "--言語を選択--"
+         ],
+         "to:": [
+            "翻訳言語："
+         ],
+         "Set language pair(s) for Translator %s:": [
+            "翻訳者 %s の言語ペアを設定："
+         ],
+         "+ Add more language pairs for this translator": [
+            "+ この翻訳者に言語ペアを追加する"
+         ],
+         "<b>Translation Memory</b> was successfully copied to Advanced Translation Editor.": [
+            "<b>翻訳メモリ</b>が高度な翻訳エディタに正常にコピーされました。"
+         ],
+         "Deactivate ICanLocalize.com as Translation Service on this site": [
+            "このサイトの翻訳サービスとして ICanLocalize.com を無効化する"
+         ],
+         "Missing a translator? Or were new jobs since the last copy of the <b>Translation Memory</b>?": [
+            "翻訳者が不足していますか？ または、<b>翻訳メモリ</b>の最終コピー以降に新しいジョブがありましたか？"
+         ],
+         "Enter here your ICanLocalize authentication details.": [
+            "ここに ICanLocalize の認証詳細を入力してください。"
+         ],
+         "API Token:": [
+            "API トークン："
+         ],
+         "Please enter valid value for ICL token.": [
+            "有効な ICL トークン値を入力してください。"
+         ],
+         "Enter ICL API token here": [
+            "ここに ICL API トークンを入力してください"
+         ],
+         "Submit": [
+            "送信"
+         ],
+         "Sign up": [
+            "新規登録"
+         ],
+         "to ICanLocalize to receive your API token.": [
+            "して ICanLocalize から API トークンを受け取ってください。"
+         ],
+         "Already have an account? Login and": [
+            "すでにアカウントをお持ちですか？ ログインして"
+         ],
+         "get your token.": [
+            "トークンを取得してください。"
+         ],
+         "Copy new <b>Translation Memory</b> to Advanced Translation Memory": [
+            "新しい<b>翻訳メモリ</b>を高度な翻訳メモリにコピーする"
+         ],
+         "Import translation memory": [
+            "翻訳メモリをインポート"
+         ],
+         "ICanLocalize is already deactivated on this site": [
+            "ICanLocalize はこのサイトですでに無効化されています"
+         ],
+         "You can still import Translators or Copy <b>Translation Memory</b> to Advanced Translator Editor": [
+            "引き続き、翻訳者のインポートや<b>翻訳メモリ</b>の高度な翻訳エディタへのコピーが可能です"
+         ],
+         "Move from ICanLocalize.com to <b>Advanced Translation Editor</b>": [
+            "ICanLocalize.com から<b>高度な翻訳エディタ</b>へ移行する"
+         ],
+         "Import translators": [
+            "翻訳者をインポート"
+         ],
+         "Come back": [
+            "戻る"
+         ],
+         "Cancel": [
+            "キャンセル"
+         ],
+         "Save": [
+            "保存"
+         ],
+         "Name": [
+            "名前"
+         ],
+         "Language Pairs": [
+            "言語ペア"
+         ],
+         "Not supported pairs:": [
+            "サポートされていないペア："
+         ],
+         "ICanLocalize.com deactivated": [
+            "ICanLocalize.com を無効化しました"
+         ],
+         "Translate memory is imported": [
+            "翻訳メモリがインポートされました"
+         ],
+         "There is no translators in ICL": [
+            "ICL に翻訳者が存在しません"
+         ],
+         "Translators saved": [
+            "翻訳者を保存しました"
+         ],
+         "%s file upload failed.": [
+            "%s ファイルのアップロードに失敗しました。"
+         ],
+         "Flag": [
+            "国旗"
+         ],
+         "Flag file": [
+            "国旗ファイル"
+         ],
+         "You just added %s language. Next, select it as the site's default language or a translation language.": [
+            "%s を追加しました。次に、これをサイトのデフォルト言語または翻訳言語として選択してください。"
+         ],
+         "Language added": [
+            "言語を追加しました"
+         ],
+         "The value \"%s\" already exists": [
+            "値「%s」はすでに存在します"
+         ],
+         "Add a new language": [
+            "新規言語を追加"
+         ],
+         "Create a country-specific language by choosing the general language from the list below. Then, choose the country it should be localized for.": [
+            "下のリストから一般的な言語を選択して、国固有の言語を作成します。次に、ローカライズする国を選択してください。"
+         ],
+         "By choosing a combination that already exists in the database, WPML can help fill out the necessary fields. Read more about <AddingACustomLanguageLink />.": [
+            "データベースにすでに存在する組み合わせを選択することで、WPML が必要なフィールドの入力を補助します。詳細は <AddingACustomLanguageLink /> をご覧ください。"
+         ],
+         "Cannot find?": [
+            "見つかりませんか？"
+         ],
+         "Click here": [
+            "ここをクリック"
+         ],
+         "The wrong format. It may contain only small letters and \"-\". E.g: \"fr\" , \"pt-br\", \"zh-hans\"": [
+            "形式が正しくありません。小文字と「-」のみ使用できます。例：「fr」、「pt-br」、「zh-hans」"
+         ],
+         "Language": [
+            "言語"
+         ],
+         "Location": [
+            "場所"
+         ],
+         "Code": [
+            "コード"
+         ],
+         "Flags must be:": [
+            "国旗の要件："
+         ],
+         "Automatic Translation will use the default behavior for this language": [
+            "自動翻訳はこの言語のデフォルトの動作を使用します"
+         ],
+         "Language mapping": [
+            "言語マッピング"
+         ],
+         "Use Automatic Translation default behavior": [
+            "自動翻訳のデフォルトの動作を使用する"
+         ],
+         "PNG, SVG, or JPG files": [
+            "PNG、SVG、または JPG ファイル"
+         ],
+         "Default locale": [
+            "デフォルトロケール"
+         ],
+         "The wrong format. It may contain only small letters and \"_\". E.g: \"de\" , \"de_DE\", \"zh_Hant_TW\"": [
+            "形式が正しくありません。小文字と「_」のみ使用できます。例：「de」、「de_DE」、「zh_Hant_TW」"
+         ],
+         "hreflang": [
+            "hreflang"
+         ],
+         "18 x 12 pixels": [
+            "18 x 12 ピクセル"
+         ],
+         "Encode url?": [
+            "URL をエンコードしますか？"
+         ],
+         "NO": [
+            "いいえ"
+         ],
+         "YES": [
+            "はい"
+         ],
+         " (required)": [
+            " (必須)"
+         ],
+         "The name of your language as it will appear on your site's language switcher.": [
+            "サイトの言語スイッチャーに表示される言語名です。"
+         ],
+         "Please fill in the field": [
+            "フィールドを入力してください"
+         ],
+         "A unique value that identifies the language in the database and URL. Once saved, the language code cannot be changed.": [
+            "データベースと URL で言語を識別する一意の値です。一度保存すると、言語コードは変更できません。"
+         ],
+         "Save language": [
+            "言語を保存"
+         ],
+         "If your custom language is similar to an existing language, you can use the existing language's spellcheck and automatic translation. For example, if your custom language is Swiss-German, you can map to German as the language to use for spellcheck and automatic translation. If you don't map your custom language to an existing language, spellcheck and automatic translation features will be unavailable in that language.": [
+            "カスタム言語が既存の言語に似ている場合は、既存の言語のスペルチェックと自動翻訳を使用できます。例えば、カスタム言語がスイスドイツ語の場合、スペルチェックと自動翻訳に使用する言語としてドイツ語をマッピングできます。カスタム言語を既存の言語にマッピングしない場合、その言語ではスペルチェックと自動翻訳機能を利用できません。"
+         ],
+         "The value WPML checks when loading translations from MO and PO files. The default locale is included in the filenames in your /wp-content/languages/ folder in your WordPress setup.": [
+            "MO および PO ファイルから翻訳を読み込む際に WPML が確認する値です。デフォルトロケールは、WordPress セットアップの /wp-content/languages/ フォルダ内にあるファイル名に含まれています。"
+         ],
+         "Google uses the hreflang attribute to direct users to sites in their relevant language and location. Examples:": [
+            "Google は hreflang 属性を使用して、ユーザーを適切な言語と場所のサイトに誘導します。例："
+         ],
+         "All English-speaking users: en": [
+            "すべての英語ユーザー：en"
+         ],
+         "English for UK users: en-gb": [
+            "英国の英語ユーザー：en-gb"
+         ],
+         "English for US users: en-us": [
+            "米国の英語ユーザー：en-us"
+         ],
+         "Determines if URLs in this language are encoded or use ASCII characters (if unsure, leave it as \"No\").": [
+            "この言語の URL をエンコードするか、ASCII 文字を使用するかを決定します（不明な場合は「いいえ」のままにしてください）。"
+         ],
+         "adding a custom language": [
+            "カスタム言語の追加"
+         ],
+         "What are the languages of your site?": [
+            "サイトの言語は何ですか？"
+         ],
+         "Default language": [
+            "デフォルト言語"
+         ],
+         "What is the current language of your website?": [
+            "ウェブサイトの現在の言語は何ですか？"
+         ],
+         "Translation languages": [
+            "翻訳言語"
+         ],
+         "Which languages do you want to translate your site into?": [
+            "サイトをどの言語に翻訳しますか？"
+         ],
+         "If you cannot find languages that you need in the list,": [
+            "必要な言語がリストに見つからない場合は、"
+         ],
+         "create a custom language": [
+            "カスタム言語を作成してください"
+         ]
+      }
+   }
+}

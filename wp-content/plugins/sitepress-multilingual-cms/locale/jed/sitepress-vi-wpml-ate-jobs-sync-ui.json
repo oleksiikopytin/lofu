@@ -1,0 +1,189 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "vi"
+         },
+         "Sending for translation": [
+            "Đang gửi để dịch"
+         ],
+         "The translation could not be started because the server did not answer.": [
+            "Không thể bắt đầu bản dịch vì máy chủ không phản hồi."
+         ],
+         "Your session has expired. Refresh this page and try again.": [
+            "Phiên làm việc của bạn đã hết hạn. Hãy làm mới trang này và thử lại."
+         ],
+         "This translation cannot be opened right now.": [
+            "Không thể mở bản dịch này ngay bây giờ."
+         ],
+         "Refresh this page": [
+            "Tải lại trang này"
+         ],
+         "This content is being automatically translated. If you want to do something different with it cancel translation jobs first.": [
+            "Nội dung này đang được dịch tự động. Nếu bạn muốn thực hiện thao tác khác với nội dung này, hãy hủy các công việc dịch thuật trước."
+         ],
+         "You don't have the rights to review this language": [
+            "Bạn không có quyền đánh giá ngôn ngữ này"
+         ],
+         "%1$s and %2$s": [
+            "%1$s và %2$s"
+         ],
+         "Translating your content": [
+            "Đang dịch nội dung của bạn"
+         ],
+         "Translate Everything is active": [
+            "Dịch mọi thứ đang hoạt động"
+         ],
+         "%d translation notice": [
+            "%d thông báo dịch thuật"
+         ],
+         "%d min remaining": [
+            "còn %d phút"
+         ],
+         "less than 1 min remaining": [
+            "còn chưa đầy 1 phút"
+         ],
+         "<b>Translate Everything Automatically</b> is temporarily paused": [
+            "<b>Dịch mọi thứ tự động</b> tạm thời bị tạm dừng"
+         ],
+         "Automatic translation is temporarily paused": [
+            "Dịch tự động tạm thời bị tạm dừng"
+         ],
+         "We noticed something unexpected in your recent translation activity and paused automatic translation on your account. Contact support and we’ll review it with you.": [
+            "Chúng tôi nhận thấy điều gì đó bất thường trong hoạt động dịch thuật gần đây của bạn và đã tạm dừng dịch tự động trên tài khoản của bạn. Hãy liên hệ với bộ phận hỗ trợ và chúng tôi sẽ cùng bạn xem xét vấn đề này."
+         ],
+         "<b>Translate Everything Automatically</b> is paused: monthly spending cap reached": [
+            "<b>Dịch mọi thứ tự động</b> đã tạm dừng: đã đạt đến hạn mức chi tiêu hàng tháng"
+         ],
+         "Automatic translation is paused: monthly spending cap reached": [
+            "Dịch tự động đã tạm dừng: đã đạt đến hạn mức chi tiêu hàng tháng"
+         ],
+         "This website reached the monthly spending cap set for it. Translation continues when the cap is raised, or when the cap resets. You can raise it on the AI Translation: billing and usage page.": [
+            "Trang web này đã đạt đến hạn mức chi tiêu hàng tháng được thiết lập. Quá trình dịch sẽ tiếp tục khi hạn mức được nâng lên hoặc khi hạn mức được đặt lại. Bạn có thể nâng hạn mức trên trang Dịch thuật AI: thanh toán và sử dụng."
+         ],
+         "Preparing content for translation": [
+            "Đang chuẩn bị nội dung để dịch"
+         ],
+         "Preparing more content for translation": [
+            "Đang chuẩn bị thêm nội dung để dịch"
+         ],
+         "Your default language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "Ngôn ngữ mặc định của bạn, %s, phải được ánh xạ tới một ngôn ngữ được hỗ trợ để sử dụng dịch tự động."
+         ],
+         "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "Các ngôn ngữ sau trên trang web của bạn phải được ánh xạ tới một ngôn ngữ được hỗ trợ để sử dụng dịch tự động: %s"
+         ],
+         "Automatic translation isn't available between %1$s and %2$s because they're recognized as the same language. Choose \"Duplicate\" instead to copy the content across.": [
+            "Dịch tự động không khả dụng giữa %1$s và các ngôn ngữ này vì chúng được nhận dạng là cùng một ngôn ngữ: %2$s. Hãy chọn “Nhân bản” để thay thế nhằm sao chép nội dung."
+         ],
+         "%d translation waiting for review": [
+            "%d bản dịch đang chờ đánh giá"
+         ],
+         "<b>Translate Everything Automatically</b> has unresolved jobs": [
+            "<b>Dịch mọi thứ tự động</b> có các công việc chưa được giải quyết"
+         ],
+         "Automatic translation has unresolved jobs": [
+            "Dịch tự động có các công việc chưa được giải quyết"
+         ],
+         "%d job couldn't be completed. Go to <b>Translation Dashboard</b> to review and resolve.": [
+            "Không thể hoàn thành %d công việc. Đi tới <b>Bảng điều khiển dịch thuật</b> để đánh giá và giải quyết."
+         ],
+         "%1$s custom field became translatable (%2$s). Decide what happens to the translations that already exist.": [
+            "%1$s trường tùy chỉnh (%2$s) đã có thể dịch được. Hãy quyết định điều gì sẽ xảy ra với các bản dịch đã tồn tại."
+         ],
+         "Review": [
+            "Đánh giá"
+         ],
+         "Automatic translation status": [
+            "Trạng thái dịch tự động"
+         ],
+         "No translations in the queue": [
+            "Không có bản dịch nào trong hàng đợi"
+         ],
+         "Translate Everything Automatically": [
+            "Dịch mọi thứ tự động"
+         ],
+         "<b>Translate Everything Automatically</b> is active": [
+            "<b>Dịch mọi thứ tự động</b> đang hoạt động"
+         ],
+         "<b>Translate Everything Automatically</b> is paused — payment required": [
+            "<b>Dịch mọi thứ tự động</b> đã tạm dừng — yêu cầu thanh toán"
+         ],
+         "Automatic translation is paused — payment required": [
+            "Dịch tự động đã tạm dừng — yêu cầu thanh toán"
+         ],
+         "We couldn’t process your payment. Click “Pay now” to complete the transaction and resume automatic translation.": [
+            "Chúng tôi không thể xử lý thanh toán của bạn. Nhấp vào “Thanh toán ngay” để hoàn tất giao dịch và tiếp tục dịch tự động."
+         ],
+         "<b>Translate Everything Automatically</b> is paused — unpaid balance on a linked account": [
+            "<b>Dịch mọi thứ tự động</b> bị tạm dừng — số dư chưa thanh toán trên tài khoản được liên kết"
+         ],
+         "Automatic translation is paused — unpaid balance on a linked account": [
+            "Dịch tự động bị tạm dừng — số dư chưa thanh toán trên tài khoản được liên kết"
+         ],
+         "There is an unpaid balance on another account linked to this card. Settle it or contact support.": [
+            "Có một khoản số dư chưa thanh toán trên một tài khoản khác được liên kết với thẻ này. Hãy thanh toán hoặc liên hệ với bộ phận hỗ trợ."
+         ],
+         "There is an unpaid balance on another account linked to this billing e-mail. Settle it or contact support.": [
+            "Có một khoản số dư chưa thanh toán trên một tài khoản khác được liên kết với email thanh toán này. Hãy thanh toán hoặc liên hệ với bộ phận hỗ trợ."
+         ],
+         "<b>Translate Everything</b> automatically is paused - not enough words": [
+            "<b>Dịch mọi thứ</b> tự động đã tạm dừng - không đủ từ"
+         ],
+         "Automatic translation is paused — not enough words": [
+            "Dịch tự động đã tạm dừng — không đủ từ"
+         ],
+         "Translation will resume automatically once you assign more words.": [
+            "Bản dịch sẽ tự động tiếp tục sau khi bạn gán thêm từ."
+         ],
+         "You have %s prepaid translation words in your WPML account. Assign these words to this site to resume automatic translation": [
+            "Bạn có %s từ dịch thuật trả trước trong tài khoản WPML của mình. Hãy gán những từ này cho trang web này để tiếp tục dịch tự động"
+         ],
+         "Your site doesn't meet WPML's minimum requirements": [
+            "Trang web của bạn không đáp ứng các yêu cầu tối thiểu của WPML"
+         ],
+         "Fix it": [
+            "Sửa lỗi"
+         ],
+         "Stop": [
+            "Dừng"
+         ],
+         "Pay now": [
+            "Thanh toán ngay"
+         ],
+         "Get more words": [
+            "Lấy thêm từ"
+         ],
+         "Assign words": [
+            "Gán từ"
+         ],
+         "Go to Translation Jobs": [
+            "Đi tới Công việc dịch thuật"
+         ],
+         "Raise the cap": [
+            "Tăng hạn mức"
+         ],
+         "Contact support": [
+            "Liên hệ hỗ trợ"
+         ],
+         "Go to billing": [
+            "Đi đến thanh toán"
+         ],
+         "Resume": [
+            "Tiếp tục"
+         ],
+         "Refreshing translation status. Please wait.": [
+            "Đang làm mới trạng thái bản dịch. Vui lòng đợi."
+         ],
+         "This translation couldn't be completed due to an unexpected error. Please try resending it.": [
+            "Không thể hoàn thành bản dịch này do lỗi không mong muốn. Vui lòng thử gửi lại."
+         ],
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "Hệ thống dịch thuật của chúng tôi đã không chấp nhận yêu cầu này (phản hồi là %d). Vui lòng đợi một lát rồi thử lại và liên hệ với bộ phận hỗ trợ của WPML nếu tình trạng này vẫn tiếp diễn."
+         ]
+      }
+   }
+}

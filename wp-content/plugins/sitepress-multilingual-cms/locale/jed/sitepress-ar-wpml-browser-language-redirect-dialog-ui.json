@@ -1,0 +1,36 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);",
+            "lang": "ar"
+         },
+         "Before proceeding, we recommend that you read these two pages:": [
+            "قبل المتابعة، نوصيك بقراءة هاتين الصفحتين:"
+         ],
+         "How Browser Language Redirect Affects Google Indexing": [
+            "كيف تؤثر إعادة توجيه لغة المتصفح على أرشفة Google"
+         ],
+         "Documentation": [
+            "الوثائق"
+         ],
+         "Browser redirect affects Google indexing and search results": [
+            "تؤثر إعادة توجيه المتصفح على أرشفة Google ونتائج البحث"
+         ],
+         "Got it, activate anyway": [
+            "فهمت ذلك، فعّل على أي حال"
+         ],
+         "Cancel": [
+            "إلغاء"
+         ],
+         "When you redirect visitors based on their language, you also redirect Google. Google wants to see your site exactly like visitors see it, including any redirects that you apply.": [
+            "عندما تقوم بإعادة توجيه الزوار بناءً على لغتهم، فإنك تقوم أيضًا بإعادة توجيه Google. يريد Google رؤية موقعك تمامًا كما يراه الزوار، بما في ذلك أي عمليات إعادة توجيه تطبقها."
+         ],
+         "It is OK to redirect visitors based on their language, but you need to realize that this feature affects SEO.": [
+            "من الجيد إعادة توجيه الزوار بناءً على لغتهم، ولكن عليك أن تدرك أن هذه الميزة تؤثر على تحسين محركات البحث (SEO)."
+         ]
+      }
+   }
+}

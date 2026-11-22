@@ -1,0 +1,225 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "de_DE"
+         },
+         "Advanced": [
+            "Erweitert"
+         ],
+         "HTML anchor": [
+            "HTML-Anker"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "Füge eine Verknüpfung zu diesem Block hinzu, wenn die Seite über die URL „#anchor“ geladen wird."
+         ],
+         "Additional CSS class(es)": [
+            "Zusätzliche CSS-Klasse(n)"
+         ],
+         "Separate multiple classes with spaces.": [
+            "Trenne mehrere Klassen durch Leerzeichen."
+         ],
+         "Color": [
+            "Farbe"
+         ],
+         "px": [
+            "px"
+         ],
+         "%": [
+            "%"
+         ],
+         "Dimensions": [
+            "Dimensionen"
+         ],
+         "BLOCK": [
+            "BLOCK"
+         ],
+         "Block margin": [
+            "Block-Außenabstand"
+         ],
+         "Block padding": [
+            "Block-Innenabstand"
+         ],
+         "LANGUAGE": [
+            "SPRACHE"
+         ],
+         "Language spacing": [
+            "Sprachabstand"
+         ],
+         "Language padding": [
+            "Sprach-Innenabstand"
+         ],
+         "Show flag": [
+            "Flagge anzeigen"
+         ],
+         "Show current language": [
+            "Aktuelle Sprache anzeigen"
+         ],
+         "Not available while the flag is hidden. Enable Show flag to hide the language name.": [
+            "Nicht verfügbar, solange die Flagge verborgen ist. Aktivieren Sie „Flagge anzeigen“, um den Sprachnamen zu verbergen."
+         ],
+         "Must be enabled while the language name is hidden. Enable Full name or Code to hide the flag.": [
+            "Muss aktiviert sein, solange der Sprachname verborgen ist. Aktivieren Sie „Vollständiger Name“ oder „Code“, um die Flagge zu verbergen."
+         ],
+         "Not available in the Dropdown layout. Switch the layout to List to hide the current language.": [
+            "Im Dropdown-Layout nicht verfügbar. Wechseln Sie das Layout zu „Liste“, um die aktuelle Sprache zu verbergen."
+         ],
+         "Example:": [
+            "Beispiel:"
+         ],
+         "Display": [
+            "Anzeige"
+         ],
+         "Language name": [
+            "Sprachname"
+         ],
+         "Full name written in": [
+            "Vollständiger Name geschrieben in"
+         ],
+         "Style": [
+            "Stil"
+         ],
+         "Flag settings": [
+            "Flaggen-Einstellungen"
+         ],
+         "Width": [
+            "Breite"
+         ],
+         "Height": [
+            "Höhe"
+         ],
+         "Spacing": [
+            "Abstand"
+         ],
+         "Switch to %s": [
+            "Zu %s wechseln"
+         ],
+         "Available languages": [
+            "Verfügbare Sprachen"
+         ],
+         "Allow wrapping to multiple lines": [
+            "Zeilenumbruch zulassen"
+         ],
+         "Open on click": [
+            "Beim Klicken öffnen"
+         ],
+         "Show arrow": [
+            "Pfeil anzeigen"
+         ],
+         "Layout": [
+            "Layout"
+         ],
+         "Justification": [
+            "Ausrichtung"
+         ],
+         "Orientation": [
+            "Ausrichtung"
+         ],
+         "Language Switcher": [
+            "Sprachumschalter"
+         ],
+         "Language switcher, press tab to navigate to other languages": [
+            "Sprachumschalter, drücke die Tab-Taste, um zu anderen Sprachen zu navigieren"
+         ],
+         "Typography": [
+            "Typografie"
+         ],
+         "Background": [
+            "Hintergrund"
+         ],
+         "Language Text": [
+            "Sprach-Text"
+         ],
+         "Language Background": [
+            "Sprach-Hintergrund"
+         ],
+         "Current language text": [
+            "Text der aktuellen Sprache"
+         ],
+         "Current language background": [
+            "Hintergrund der aktuellen Sprache"
+         ],
+         "Full name": [
+            "Vollständiger Name"
+         ],
+         "Code": [
+            "Code"
+         ],
+         "Native": [
+            "Nativ"
+         ],
+         "Translated": [
+            "Übersetzt"
+         ],
+         "Both": [
+            "Beides"
+         ],
+         "Hidden": [
+            "Verborgen"
+         ],
+         "Dropdown": [
+            "Dropdown"
+         ],
+         "List": [
+            "Liste"
+         ],
+         "Justify items left": [
+            "Elemente linksbündig ausrichten"
+         ],
+         "Justify items center": [
+            "Elemente zentriert ausrichten"
+         ],
+         "Justify items right": [
+            "Elemente rechtsbündig ausrichten"
+         ],
+         "Justify items space between": [
+            "Elemente mit Abstand dazwischen ausrichten"
+         ],
+         "Horizontal": [
+            "Horizontal"
+         ],
+         "Vertical": [
+            "Vertikal"
+         ],
+         "Normal": [
+            "Normal"
+         ],
+         "Medium": [
+            "Mittel"
+         ],
+         "Large": [
+            "Groß"
+         ],
+         "X-Large": [
+            "Extra groß"
+         ],
+         "Ab": [
+            "Ab"
+         ],
+         "AB": [
+            "AB"
+         ],
+         "ab": [
+            "ab"
+         ],
+         "Small": [
+            "Klein"
+         ],
+         "displays the WPML Language Switcher": [
+            "zeigt den WPML-Sprachumschalter an"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "Zeigt den WPML-Sprachumschalter an."
+         ],
+         "Navigation Language Switcher": [
+            "Navigations-Sprachumschalter"
+         ],
+         "Reset all": [
+            "Alles zurücksetzen"
+         ]
+      }
+   }
+}

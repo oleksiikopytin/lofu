@@ -1,0 +1,651 @@
+<?php
+#[\AllowDynamicProperties]
+class WPML_Package {
+
+	const CACHE_GROUP = 'WPML_Package';
+
+	const INSERT_LOCK_WAIT_SECONDS = 5;
+
+	public $ID;
+	public $view_link;
+	public $edit_link;
+	public $is_translation;
+	public $string_data;
+	public $title;
+	public $new_title;
+	public $kind_slug;
+	public $kind;
+	public $trid;
+	public $name;
+	public $translation_element_type;
+	public $post_id;
+	public $owner_kind;
+	public $owner_element_id;
+	public $translator_note;
+
+	private $element_type_prefix;
+
+	private $translate_only = false;
+
+	private $inserted = false;
+	private $owner_declared = false;
+
+	function __construct( $data_item ) {
+		$this->element_type_prefix = 'package';
+		$this->view_link           = '';
+		$this->edit_link           = '';
+		$this->post_id             = null;
+		if ( $data_item ) {
+			if ( is_object( $data_item ) ) {
+				$data_item = get_object_vars( $data_item );
+			}
+			if ( is_numeric( $data_item ) ) {
+				$row = $this->init_from_id( $data_item, ARRAY_A );
+				if ( $row ) {
+					$this->init_from_row( $row );
+				}
+
+				return;
+			}
+			if ( isset( $data_item['title'] ) ) {
+				$this->new_title = $data_item['title'];
+			}
+			if ( $data_item && is_array( $data_item ) ) {
+				$this->init_from_array( $data_item );
+			}
+			$this->new_title = $this->new_title != $this->title ? $this->new_title : null;
+		}
+	}
+
+	private function init_from_id( $id, $output = OBJECT ) {
+		global $wpdb;
+
+		if ( ! self::packages_table_exists() ) {
+			return null;
+		}
+
+		$package = $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}icl_string_packages WHERE id = %s", $id ),
+			$output
+		);
+
+		return $package;
+	}
+
+	public static function from_row( $row ) {
+		$package = new self( null );
+		$row     = is_object( $row ) ? get_object_vars( $row ) : (array) $row;
+		if ( $row ) {
+			$package->init_from_row( $row );
+		}
+
+		return $package;
+	}
+
+	private function init_from_row( array $row ) {
+		foreach ( $row as $key => $value ) {
+			if ( 'id' === $key ) {
+				$key = 'ID';
+			}
+			$this->$key = $value;
+		}
+
+		$this->sanitize_kind();
+		$this->set_package_post_data();
+	}
+
+	public function __get( $property ) {
+		if ( $property == 'id' ) {
+			_deprecated_argument( 'id', '0.0.2', "Property 'id' is deprecated. Please use 'ID'." );
+
+			return $this->ID;
+		}
+		if ( $property == 'post_id' ) {
+			return $this->ID;
+		}
+		if ( $property == 'post_title' ) {
+			return $this->title;
+		}
+		if ( $property == 'post_type' ) {
+			return $this->kind_slug;
+		}
+
+		return null;
+	}
+
+	public function __set( $property, $value ) {
+		if ( $property == 'id' ) {
+			_deprecated_argument( 'id', '0.0.2', "Property 'id' is deprecated. Please use 'ID'." );
+			$this->ID = $value;
+		} else {
+			$this->$property = $value;
+		}
+	}
+
+	public function __isset( $property ) {
+		if ( $property == 'id' ) {
+			return isset( $this->ID );
+		}
+
+		return false;
+	}
+
+	public function __unset( $property ) {
+		if ( $property == 'id' ) {
+			unset( $this->$property );
+		}
+	}
+
+	public function get_translation_element_type() {
+		return $this->translation_element_type;
+	}
+
+	public function get_package_post_id() {
+		return $this->get_element_type_prefix() . '_' . $this->kind_slug . '_' . $this->ID;
+	}
+
+	public function get_element_type_prefix() {
+		return $this->element_type_prefix;
+	}
+
+	public function set_package_post_data() {
+		$this->translation_element_type = $this->element_type_prefix . '_' . $this->kind_slug;
+		$this->update_strings_data();
+	}
+
+	public function update_strings_data() {
+		$strings    = [];
+		$package_id = $this->ID;
+		if ( $package_id ) {
+			$results = $this->get_package_strings();
+			foreach ( $results as $result ) {
+				$string_name             = $this->get_package_string_name_from_st_name( $result );
+				$strings[ $string_name ] = $result->value;
+			}
+
+			$this->string_data = $strings;
+		}
+	}
+
+	public function get_package_strings( $refresh = false ) {
+		global $wpdb;
+		$package_id = $this->ID;
+		$results    = false;
+		if ( $package_id ) {
+
+			$cache     = new WPML_WP_Cache( self::CACHE_GROUP );
+			$cache_key = 'strings:' . $package_id;
+			$found     = false;
+
+			$results = $cache->get( $cache_key, $found );
+			if ( ! $found || $refresh ) {
+				$results = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT id, name, value, wrap_tag, type, title
+						 FROM {$wpdb->prefix}icl_strings
+						 WHERE string_package_id = %d
+						 ORDER BY location, id ASC",
+						$package_id
+					)
+				);
+
+				$cache->set( $cache_key, $results );
+			}
+		}
+
+		return $results;
+	}
+
+	public function set_strings_language( $language_code ) {
+		global $wpdb;
+		$package_id = $this->ID;
+		if ( $package_id ) {
+			$wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->prefix}icl_strings SET language = %s WHERE string_package_id = %d",
+					$language_code,
+					$package_id
+				)
+			);
+
+			( new \WPML\ST\SameLanguageTranslations( $wpdb ) )->remove_for_package( (int) $package_id, 'package-set-strings-language' );
+
+			do_action( 'wpml_st_string_updated' );
+		}
+
+	}
+
+	private function get_package_string_name_from_st_name( $result ) {
+
+		return $result->name;
+	}
+
+	private function sanitize_attributes() {
+		if ( isset( $this->name ) ) {
+			$this->name = $this->sanitize_string_name( $this->name );
+		}
+		if ( ( ! isset( $this->title ) || $this->title === '' ) && isset( $this->name ) ) {
+			$this->title = $this->name;
+		}
+		if ( ! isset( $this->edit_link ) ) {
+			$this->edit_link = '';
+		}
+
+		$this->sanitize_kind();
+	}
+
+	public function create_new_package_record() {
+		$this->inserted = false;
+		$this->sanitize_attributes();
+
+		if ( ! self::packages_table_exists() ) {
+			return 0;
+		}
+
+		$package_id = $this->package_exists();
+		if ( ! $package_id ) {
+			$lock      = \WPML\ST\PackageTranslation\PackageLock::create( 'string-package|' . $this->kind_slug . '|' . $this->name );
+			$is_locked = $lock->acquire( self::INSERT_LOCK_WAIT_SECONDS );
+
+			try {
+				$package_id = $this->stored_package_id();
+				if ( $package_id ) {
+					$this->ID = $package_id;
+				} else {
+					$package_id = $this->insert_package_record();
+				}
+			} finally {
+				if ( $is_locked ) {
+					$lock->release();
+				}
+			}
+		}
+
+		return $package_id;
+	}
+
+	public function was_inserted() {
+		return $this->inserted;
+	}
+
+	private function stored_package_id() {
+		global $wpdb;
+
+		return (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug = %s AND name = %s ORDER BY ID ASC LIMIT 1",
+				$this->kind_slug,
+				$this->name
+			)
+		);
+	}
+
+	private function insert_package_record() {
+		global $wpdb;
+
+		$data = array(
+			'kind_slug' => $this->kind_slug,
+			'kind'      => $this->kind,
+			'name'      => $this->name,
+			'title'     => $this->title,
+			'edit_link' => $this->edit_link,
+			'view_link' => $this->view_link,
+			'post_id'   => $this->post_id,
+		);
+		$data = array_merge( $data, $this->ownerData() );
+
+		$wereSuppressed = $wpdb->suppress_errors( true );
+		$this->inserted = false !== $wpdb->insert( $wpdb->prefix . 'icl_string_packages', $data );
+		$wpdb->suppress_errors( $wereSuppressed );
+		self::forget_all_packages_list();
+
+		if ( $this->inserted ) {
+			$this->ID = (int) $wpdb->insert_id;
+			if ( $this->owner_kind ) {
+				\WPML\ST\PackageTranslation\Ownership::recordChange( $this->owner_kind, $this->owner_element_id, $this->ID );
+			}
+		} else {
+			$error    = $wpdb->last_error;
+			$this->ID = $this->stored_package_id();
+			if ( ! $this->ID ) {
+				error_log( 'WPML String Translation: the string package ' . $this->kind_slug . ' / ' . $this->name . ' was not stored: ' . $error );
+			}
+		}
+
+		return $this->ID;
+	}
+
+	private function ownerData( $apply = true ) {
+		$data = ( new \WPML\ST\PackageTranslation\Ownership() )->registrationData( $this->post_id, $this->owner ?? null );
+		if ( $apply ) {
+			foreach ( $data as $key => $value ) {
+				$this->$key = $value;
+			}
+		}
+		return $data;
+	}
+
+	public function has_owner_change() {
+		$current = [ 'post_id' => $this->post_id, 'owner_kind' => $this->owner_kind ?? null, 'owner_element_id' => $this->owner_element_id ?? null ];
+		$data = $this->owner_declared ? $this->ownerData( false ) : [];
+		return $data && array_diff_assoc( $data, $current );
+	}
+
+	public function update_package_record() {
+		$result = false;
+
+		if ( $this->ID && self::packages_table_exists() ) {
+			global $wpdb;
+			$owner_changed = $this->has_owner_change();
+			$update_data  = array(
+				'kind_slug' => $this->kind_slug,
+				'kind'      => $this->kind,
+				'name'      => $this->name,
+				'title'     => $this->title,
+				'edit_link' => $this->edit_link,
+				'view_link' => $this->view_link,
+			);
+			$update_where = array(
+				'ID' => $this->ID,
+			);
+			if ( $owner_changed ) {
+				$update_data = array_merge( $update_data, $this->ownerData() );
+			}
+			$result = $wpdb->update( $wpdb->prefix . 'icl_string_packages', $update_data, $update_where );
+			self::forget_all_packages_list();
+			if ( false !== $result && $owner_changed && $this->owner_kind ) {
+				\WPML\ST\PackageTranslation\Ownership::recordChange( $this->owner_kind, $this->owner_element_id, $this->ID );
+			}
+		}
+
+		return $result;
+	}
+
+	private static function forget_all_packages_list() {
+		wp_cache_delete( 'get_all_packages', 'string_package' );
+	}
+
+	public function get_package_id() {
+		return $this->ID;
+	}
+
+	public function sanitize_string_name( $string_name ) {
+		$string_name = preg_replace( '/[ \[\]]+/', '-', $string_name );
+
+		return $string_name;
+	}
+
+	function translate_string( $string_value, $sanitized_string_name ) {
+		if ( $this->translate_only || $this->get_package_id() ) {
+			$sanitized_string_name = $this->sanitize_string_name( $sanitized_string_name );
+
+			$string_context = $this->get_string_context_from_package();
+
+			$string_name = $sanitized_string_name;
+
+			return icl_translate( $string_context, $string_name, $string_value );
+		} else {
+			return $string_value;
+		}
+	}
+
+	function get_string_context_from_package() {
+		return $this->kind_slug . '-' . $this->name;
+	}
+
+	public function get_string_id_from_package( $string_name, $string_value ) {
+		$package_id     = $this->get_package_id();
+		$string_context = $this->get_string_context_from_package();
+
+		$string_data = array(
+			'context' => $string_context,
+			'name'    => $string_name,
+		);
+
+		$string_id = apply_filters( 'wpml_string_id', null, $string_data );
+
+		if ( ! $string_id ) {
+			$string_id = icl_register_string( $string_context, $string_name, $string_value, false, $this->get_package_language() );
+		}
+
+		return $string_id;
+	}
+
+	function get_translated_strings( $strings ) {
+		$package_id = $this->get_package_id();
+
+		if ( $package_id ) {
+			$results = $this->get_package_strings();
+
+			foreach ( $results as $result ) {
+				$translations = icl_get_string_translations_by_id( $result->id );
+				if ( ! empty( $translations ) ) {
+					$string_name             = $this->get_package_string_name_from_st_name( $result );
+					$strings[ $string_name ] = $translations;
+				}
+			}
+		}
+
+		return $strings;
+	}
+
+	function set_translated_strings( $translations ) {
+		global $wpdb;
+
+		$this->sanitize_attributes();
+		$package_id = $this->get_package_id();
+
+		if ( $package_id ) {
+			foreach ( $translations as $string_name => $languages ) {
+				$string_id = $wpdb->get_var(
+					$wpdb->prepare( "SELECT id FROM {$wpdb->prefix}icl_strings WHERE name = %s", $string_name )
+				);
+				foreach ( $languages as $language_code => $language_data ) {
+					icl_add_string_translation( $string_id, $language_code, $language_data['value'], $language_data['status'] );
+				}
+			}
+		}
+	}
+
+	private function init_from_array( $args ) {
+		$this->owner_declared = array_key_exists( 'owner', $args ) || array_key_exists( 'post_id', $args );
+		foreach ( $args as $key => $value ) {
+			if ( 'id' == $key ) {
+				$key = 'ID';
+			}
+			$this->$key = $value;
+		}
+
+		$this->sanitize_attributes();
+
+		if ( $this->translate_only ) {
+			return;
+		}
+
+		$this->set_package_from_db();
+		$this->set_package_post_data();
+	}
+
+	public function has_kind_and_name() {
+		return ( isset( $this->kind ) && isset( $this->name ) && $this->kind && $this->name );
+	}
+
+	private function set_package_from_db() {
+		$package = $this->get_package_from_id();
+		if ( ! $package && $this->has_kind_and_name() ) {
+			$package = $this->get_package_from_name_and_kind();
+		}
+		if ( $package ) {
+			$this->object_to_package( $package );
+			$this->sanitize_kind();
+		}
+	}
+
+	private function get_package_from_id() {
+		$result = false;
+		if ( $this->has_id() && self::packages_table_exists() ) {
+			global $wpdb;
+
+			$result = $wpdb->get_row(
+				$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}icl_string_packages WHERE ID = %d", array( $this->ID ) )
+			);
+		}
+
+		return $result;
+	}
+
+	private function get_package_from_name_and_kind() {
+		global $wpdb;
+
+		$cache     = new WPML_WP_Cache( self::CACHE_GROUP );
+		$cache_key = 'name-kind:' . $this->kind_slug . $this->name;
+		$found     = false;
+
+		$result = $cache->get( $cache_key, $found );
+		if ( ! $found && self::packages_table_exists() ) {
+			$result = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug = %s AND name = %s",
+					array( $this->kind_slug, $this->name )
+				)
+			);
+
+			if ( $result ) {
+				$cache->set( $cache_key, $result );
+			}
+		}
+		return $result;
+	}
+
+	private function package_name_and_kind_exists() {
+		$result = false;
+		if ( $this->has_kind_and_name() ) {
+			$result = (bool) $this->get_package_from_name_and_kind();
+		}
+
+		return $result;
+	}
+
+	private function package_id_exists() {
+		$result = false;
+		if ( $this->has_id() && self::packages_table_exists() ) {
+			global $wpdb;
+
+			$result = $wpdb->get_var(
+				$wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE ID = %d", array( $this->ID ) )
+			);
+		}
+
+		return $result;
+	}
+
+	protected function package_exists() {
+		$existing_package = false;
+		if ( $this->has_id() ) {
+			$existing_package = $this->package_id_exists();
+		} elseif ( $this->has_kind_and_name() ) {
+			$existing_package = $this->package_name_and_kind_exists();
+		}
+
+		return $existing_package;
+	}
+
+	private static function packages_table_exists() {
+		return \WPML\Upgrade\SchemaFacts::hasTable( 'icl_string_packages' );
+	}
+
+	private function has_id() {
+		return isset( $this->ID ) && $this->ID;
+	}
+
+	private function object_to_package( $package ) {
+		$this->ID        = $package->ID;
+		$this->kind_slug = $package->kind_slug;
+		$this->kind      = $package->kind;
+		$this->name      = $package->name;
+		$this->title     = $package->title;
+		$this->edit_link = $package->edit_link;
+		$this->view_link = $package->view_link;
+		$this->post_id = $this->owner_declared ? ( $package->post_id ?? $this->post_id ) : $this->post_id;
+		$this->owner_kind = $package->owner_kind ?? null;
+		$this->owner_element_id = $package->owner_element_id ?? null;
+	}
+
+	private function get_kind_from_slug() {
+		global $wpdb;
+		if ( $this->kind_slug && self::packages_table_exists() ) {
+			$kinds = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT kind FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug = %s GROUP BY kind",
+					$this->kind_slug
+				)
+			);
+			if ( count( $kinds ) > 1 ) {
+				throw new WPML_Package_Exception( 'error', 'Package contains multiple kinds' );
+			}
+			if ( $kinds ) {
+				return $kinds[0];
+			}
+		}
+		return null;
+	}
+
+	private function sanitize_kind() {
+		if ( isset( $this->kind ) && ( ! isset( $this->kind_slug ) || trim( $this->kind_slug ) === '' ) ) {
+			$this->kind_slug = sanitize_title_with_dashes( $this->kind );
+		}
+		if ( $this->kind == $this->kind_slug ) {
+			$this->kind = $this->get_kind_from_slug();
+		}
+	}
+
+	public function get_package_element_type() {
+		return 'package_' . $this->kind_slug;
+	}
+
+	public function get_package_language() {
+		global $sitepress, $wpdb;
+		if ( $this->owner_kind ) {
+			$owner = ( new \WPML\ST\PackageTranslation\Ownership() )->owner( null, $this );
+			if ( $owner['language'] ?? null ) {
+				return $owner['language'];
+			}
+		}
+
+		if ( $this->post_id ) {
+			$details = null;
+			$post    = get_post( $this->post_id );
+
+			if ( $post ) {
+				$details = $sitepress->get_element_language_details( $this->post_id, 'post_' . $post->post_type );
+			}
+		} else {
+			$element_type = $this->get_package_element_type();
+			$details      = $sitepress->get_element_language_details( $this->ID, $element_type );
+		}
+
+		if ( $details ) {
+			return $details->language_code;
+		} else {
+			return null;
+		}
+	}
+
+	public function are_all_strings_included( $strings ) {
+		$package_strings = $this->get_package_strings();
+		if ( is_array( $package_strings ) ) {
+			foreach ( $package_strings as $string ) {
+				if ( ! in_array( $string->id, $strings ) ) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public function flush_cache() {
+		$cache = new WPML_WP_Cache( self::CACHE_GROUP );
+		$cache->flush_group_cache();
+	}
+}

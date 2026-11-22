@@ -1,0 +1,189 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "ja"
+         },
+         "Sending for translation": [
+            "翻訳を送信中"
+         ],
+         "The translation could not be started because the server did not answer.": [
+            "サーバーが応答しなかったため、翻訳を開始できませんでした。"
+         ],
+         "Your session has expired. Refresh this page and try again.": [
+            "セッションが期限切れになりました。このページを更新して再試行してください。"
+         ],
+         "This translation cannot be opened right now.": [
+            "現在、この翻訳を開くことができません。"
+         ],
+         "Refresh this page": [
+            "このページを更新する"
+         ],
+         "This content is being automatically translated. If you want to do something different with it cancel translation jobs first.": [
+            "このコンテンツは自動翻訳されています。別の操作を行いたい場合は、まず翻訳ジョブをキャンセルしてください。"
+         ],
+         "You don't have the rights to review this language": [
+            "この言語をレビューする権限がありません"
+         ],
+         "%1$s and %2$s": [
+            "%1$s および %2$s"
+         ],
+         "Translating your content": [
+            "コンテンツを翻訳中"
+         ],
+         "Translate Everything is active": [
+            "すべてを翻訳するが有効です"
+         ],
+         "%d translation notice": [
+            "%d 件の翻訳通知"
+         ],
+         "%d min remaining": [
+            "残り %d 分"
+         ],
+         "less than 1 min remaining": [
+            "残り 1 分未満"
+         ],
+         "<b>Translate Everything Automatically</b> is temporarily paused": [
+            "<b>すべてを自動翻訳する</b>は一時的に停止しています"
+         ],
+         "Automatic translation is temporarily paused": [
+            "自動翻訳は一時的に停止しています"
+         ],
+         "We noticed something unexpected in your recent translation activity and paused automatic translation on your account. Contact support and we’ll review it with you.": [
+            "最近の翻訳アクティビティに予期しない動きがあったため、アカウントの自動翻訳を停止しました。サポートにお問い合わせいただければ、内容を確認いたします。"
+         ],
+         "<b>Translate Everything Automatically</b> is paused: monthly spending cap reached": [
+            "<b>すべてを自動翻訳する</b>は一時停止中です - 月額利用限度額に達しました"
+         ],
+         "Automatic translation is paused: monthly spending cap reached": [
+            "自動翻訳は一時停止中です：月額利用限度額に達しました"
+         ],
+         "This website reached the monthly spending cap set for it. Translation continues when the cap is raised, or when the cap resets. You can raise it on the AI Translation: billing and usage page.": [
+            "このウェブサイトは設定された月額利用限度額に達しました。限度額を引き上げるか、リセットされると翻訳が再開されます。限度額は「AI 翻訳：請求と使用状況」ページで引き上げることができます。"
+         ],
+         "Preparing content for translation": [
+            "翻訳するコンテンツを準備中"
+         ],
+         "Preparing more content for translation": [
+            "さらに翻訳するコンテンツを準備中"
+         ],
+         "Your default language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "自動翻訳を使用するには、デフォルト言語の %s をサポートされている言語にマッピングする必要があります。"
+         ],
+         "Your language, %s, must be mapped to a supported language in order to use automatic translation.": [
+            "自動翻訳を使用するには、サイトの次の言語をサポートされている言語にマッピングする必要があります：%s"
+         ],
+         "Automatic translation isn't available between %1$s and %2$s because they're recognized as the same language. Choose \"Duplicate\" instead to copy the content across.": [
+            "%1$s と以下の言語は同じ言語として認識されるため、自動翻訳を利用できません：%2$s。代わりに「複製」を選択してコンテンツをコピーしてください。"
+         ],
+         "%d translation waiting for review": [
+            "%d 件の翻訳がレビュー待ちです"
+         ],
+         "<b>Translate Everything Automatically</b> has unresolved jobs": [
+            "<b>すべてを自動翻訳する</b>に未解決のジョブがあります"
+         ],
+         "Automatic translation has unresolved jobs": [
+            "自動翻訳に未解決のジョブがあります"
+         ],
+         "%d job couldn't be completed. Go to <b>Translation Dashboard</b> to review and resolve.": [
+            "%d 件のジョブを完了できませんでした。<b>翻訳ダッシュボード</b>に移動して確認し、解決してください。"
+         ],
+         "%1$s custom field became translatable (%2$s). Decide what happens to the translations that already exist.": [
+            "%1$s 個のカスタムフィールド（(%2$s)）が翻訳可能になりました。既存の翻訳をどうするか決定してください。"
+         ],
+         "Review": [
+            "レビュー"
+         ],
+         "Automatic translation status": [
+            "自動翻訳のステータス"
+         ],
+         "No translations in the queue": [
+            "キューに翻訳はありません"
+         ],
+         "Translate Everything Automatically": [
+            "すべてを自動翻訳する"
+         ],
+         "<b>Translate Everything Automatically</b> is active": [
+            "<b>すべてを自動翻訳する</b>は有効です"
+         ],
+         "<b>Translate Everything Automatically</b> is paused — payment required": [
+            "<b>すべてを自動翻訳する</b>は一時停止中です — 支払いが必要です"
+         ],
+         "Automatic translation is paused — payment required": [
+            "自動翻訳は一時停止中です — 支払いが必要です"
+         ],
+         "We couldn’t process your payment. Click “Pay now” to complete the transaction and resume automatic translation.": [
+            "お支払いを処理できませんでした。「今すぐ支払う」をクリックして取引を完了し、自動翻訳を再開してください。"
+         ],
+         "<b>Translate Everything Automatically</b> is paused — unpaid balance on a linked account": [
+            "<b>すべてを自動翻訳する</b>が一時停止されています — リンクされたアカウントに残高の未払いがあります"
+         ],
+         "Automatic translation is paused — unpaid balance on a linked account": [
+            "自動翻訳が一時停止されています — リンクされたアカウントに残高の未払いがあります"
+         ],
+         "There is an unpaid balance on another account linked to this card. Settle it or contact support.": [
+            "このカードにリンクされている別のアカウントに残高の未払いがあります。未払い額を精算するか、サポートにお問い合わせください。"
+         ],
+         "There is an unpaid balance on another account linked to this billing e-mail. Settle it or contact support.": [
+            "この請求先メールアドレスにリンクされている別のアカウントに残高の未払いがあります。未払い額を精算するか、サポートにお問い合わせください。"
+         ],
+         "<b>Translate Everything</b> automatically is paused - not enough words": [
+            "<b>すべてを自動翻訳する</b>は一時停止中です - 単語が不足しています"
+         ],
+         "Automatic translation is paused — not enough words": [
+            "自動翻訳は一時停止中です — 単語が不足しています"
+         ],
+         "Translation will resume automatically once you assign more words.": [
+            "単語をさらに割り当てると、翻訳が自動的に再開されます。"
+         ],
+         "You have %s prepaid translation words in your WPML account. Assign these words to this site to resume automatic translation": [
+            "WPML アカウントに %s プリペイド翻訳単語があります。自動翻訳を再開するには、これらの単語をこのサイトに割り当ててください"
+         ],
+         "Your site doesn't meet WPML's minimum requirements": [
+            "サイトが WPML の最小要件を満たしていません"
+         ],
+         "Fix it": [
+            "修正する"
+         ],
+         "Stop": [
+            "停止"
+         ],
+         "Pay now": [
+            "今すぐ支払う"
+         ],
+         "Get more words": [
+            "単語を追加購入する"
+         ],
+         "Assign words": [
+            "単語を割り当てる"
+         ],
+         "Go to Translation Jobs": [
+            "翻訳ジョブに移動"
+         ],
+         "Raise the cap": [
+            "限度額を引き上げる"
+         ],
+         "Contact support": [
+            "サポートに連絡"
+         ],
+         "Go to billing": [
+            "請求へ移動"
+         ],
+         "Resume": [
+            "再開"
+         ],
+         "Refreshing translation status. Please wait.": [
+            "翻訳ステータスを更新しています。お待ちください。"
+         ],
+         "This translation couldn't be completed due to an unexpected error. Please try resending it.": [
+            "予期しないエラーが発生したため、この翻訳を完了できませんでした。再送信を試みてください。"
+         ],
+         "Our translation system did not accept this request (it answered %d). Wait a minute and try again, and contact WPML support if it keeps happening.": [
+            "翻訳システムがこのリクエストを受け付けませんでした（応答：%d）。しばらく待ってからもう一度お試しください。問題が解決しない場合は、WPMLサポートにお問い合わせください。"
+         ]
+      }
+   }
+}

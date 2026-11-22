@@ -1,0 +1,39 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=1; plural=0;",
+            "lang": "ja"
+         },
+         "The wpml-config.xml file in the root folder of your theme and plugins tells WPML which content is translatable. You can override these settings with your own custom settings by adding them below.": [
+            "テーマやプラグインのルートフォルダーにある wpml-config.xml ファイルは、どのコンテンツが翻訳可能かを WPML に伝えます。以下のフィールドに独自の設定を追加することで、これらの設定を上書きできます。"
+         ],
+         "Read more about language configuration files.": [
+            "言語設定ファイルの詳細を読む。"
+         ],
+         "Save": [
+            "保存"
+         ],
+         "Error": [
+            "エラー"
+         ],
+         "Configuration saved.": [
+            "設定を保存しました。"
+         ],
+         "Could not save the configuration — please retry.": [
+            "設定を保存できませんでした。もう一度お試しください。"
+         ],
+         "Shortcuts": [
+            "ショートカット"
+         ],
+         "Fold/Unfold code": [
+            "コードを折りたたむ/展開する"
+         ],
+         "Auto format": [
+            "自動フォーマット"
+         ]
+      }
+   }
+}

@@ -1,0 +1,225 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "nl_NL"
+         },
+         "Advanced": [
+            "Geavanceerd"
+         ],
+         "HTML anchor": [
+            "HTML-anker"
+         ],
+         "Add a shortcut to this block when loading the page using the “#anchor” URL.": [
+            "Voeg een snelkoppeling naar dit blok toe bij het laden van de pagina via de “#anchor”-URL."
+         ],
+         "Additional CSS class(es)": [
+            "Extra CSS-class(es)"
+         ],
+         "Separate multiple classes with spaces.": [
+            "Scheid meerdere classes met spaties."
+         ],
+         "Color": [
+            "Kleur"
+         ],
+         "px": [
+            "px"
+         ],
+         "%": [
+            "%"
+         ],
+         "Dimensions": [
+            "Afmetingen"
+         ],
+         "BLOCK": [
+            "BLOK"
+         ],
+         "Block margin": [
+            "Blokmarge"
+         ],
+         "Block padding": [
+            "Blokpadding"
+         ],
+         "LANGUAGE": [
+            "TAAL"
+         ],
+         "Language spacing": [
+            "Taalafstand"
+         ],
+         "Language padding": [
+            "Taalpadding"
+         ],
+         "Show flag": [
+            "Vlag weergeven"
+         ],
+         "Show current language": [
+            "Huidige taal tonen"
+         ],
+         "Not available while the flag is hidden. Enable Show flag to hide the language name.": [
+            "Niet beschikbaar zolang de vlag verborgen is. Schakel ‘Vlag tonen’ in om de taalnaam te verbergen."
+         ],
+         "Must be enabled while the language name is hidden. Enable Full name or Code to hide the flag.": [
+            "Moet ingeschakeld zijn zolang de taalnaam verborgen is. Schakel ‘Volledige naam’ of ‘Code’ in om de vlag te verbergen."
+         ],
+         "Not available in the Dropdown layout. Switch the layout to List to hide the current language.": [
+            "Niet beschikbaar in de dropdown-lay-out. Wijzig de lay-out naar ‘Lijst’ om de huidige taal te verbergen."
+         ],
+         "Example:": [
+            "Voorbeeld:"
+         ],
+         "Display": [
+            "Weergave"
+         ],
+         "Language name": [
+            "Taalnaam"
+         ],
+         "Full name written in": [
+            "Volledige naam geschreven in"
+         ],
+         "Style": [
+            "Stijl"
+         ],
+         "Flag settings": [
+            "Vlag-instellingen"
+         ],
+         "Width": [
+            "Breedte"
+         ],
+         "Height": [
+            "Hoogte"
+         ],
+         "Spacing": [
+            "Afstand"
+         ],
+         "Switch to %s": [
+            "Overschakelen naar %s"
+         ],
+         "Available languages": [
+            "Beschikbare talen"
+         ],
+         "Allow wrapping to multiple lines": [
+            "Omloop naar meerdere regels toestaan"
+         ],
+         "Open on click": [
+            "Openen bij klikken"
+         ],
+         "Show arrow": [
+            "Pijl weergeven"
+         ],
+         "Layout": [
+            "Layout"
+         ],
+         "Justification": [
+            "Uitlijning"
+         ],
+         "Orientation": [
+            "Oriëntatie"
+         ],
+         "Language Switcher": [
+            "Taalschakelaar"
+         ],
+         "Language switcher, press tab to navigate to other languages": [
+            "Taalschakelaar, druk op tab om naar andere talen te navigeren"
+         ],
+         "Typography": [
+            "Typografie"
+         ],
+         "Background": [
+            "Achtergrond"
+         ],
+         "Language Text": [
+            "Taaltekst"
+         ],
+         "Language Background": [
+            "Taalachtergrond"
+         ],
+         "Current language text": [
+            "Tekst huidige taal"
+         ],
+         "Current language background": [
+            "Achtergrond huidige taal"
+         ],
+         "Full name": [
+            "Volledige naam"
+         ],
+         "Code": [
+            "Code"
+         ],
+         "Native": [
+            "Oorspronkelijk"
+         ],
+         "Translated": [
+            "Vertaald"
+         ],
+         "Both": [
+            "Beide"
+         ],
+         "Hidden": [
+            "Verborgen"
+         ],
+         "Dropdown": [
+            "Dropdown"
+         ],
+         "List": [
+            "Lijst"
+         ],
+         "Justify items left": [
+            "Items links uitlijnen"
+         ],
+         "Justify items center": [
+            "Items centreren"
+         ],
+         "Justify items right": [
+            "Items rechts uitlijnen"
+         ],
+         "Justify items space between": [
+            "Items spreiden"
+         ],
+         "Horizontal": [
+            "Horizontaal"
+         ],
+         "Vertical": [
+            "Verticaal"
+         ],
+         "Normal": [
+            "Normaal"
+         ],
+         "Medium": [
+            "Gemiddeld"
+         ],
+         "Large": [
+            "Groot"
+         ],
+         "X-Large": [
+            "Extra groot"
+         ],
+         "Ab": [
+            "Ab"
+         ],
+         "AB": [
+            "AB"
+         ],
+         "ab": [
+            "ab"
+         ],
+         "Small": [
+            "Klein"
+         ],
+         "displays the WPML Language Switcher": [
+            "geeft de WPML-taalschakelaar weer"
+         ],
+         "Displays the WPML Language Switcher.": [
+            "Geeft de WPML-taalschakelaar weer."
+         ],
+         "Navigation Language Switcher": [
+            "Navigatie-taalschakelaar"
+         ],
+         "Reset all": [
+            "Alles opnieuw instellen"
+         ]
+      }
+   }
+}

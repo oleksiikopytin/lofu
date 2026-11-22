@@ -1,0 +1,523 @@
+/* globals ajaxurl */
+
+/**
+ * Created by andrea.
+ * Date: 23/01/14
+ * Time: 17:28
+ */
+
+/**
+ * wpmldev-11287: how the Connect with translations confirmation reads the
+ * chosen group (the members wpml_ajx_get_posts_from_trid answers, each with
+ * language, title and source_language). A group has an original when one of
+ * its members has no source language; a group of one post always has one:
+ * that post. "Make <language> the original language" would replace that
+ * original, so it is ticked by default only when the group has none.
+ */
+var WPML_Connect_Translations = window.WPML_Connect_Translations || {}
+
+WPML_Connect_Translations.groupOriginal = function ( posts ) {
+  for ( var i = 0; i < posts.length; i++ ) {
+    if ( posts[ i ] && !posts[ i ].source_language ) {
+      return posts[ i ]
+    }
+  }
+  return null
+}
+
+WPML_Connect_Translations.setAsSourceByDefault = function ( posts ) {
+  return null === WPML_Connect_Translations.groupOriginal( posts )
+}
+
+WPML_Connect_Translations.originalLine = function ( text, original ) {
+  var name = '[' + original.language + '] ' + original.title
+  var line = String( text )
+  // Sliced, not String.replace: older engines (PhantomJS, which runs the QUnit
+  // suite) expand `$&` in a replacer function's return value.
+  var at = line.indexOf( '%s' )
+  return at < 0 ? line : line.slice( 0, at ) + name + line.slice( at + 2 )
+}
+
+jQuery( function ( $ ) {
+  setupCopyButtons()
+
+  const connectTranslations = function () {
+    var postEdit = postEdit || {}
+
+    postEdit.$connect_translations_dialog = $( '#connect_translations_dialog' )
+    postEdit.$no_posts_found_message = postEdit.$connect_translations_dialog.find( '.js-no-posts-found' )
+    postEdit.$posts_found_container = postEdit.$connect_translations_dialog.find( '.js-posts-found' )
+    postEdit.$ajax_loader = postEdit.$connect_translations_dialog.find( '.js-ajax-loader' )
+    postEdit.$connect_translations_dialog_confirm = $( '#connect_translations_dialog_confirm' )
+    postEdit.$connect_translations_error = postEdit.$connect_translations_dialog_confirm.find( '.js-connect-translations-error' )
+
+    // wpmldev-7963: the server refuses a connect it cannot carry out (the
+    // group changed since this dialog opened, or the request named a group
+    // the post cannot join) with {code, message, params}, as the request gate
+    // does. Show the message and stay on the page: a reload would look like
+    // the connect worked. A refusal with no message falls back to the
+    // sentence shipped with the screen.
+    postEdit.connect_translations_failed = function ( refusal, $confirmButton ) {
+      const message = refusal && 'object' === typeof refusal ? refusal.message : null
+
+      $confirmButton.find( '.spinner' ).remove()
+      postEdit.$connect_translations_error
+        .text( message ? message : postEdit.$connect_translations_dialog_confirm.data( 'connect-failed-text' ) )
+        .prop( 'hidden', false )
+    }
+
+    postEdit.connect_element_translations_open = function ( event ) {
+      if ( typeof ( event.preventDefault ) !== 'undefined' ) {
+        event.preventDefault()
+      } else {
+        event.returnValue = false
+      }
+
+      postEdit.$connect_translations_dialog.find( '#post_search' ).val( '' )
+      postEdit.$connect_translations_dialog.find( '#assign_to_trid' ).val( '' )
+      postEdit.$connect_translations_dialog.dialog( 'open' )
+      postEdit.connect_element_translations_data()
+    }
+
+    postEdit.connect_element_translations_data = function () {
+      const $connect_translations_dialog_selector = $( '#post_search', postEdit.$connect_translations_dialog )
+
+      const trid = $( '#icl_connect_translations_trid' ).val()
+      const post_type = $( '#icl_connect_translations_post_type' ).val()
+      const source_language = $( '#icl_connect_translations_language' ).val()
+      const nonce = $( '#_icl_nonce_get_orphan_posts' ).val()
+      const data = 'action=wpml_ajx_get_orphan_posts&source_language=' + source_language + '&trid=' + trid + '&post_type=' + post_type + '&_icl_nonce=' + nonce
+
+      postEdit.$ajax_loader.show()
+
+      const request = $.ajax( {
+        type: 'POST',
+        url: ajaxurl,
+        dataType: 'json',
+        data: data
+      } )
+
+      request.done( function ( posts ) {
+        const $assignPostButton = $( '.js-assign-button' )
+
+        if ( posts.length > 0 ) {
+          postEdit.$posts_found_container.show()
+          postEdit.$no_posts_found_message.hide()
+          $assignPostButton.prop( 'disabled', false )
+
+          // wpmldev-6997 — lazy-load the autocomplete suggestions. The legacy
+          // `source: posts` handed the full array (~40k items on sites with
+          // many orphans) to jQuery UI in one go, which built ~40k <li> in a
+          // single synchronous task and froze the tab. We now render `PAGE`
+          // items initially and append another `PAGE` on each scroll-near-end.
+          // Filter remains local (the AJAX response shape is unchanged).
+          var PAGE = 50
+          $connect_translations_dialog_selector.autocomplete( {
+            minLength: 0,
+            delay: 150,
+            source: function ( request, response ) {
+              if ( !posts || !posts.length ) { response( [] ); return }
+              var term = ( request.term || '' ).toLowerCase()
+              var matches
+              if ( term === '' ) {
+                matches = posts
+              } else {
+                matches = []
+                for ( var i = 0; i < posts.length; i++ ) {
+                  // Defensive: skip rows whose label is missing or non-string.
+                  var label = posts[ i ] && posts[ i ].label
+                  if ( typeof label !== 'string' ) { continue }
+                  if ( label.toLowerCase().indexOf( term ) !== -1 ) {
+                    matches.push( posts[ i ] )
+                  }
+                }
+              }
+              // Stash full filtered set so the scroll handler can extend it.
+              $connect_translations_dialog_selector.data( 'lazy-matches', matches )
+              $connect_translations_dialog_selector.data( 'lazy-rendered', Math.min( PAGE, matches.length ) )
+              response( matches.slice( 0, PAGE ) )
+            },
+            open: function () {
+              var $menu = $( this ).autocomplete( 'widget' )
+              if ( !$menu || !$menu.length ) { return }
+              // Make the dropdown scrollable so the scroll event has something to fire on.
+              $menu.css( { 'max-height': '300px', 'overflow-y': 'auto' } )
+              $menu.off( 'scroll.lazyload' ).on( 'scroll.lazyload', function () {
+                var matches  = $connect_translations_dialog_selector.data( 'lazy-matches' ) || []
+                var rendered = $connect_translations_dialog_selector.data( 'lazy-rendered' ) || 0
+                if ( rendered >= matches.length ) { return }
+                var $m = $( this )
+                if ( !$m.length || !$m[ 0 ] ) { return }
+                var nearEnd = $m.scrollTop() + $m.innerHeight() >= $m[ 0 ].scrollHeight - 50
+                if ( !nearEnd ) { return }
+                // Bail safely if the autocomplete instance has been destroyed
+                // between the scroll event and the handler running, or if a
+                // future jQuery UI version renames `_renderItemData`.
+                var ui = $connect_translations_dialog_selector.data( 'ui-autocomplete' )
+                if ( !ui || !ui.menu || typeof ui._renderItemData !== 'function' ) { return }
+                var next = matches.slice( rendered, rendered + PAGE )
+                for ( var j = 0; j < next.length; j++ ) {
+                  ui._renderItemData( ui.menu.element, next[ j ] )
+                }
+                $connect_translations_dialog_selector.data( 'lazy-rendered', rendered + next.length )
+              } )
+            },
+            focus: function ( event, ui ) {
+              $connect_translations_dialog_selector.val( ui.item.label )
+              return false
+            },
+            select: function ( event, ui ) {
+              $connect_translations_dialog_selector.val( ui.item.label )
+              $( '#assign_to_trid' ).val( ui.item.value )
+              return false
+            }
+          } )
+            .data( 'ui-autocomplete' )._renderItem = function ( ul, item ) {
+              return $( '<li>' )
+                .append( jQuery( '<a></a>' ).text( item.label ) )
+                .appendTo( ul )
+            }
+        } else {
+          postEdit.$posts_found_container.hide()
+          postEdit.$no_posts_found_message.show()
+          $assignPostButton.prop( 'disabled', true )
+        }
+      } )
+
+      request.always( function () {
+        postEdit.$ajax_loader.hide() // Hide ajax loader always, no matter if ajax succeed or not.
+      } )
+    }
+
+    postEdit.connect_element_translations_init = ( function () {
+      postEdit.$connect_translations_dialog.dialog(
+        {
+          dialogClass: 'wpml-dialog otgs-ui-dialog',
+          width: 'auto',
+          modal: true,
+          autoOpen: false,
+          closeOnEscape: true,
+          buttons: [
+            {
+              text: postEdit.$connect_translations_dialog.data( 'cancel-label' ),
+              class: 'button button-secondary alignleft',
+              click: function () {
+                $( this ).dialog( 'close' )
+              }
+            }, {
+              text: postEdit.$connect_translations_dialog.data( 'ok-label' ),
+              class: 'button button-primary js-assign-button',
+              click: function () {
+                $( this ).dialog( 'close' )
+                postEdit.connect_element_translations_do()
+              }
+            }
+          ]
+        }
+      )
+    }() ) // Auto executable function
+
+    postEdit.connect_element_translations_do = function () {
+      const trid = $( '#assign_to_trid' ).val()
+      const post_type = $( '#icl_connect_translations_post_type' ).val()
+      const post_id = $( '#icl_connect_translations_post_id' ).val()
+      const nonce = $( '#_icl_nonce_get_posts_from_trid' ).val()
+
+      const data = 'action=wpml_ajx_get_posts_from_trid&trid=' + trid + '&post_type=' + post_type + '&_icl_nonce=' + nonce
+
+      const request = $.ajax( {
+        type: 'POST',
+        url: ajaxurl,
+        dataType: 'json',
+        data: data
+      } )
+
+      request.done( function ( posts ) {
+        if ( posts.length > 0 ) {
+          const $list = $( '#connect_translations_dialog_confirm_list' )
+          $list.empty()
+          const $ul = $( '<ul />' ).appendTo( $list )
+
+          $.each( posts, function () {
+            const $li = $( '<li>' ).append( '<span></span>' )
+            $li.find( 'span' ).text( '[' + this.language + '] ' + this.title )
+            $li.appendTo( $ul )
+          } )
+
+          const alert = $( '<p>' ).append( jQuery( '<strong></strong>' ).html( postEdit.$connect_translations_dialog.data( 'alert-text' ) ) )
+          alert.appendTo( $list )
+
+          const set_as_source_checkbox = $( '<input type="checkbox" value="1" name="set_as_source" />' )
+
+          // wpmldev-11287: ticked only when the chosen group has no original.
+          set_as_source_checkbox.prop( 'checked', WPML_Connect_Translations.setAsSourceByDefault( posts ) )
+          const action = $( '<label>' ).append( set_as_source_checkbox ).append( postEdit.$connect_translations_dialog.data( 'set_as_source-text' ) )
+          action.appendTo( $list )
+
+          // Name the post that stays the original while the box is not ticked.
+          const original = WPML_Connect_Translations.groupOriginal( posts )
+          if ( original ) {
+            const $original_line = $( '<p class="js-connect-translations-original"></p>' )
+              .text( WPML_Connect_Translations.originalLine( postEdit.$connect_translations_dialog.data( 'original-stays-text' ), original ) )
+              .prop( 'hidden', set_as_source_checkbox.is( ':checked' ) )
+            $original_line.appendTo( $list )
+            set_as_source_checkbox.on( 'change', function () {
+              $original_line.prop( 'hidden', set_as_source_checkbox.is( ':checked' ) )
+            } )
+          }
+
+          postEdit.$connect_translations_error.empty().prop( 'hidden', true )
+
+          postEdit.$connect_translations_dialog_confirm.dialog(
+            {
+              dialogClass: 'wpml-dialog otgs-ui-dialog',
+              resizable: false,
+              width: 'auto',
+              autoOpen: true,
+              modal: true,
+              buttons: [
+                {
+                  text: postEdit.$connect_translations_dialog_confirm.data( 'cancel-label' ),
+                  class: 'button button-secondary alignleft',
+                  click: function () {
+                    $( this ).dialog( 'close' )
+                    postEdit.$connect_translations_dialog.dialog( 'open' )
+                  }
+                }, {
+                  text: postEdit.$connect_translations_dialog_confirm.data( 'assign-label' ),
+                  class: 'button button-primary js-confirm-connect-this-post',
+                  click: function () {
+                    const $confirmButton = $( '.js-confirm-connect-this-post' )
+                    $confirmButton.prop( 'disabled', true ).removeClass( 'button-primary' ).addClass( 'button-secondary' )
+
+                    $( '<span class="spinner" />' ).appendTo( $confirmButton )
+
+                    const nonce = $( '#_icl_nonce_connect_translations' ).val()
+
+                    const data_object = {
+                      action: 'wpml_ajx_connect_translations',
+                      post_id: post_id,
+                      post_type: post_type,
+                      new_trid: trid,
+                      _icl_nonce: nonce,
+                      set_as_source: ( set_as_source_checkbox.is( ':checked' ) ? 1 : 0 )
+                    }
+
+                    const request = $.ajax(
+                      {
+                        type: 'POST',
+                        url: ajaxurl,
+                        dataType: 'json',
+                        data: data_object
+                      }
+                    )
+
+                    request.done(
+                      function ( result ) {
+                        // Only the exact answer `true` is a connect. A 2xx
+                        // {success:false,…} is a refusal too.
+                        if ( true === result ) {
+                          postEdit.$connect_translations_dialog.dialog( 'close' )
+                          location.reload()
+                          return
+                        }
+                        postEdit.connect_translations_failed( result ? result.data : null, $confirmButton )
+                      }
+                    )
+
+                    // A refused connect is answered 400 or 409, which jQuery
+                    // routes here and never to done(); so are a body that is
+                    // not JSON and a network error.
+                    request.fail(
+                      function ( xhr ) {
+                        postEdit.connect_translations_failed( xhr && xhr.responseJSON ? xhr.responseJSON.data : null, $confirmButton )
+                      }
+                    )
+                  }
+                }
+              ]
+            }
+          )
+        }
+      }
+      )
+    }
+
+    $( '#icl_document_connect_translations_dropdown' )
+      .find( '.js-set-post-as-source' )
+      .on( 'click', postEdit.connect_element_translations_open )
+  }
+
+  const setPostAsSource = $( '#icl_document_connect_translations_dropdown .js-set-post-as-source' )
+  // Edit an existing post, just initialize the connectTranslations function.
+  if ( setPostAsSource.length ) {
+    connectTranslations()
+  } else {
+    // After publishing a new post, initialize the connectTranslations function because setPostAsSource isn't available.
+    document.addEventListener( 'WPMLLanguagesMetaBoxesRefreshed', function () {
+      connectTranslations()
+    } )
+  }
+
+  /**
+   * HOTFIX DIALOG BOX
+   * Remove when WooCommerce does not include jquery-ui smoothness anymore
+   **/
+  const jQueryUI = $( '#jquery-ui-style-css[href*="smoothness"]' )
+  var jQuerySmoothnessHref
+
+  // if jquery ui smoothness css is loaded
+  if ( jQueryUI.length ) {
+    // click on Connect with translations
+    $( 'body' ).on( 'click', '#icl_document_connect_translations_dropdown .js-set-post-as-source', function () {
+      const connectDialog = $( '[aria-describedby="connect_translations_dialog"]' ); var intervalCheckDialog
+
+      // abort if dialog does not exists
+      if ( !connectDialog.length ) return false
+
+      // backup href of jquery ui smoothness
+      jQuerySmoothnessHref = jQueryUI.attr( 'href' )
+
+      // remove jquery ui smoothness css
+      jQueryUI.attr( 'href', '' )
+
+      // check every 250ms if connect translations dialog is still open
+      intervalCheckDialog = setInterval( function () {
+        // if dialog is not open anymore
+        if ( !connectDialog.is( ':visible' ) ) {
+          if ( $( '.ui-widget-overlay' ).length == 0 ) {
+            // reapply jquery ui smoothness css again
+            jQueryUI.attr( 'href', jQuerySmoothnessHref )
+            // stop interval
+            clearInterval( intervalCheckDialog )
+          }
+        }
+      }, 250 )
+    } )
+  }
+  /* HOTFIX END */
+
+  const classic_wp_editor_form = $( '#post' )
+  var is_duplicate_post =typeof icl_duplicate_data !== 'undefined' && icl_duplicate_data.duplicate_post
+  const classic_editor_duplicate_post_changed = classic_wp_editor_form.length && is_duplicate_post && icl_duplicate_data.wp_classic_editor_changed
+
+  const post_form_callback = function ( e ) {
+    if ( is_duplicate_post || classic_editor_duplicate_post_changed ) {
+      e.preventDefault()
+      const answer = window.confirm( icl_duplicate_data.icl_duplicate_message )
+      const spinner = $( '#publishing-action .spinner' )
+      if ( answer ) {
+        spinner.toggleClass( 'is-active' )
+        $.ajax( {
+          method: 'POST',
+          url: ajaxurl,
+          data: {
+            action: 'check_duplicate',
+            post_id: icl_duplicate_data.duplicate_post,
+            icl_duplciate_nonce: icl_duplicate_data.duplicate_post_nonce
+          }
+        } )
+          .success( function ( res ) {
+            spinner.toggleClass( 'is-active' )
+            if ( res.data ) {
+              is_duplicate_post = false
+              classic_wp_editor_form.submit()
+            } else {
+              alert( icl_duplicate_data.icl_duplicate_fail )
+            }
+          } )
+          .error( function () {
+            spinner.toggleClass( 'is-active' )
+            alert( icl_duplicate_data.icl_duplicate_fail )
+          } )
+      }
+    }
+  }
+
+  classic_wp_editor_form.on( 'submit', post_form_callback )
+  $( document ).on( 'click', '.editor-post-publish-button', post_form_callback )
+  $( document ).on( 'click', '.editor-post-saved-state.is-saving', post_form_callback )
+  $( document ).on( 'heartbeat-send', function ( event, data ) {
+    data.icl_post_language = $( '#icl_post_language' ).val()
+    data.icl_trid = $( 'input[name="icl_trid"]' ).val()
+  } )
+} )
+
+function setupCopyButtons () {
+  jQuery( '#icl_translate_independent' ).click( function () {
+    jQuery( this ).attr( 'disabled', 'disabled' ).after( icl_ajxloaderimg )
+    jQuery.ajax( {
+      type: 'POST',
+      url: ajaxurl,
+      data: 'action=wpml_ajx_reset_duplication&post_id=' + jQuery( '#post_ID' ).val() + '&_icl_nonce=' + jQuery( '#_icl_nonce_rd' ).val(),
+      success: function ( msg ) {
+        location.reload( true )
+      }
+    } )
+  } )
+  setupOverwriteConfirmation()
+}
+
+function setupOverwriteConfirmation () {
+  const $overwriteButton = jQuery( '#icl_set_duplicate' )
+  const $confirmation = jQuery( '#icl_set_duplicate_confirmation' )
+  if ( !$confirmation.length ) {
+    return
+  }
+  $confirmation.dialog( {
+    dialogClass: 'wpml-dialog otgs-ui-dialog',
+    resizable: false,
+    width: 'auto',
+    modal: true,
+    autoOpen: false,
+    closeOnEscape: true,
+    open: focusDialogInsteadOfCancel,
+    buttons: [
+      {
+        text: $confirmation.data( 'cancel-label' ),
+        class: 'wpml-button base-btn cancel-button alignleft',
+        click: function () {
+          $confirmation.dialog( 'close' )
+        }
+      }, {
+        text: $confirmation.data( 'overwrite-label' ),
+        class: 'wpml-button base-btn js-confirm-overwrite',
+        click: function () {
+          $confirmation.dialog( 'close' )
+          overwriteWithOriginalContent( $overwriteButton )
+        }
+      }
+    ]
+  } )
+  $overwriteButton.click( function () {
+    $confirmation.dialog( 'open' )
+  } )
+}
+
+function focusDialogInsteadOfCancel () {
+  jQuery( this ).closest( '.ui-dialog' ).trigger( 'focus' )
+}
+
+function overwriteWithOriginalContent ( $overwriteButton ) {
+  const originalPostId = $overwriteButton.data( 'wpml_original_post_id' )
+  const postLanguage = $overwriteButton.data( 'post_lang' )
+  $overwriteButton.attr( 'disabled', 'disabled' ).after( icl_ajxloaderimg )
+  jQuery.ajax( {
+    type: 'POST',
+    url: ajaxurl,
+    data: 'action=wpml_ajx_set_duplication&wpml_original_post_id=' + originalPostId + '&_icl_nonce=' + jQuery( '#_icl_nonce_sd' ).val() + '&post_lang=' + postLanguage,
+    success: function ( response ) {
+      if ( !isDuplicateToOpen( response ) ) {
+        $overwriteButton.next( 'img' ).remove()
+        $overwriteButton.removeAttr( 'disabled' )
+        return
+      }
+      location.replace(
+        location.href.replace( 'post-new.php', 'post.php' ).replace( /&trid=([0-9]+)/, '' ) + '&post=' + response.data.id + '&action=edit' )
+    }
+  } )
+}
+
+function isDuplicateToOpen ( response ) {
+  return !!( response && response.success && response.data && response.data.id )
+}

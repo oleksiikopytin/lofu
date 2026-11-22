@@ -1,0 +1,57 @@
+{
+   "domain": "messages",
+   "locale_data": {
+      "messages": {
+         "": {
+            "domain": "messages",
+            "plural_forms": "nplurals=2; plural=(n != 1);",
+            "lang": "el"
+         },
+         "Accepted": [
+            "Αποδεκτή"
+         ],
+         "Approved!": [
+            "Εγκρίθηκε!"
+         ],
+         "Loading the next translation for review...": [
+            "Φόρτωση της επόμενης μετάφρασης για επιθεώρηση..."
+         ],
+         "Back": [
+            "Πίσω"
+         ],
+         "Turn off to not automatically load the next translation after finishing this review.": [
+            "Απενεργοποιήστε το για να μην φορτώνεται αυτόματα η επόμενη μετάφραση μετά την ολοκλήρωση αυτής της επιθεώρησης."
+         ],
+         "Turn on to automatically load the next translation after finishing this  .": [
+            "Ενεργοποιήστε το για αυτόματη φόρτωση της επόμενης μετάφρασης μετά την ολοκλήρωση αυτής."
+         ],
+         "Edit": [
+            "Επεξεργασία"
+         ],
+         "Edit translation": [
+            "Επεξεργασία μετάφρασης"
+         ],
+         "Next review": [
+            "Επόμενη επιθεώρηση"
+         ],
+         "Publish this translation": [
+            "Δημοσίευση αυτής της μετάφρασης"
+         ],
+         "Accept this translation": [
+            "Αποδοχή αυτής της μετάφρασης"
+         ],
+         "Published!": [
+            "Δημοσιεύτηκε!"
+         ],
+         "Please wait, applying translation..": [
+            "Παρακαλώ περιμένετε, εφαρμογή μετάφρασης..."
+         ],
+         "There was an error in applying translation.": [
+            "Παρουσιάστηκε σφάλμα κατά την εφαρμογή της μετάφρασης."
+         ],
+         "Someone is already reviewing this translation. Please try again later.": [
+            "Κάποιος άλλος επιθεωρεί ήδη αυτή τη μετάφραση. Παρακαλώ δοκιμάστε ξανά αργότερα."
+         ]
+      }
+   }
+}
