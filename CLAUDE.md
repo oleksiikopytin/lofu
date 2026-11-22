@@ -198,7 +198,9 @@ The theme was stripped back to a minimal base on 2026-11-22 (the flexible-page b
 
 ### ACF fields
 
-No `acf-json/` folder and **no ACF field groups in the database yet**. The `hero` field referenced by `front-page.php` still needs to be created. Consider adding an `acf-json/` folder so field groups are saved as Local JSON files with the code.
+**No ACF field groups yet.** The `hero` field referenced by `front-page.php` still needs to be created.
+
+`lofu-theme/acf-json/` exists (kept in git via `.gitkeep`). ACF Pro auto-detects it, so any field group saved in wp-admin is written there as a Local JSON file. Commit those JSON files with the code. On another machine, sync changed groups via wp-admin → ACF → Field Groups → "Sync available".
 
 ### Custom post types & taxonomies
 
