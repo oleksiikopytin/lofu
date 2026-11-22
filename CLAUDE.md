@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 🗂️ Repository Scope
 
 - Project: **LOFU** (site title `LOFU`, table prefix `wp_`). Machine-specific details (local URL, paths, database access) live in the gitignored `CLAUDE.local.md`. Create one per machine.
-- This is a **full WordPress installation** (`wp-admin/`, `wp-includes/`, core files, plus third-party plugins in `wp-content/plugins/`: ACF Pro, Classic Editor, Yoast SEO, Wordfence, WPS Hide Login, Post Types Order, SVG Support, Disable Comments, Disable XML-RPC API, Cyr2Lat, Auto Image Attributes). None of that is custom. Treat it as vendored, read-only reference material, not "the codebase."
+- This is a **full WordPress installation** (`wp-admin/`, `wp-includes/`, core files, plus third-party plugins in `wp-content/plugins/`: ACF Pro, Classic Editor, Yoast SEO, Wordfence, WPS Hide Login, Post Types Order, SVG Support, Disable Comments, Disable XML-RPC API, Cyr2Lat, Auto Image Attributes, and the WPML stack: WPML Multilingual CMS, String Translation, Media Translation, ACFML and Yoast SEO Multilingual). None of that is custom. Treat it as vendored, read-only reference material, not "the codebase."
 - The **only** custom code lives at:
   ```
   wp-content/themes/lofu-theme/
@@ -172,7 +172,16 @@ Follow WCAG 2.1 AA as **best practice** for new/changed markup (not a hard contr
 
 ## 🏛️ Architecture
 
-The theme was stripped back to a minimal base on 2026-11-22 (the flexible-page builder, global-styles page, GSAP animation system, highlight.js and self-hosted fonts were removed). Expect to build most templates from scratch.
+The theme was stripped back to a minimal base on 2026-11-22 (the flexible-page builder, global-styles page, GSAP animation system, highlight.js and the old self-hosted fonts were removed; Montserrat was then added as the single theme font). Expect to build most templates from scratch.
+
+### Multilingual (WPML)
+
+The site is bilingual through WPML: **Ukrainian (`uk`) is the default language**, with English (`en-us`) as the second language. For all new work:
+
+- Every user-facing string in theme PHP goes through `__()` / `esc_html__()` / `esc_html_e()` etc. with the `'lofu'` text domain, so WPML String Translation can pick it up. Never hardcode visible text.
+- ACF content is translated through ACFML. When creating a field group, set each field's translation preference (usually *Translate* for text/WYSIWYG, *Copy* for layout settings, images and links that don't vary by language). Those settings are saved into the `acf-json/` file with the group.
+- Link to other pages through WordPress functions (`get_permalink()`, `home_url()`, menus), not hardcoded URLs, so WPML can map them to the current language.
+- Strings stored in ACF options pages need the options page itself to be set up for translation in WPML.
 
 ### Bootstrap
 
@@ -193,7 +202,7 @@ The theme was stripped back to a minimal base on 2026-11-22 (the flexible-page b
 ### Templates
 
 - Generic top-level templates: `index.php`, `page.php`, `single.php`, `archive.php`, `category.php`, `tag.php`, `search.php`, `404.php`, `comments.php`, `sidebar.php`, `header.php`, `footer.php`. No `Walker_Nav_Menu` subclass, and `header.php` doesn't call `wp_nav_menu()` yet.
-- `page-templates/front-page.php` (Template Name "Home page"): loops the ACF `hero` rows into `template-parts/home-page/hero.php`. That partial, `assets/js/pages/home-page/hero.js` and `assets/scss/pages/home-page/hero.scss` are currently empty placeholders being rebuilt.
+- `page-templates/front-page.php` (Template Name "Home page"): outputs `the_content()`, then loops the ACF `hero` rows into `template-parts/home-page/hero.php`. That partial, `assets/js/pages/home-page/hero.js` and `assets/scss/pages/home-page/hero.scss` are currently empty placeholders being rebuilt.
 - `category.php` and `single.php` contain commented-out enqueues for files that don't exist (`pages/knowledge-center/*`, `pages/post/hero.css`). They're leftovers from the source theme.
 
 ### ACF fields
@@ -210,8 +219,8 @@ None. The database only has `page`, `post`, `revision` and `wp_navigation` posts
 
 Hand-written, no bundler.
 
-- `assets/js/`: vendor `slick.min.js`, `jquery.fancybox.min.js`; theme `scripts.js` (global), `components/accordion.js` (not enqueued; pairs with `global/components/accordion.scss`, which `main.scss` has commented out), `pages/home-page/hero.js`.
+- `assets/js/`: vendor `slick.min.js`, `jquery.fancybox.min.js`; theme `scripts.js` (global, enqueued with a `jquery` dependency, currently empty), `components/accordion.js` (not enqueued; pairs with `global/components/accordion.scss`, which `main.scss` has commented out), `pages/home-page/hero.js`.
 - `assets/css/`: vendor `animate.css`, `jquery.fancybox.min.css`; everything else is compiler output.
 - `assets/scss/`: `global/` (base, components, content, layout, mixins, utils, `slick.scss`), `header/`, `footer/`, `pages/` (`home-page/`, plus `animation-page/` and `global-page/` sources left from removed templates, not imported by `main.scss`). Several `global/components/*.scss` (icons, pagination, breadcrumbs, close, tabs, accordion, start-quiz, tooltip, vimeo, hero-zoom, bg-move, divider-line) exist but aren't imported.
 - `assets/images/`: `logo.svg`, `placeholder.png`.
-- ⚠️ **No webfonts are loaded.** `variables.scss` still names `"Google Sans Flex"` (`$font-base`), `'ClashGrotesk-Variable'` (`$font-base-heading`) and `"Geist Mono"` (`$font-deco`), but there's no `assets/fonts/` and no `@font-face`/Google Fonts enqueue, so browsers fall back unless the font is installed locally.
+- `assets/fonts/montserrat/`: **Montserrat**, self-hosted as a variable font (weights 100–900, normal and italic, `latin`, `latin-ext`, `cyrillic` and `cyrillic-ext` subsets, `.woff2`, from `@fontsource-variable/montserrat` 5.1.1). The `@font-face` rules are generated in `global/base/font.scss` (imported by `main.scss`) with `unicode-range` per subset and `font-display: swap`. `variables.scss` sets `$font-base` and `$font-base-heading` to Montserrat; `$font-deco` is a system monospace stack. No Google Fonts or other external font requests. To use another weight, just set `font-weight`, since the variable font covers the whole range.
