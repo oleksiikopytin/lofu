@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruleset name="LOFU Theme Coding Standards">
+	<description>PHPCS ruleset for the custom lofu-theme only.</description>
+
+	<file>wp-content/themes/lofu-theme</file>
+
+	<exclude-pattern>wp-content/themes/lofu-theme/lib/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*.js</exclude-pattern>
+	<exclude-pattern>*.css</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<config name="minimum_wp_version" value="5.9"/>
+
+	<rule ref="WordPress-Extra">
+		<!-- Flat theme layout doesn't follow WP's class-to-filename convention. -->
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="lofu"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<!-- 'iatheme' is used by the SCSS compiler (lib/scss-compiler.php) and its stored option key. -->
+			<property name="prefixes" type="array">
+				<element value="lofu"/>
+				<element value="iatheme"/>
+			</property>
+		</properties>
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
+	</rule>
+</ruleset>

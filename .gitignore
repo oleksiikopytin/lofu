@@ -1,5 +1,5 @@
 # Common ignore patterns
-/CLAUDE.md
+/CLAUDE.local.md
 *~
 .github
 .cursor
@@ -73,22 +73,11 @@ wp-config.php
 /wp-content/uploads/
 /wp-content/wp-cache-config.php
 
-# Theme vendor dependencies
-/wp-content/themes/wfm-theme/lib/vendor/
-/wp-content/themes/wfm-redesigned-theme/lib/vendor/
-
-# Composer dev dependencies (phpcs/WPCS)
+# Composer dev dependencies (phpcs/WPCS) - rebuilt from composer.lock
 /vendor/
-/phpcs.xml.dist
-/composer.json
-/composer.lock
 
 # Wordfence logs
 /wp-content/wflogs/
-
-# Locally-modified, not tracked
-/wp-content/themes/wfm-theme/lib/scss-compiler.php
-/wp-content/themes/wfm-redesigned-theme/lib/scss-compiler.php
 
 # large/disallowed file types
 # a CDN should be used for these

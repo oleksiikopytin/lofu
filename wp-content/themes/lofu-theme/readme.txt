@@ -1,6 +1,6 @@
 === LOFU ===
 
-Contributors: isadoradigitalagency
+Contributors: okopytin
 Requires at least: 5.9
 Tested up to: 6.4
 Requires PHP: 7.4

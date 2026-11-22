@@ -1,0 +1,20 @@
+{
+    "name": "lofu/site-tooling",
+    "description": "Dev tooling (PHPCS + WordPress Coding Standards) for the LOFU theme.",
+    "type": "project",
+    "license": "proprietary",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.13",
+        "wp-coding-standards/wpcs": "^3.4",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "lint:fix": "phpcbf"
+    }
+}
