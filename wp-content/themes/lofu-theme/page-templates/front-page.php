@@ -12,5 +12,6 @@
 get_header();
 
 get_template_part( 'template-parts/home-page/hero' );
+get_template_part( 'template-parts/home-page/about' );
 
 get_footer();

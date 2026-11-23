@@ -36,9 +36,13 @@ function lofu_home_page_scripts() {
 		return;
 	}
 
-	$hero_css = '/assets/css/pages/home-page/hero.css';
+	$hero_css  = '/assets/css/pages/home-page/hero.css';
+	$about_css = '/assets/css/pages/home-page/about.css';
+	$about_js  = '/assets/js/pages/home-page/about.js';
 
 	wp_enqueue_style( 'lofu-home-hero', get_theme_file_uri( $hero_css ), array( 'main' ), filemtime( get_theme_file_path( $hero_css ) ) );
+	wp_enqueue_style( 'lofu-home-about', get_theme_file_uri( $about_css ), array( 'main' ), filemtime( get_theme_file_path( $about_css ) ) );
+	wp_enqueue_script( 'lofu-home-about', get_theme_file_uri( $about_js ), array(), filemtime( get_theme_file_path( $about_js ) ), true );
 }
 add_action( 'wp_enqueue_scripts', 'lofu_home_page_scripts' );
 
