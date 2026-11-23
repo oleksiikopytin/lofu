@@ -65,6 +65,7 @@ wp-config.php
 /wp-content/backup-db/
 /wp-content/blogs.dir/
 /wp-content/cache/
+/wp-content/languages/
 /wp-content/index.php
 /wp-content/mysql.sql
 /wp-content/object-cache.php

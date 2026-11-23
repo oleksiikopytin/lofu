@@ -18,9 +18,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Git
 
 - The repo root is the WordPress site root, branch `main`, remote `origin` = `git@github.com:oleksiikopytin/lofu.git`.
-- **Tracked:** `wp-content/themes/lofu-theme/` (including its `lib/vendor/` and the compiled `assets/css/**`), `wp-content/plugins/` (third-party plugins are committed), `wp-content/languages/`, `.gitignore`, `README.md`.
+- **Tracked:** `wp-content/themes/lofu-theme/` (including its `lib/vendor/` and the compiled `assets/css/**`), `wp-content/plugins/` (third-party plugins are committed), `.gitignore`, `README.md`.
 - **Also tracked at the root:** `CLAUDE.md`, `composer.json`, `composer.lock`, `phpcs.xml.dist`.
-- **Ignored:** WordPress core (`/wp-admin/`, `/wp-includes/`, root core files), `wp-config.php`, `.htaccess`, `/wp-content/uploads/`, `.cursor`, `/vendor/` (rebuild with `composer install`), and `/CLAUDE.local.md`.
+- **Ignored:** WordPress core (`/wp-admin/`, `/wp-includes/`, root core files), `wp-config.php`, `.htaccess`, `/wp-content/uploads/`, `/wp-content/languages/`, `.cursor`, `/vendor/` (rebuild with `composer install`), and `/CLAUDE.local.md`.
 - After a fresh clone: install WordPress core alongside the repo, create `wp-config.php`, import the database, run `composer install`, and enable the compiler under wp-admin → SCSS Options.
 - `lofu-theme/lib/vendor/` (scssphp) is **intentionally tracked**, so the runtime SCSS compiler works right after a clone without running `composer install` in `lib/`.
 - Compiled CSS is committed. When you change SCSS, load a page so the runtime compiler rebuilds `assets/css/**`, and commit the SCSS together with the regenerated CSS/maps.
