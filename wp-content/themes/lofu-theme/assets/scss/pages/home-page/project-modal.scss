@@ -1,0 +1,411 @@
+@import '../../global/utils/variables';
+@import '../../global/mixins/mixin';
+
+$project-modal-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+// Detail grid, repeated every 6 photos: column start, column span,
+// top offset and crop (the crop is used by every view).
+$project-modal-layout: (
+  (1, 3, 0, 3 / 4),
+  (4, 4, 0, 4 / 5),
+  (10, 3, 18rem, 3 / 4),
+  (1, 6, 0, 16 / 10),
+  (8, 4, 12rem, 1 / 1),
+  (3, 5, 0, 4 / 3)
+);
+
+// Opened by projects.js; while it is open the page behind doesn't scroll.
+// Lock on <body>, not <html>: reset.scss gives both `height: 100%`, and
+// hiding <html>'s overflow turns <body> into its own 100%-tall scroller,
+// which resets the page to the top. Body's overflow carries over to the
+// viewport instead, keeping the scroll position. The gutter stays reserved
+// so the page doesn't shift sideways when the scrollbar goes.
+html.has-project-modal {
+  scrollbar-gutter: stable;
+
+  body {
+    overflow: hidden;
+  }
+}
+
+.project-modal {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: $white;
+  color: $ink;
+
+  &::backdrop {
+    background: rgba($ink, 0.4);
+  }
+
+  &__bar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-bottom: 1px solid $line;
+    background: rgba($white, 0.94);
+    backdrop-filter: blur(8px);
+  }
+
+  &__bar-inner {
+    height: $header-height;
+  }
+
+  &__brand {
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
+
+  &__close {
+    gap: 0.8rem;
+    min-height: 4.4rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: $ink;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $navy;
+    }
+  }
+
+  &__head {
+    gap: 2.4rem;
+    padding: 4.8rem 0 2.4rem;
+
+    @include respond-to(md) {
+      padding: 7.2rem 0 4rem;
+    }
+  }
+
+  &__heading {
+    gap: 1.6rem;
+  }
+
+  &__counter {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $muted;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(4.4rem, 6.4vw, 9.6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  &__gallery {
+    margin: 2.4rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__photo {
+    --project-modal-ratio: 4 / 3;
+    background: $line;
+  }
+
+  @for $i from 1 through length($project-modal-layout) {
+    &__photo:nth-child(#{length($project-modal-layout)}n + #{$i}) {
+      --project-modal-ratio: #{nth(nth($project-modal-layout, $i), 4)};
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--project-modal-ratio);
+    object-fit: cover;
+  }
+
+  // Wraps each photo; opens it full-size in the photo viewer.
+  &__zoom {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    overflow: hidden;
+    cursor: zoom-in;
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 2px;
+    }
+  }
+
+  // Detail: staggered 12-column grid (a single column on phones).
+  &__gallery[data-view='detail'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+    align-items: start;
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat($grid-columns, minmax(0, 1fr));
+      gap: 2.4rem;
+    }
+  }
+
+  @include respond-to(sm) {
+    @for $i from 1 through length($project-modal-layout) {
+      $start: nth(nth($project-modal-layout, $i), 1);
+      $span: nth(nth($project-modal-layout, $i), 2);
+      $offset: nth(nth($project-modal-layout, $i), 3);
+
+      &__gallery[data-view='detail'] &__photo:nth-child(#{length($project-modal-layout)}n + #{$i}) {
+        grid-column: #{$start} / span #{$span};
+        margin-top: $offset;
+      }
+    }
+  }
+
+  // Masonry: three columns of photos at their own crops.
+  &__gallery[data-view='masonry'] {
+    column-gap: 1.6rem;
+
+    @include respond-to(sm) {
+      column-count: 3;
+    }
+
+    .project-modal__photo {
+      break-inside: avoid;
+      margin-bottom: 1.6rem;
+    }
+  }
+
+  // Slider: one row of equal-height photos, scrolled sideways.
+  &__gallery[data-view='slider'] {
+    display: flex;
+    gap: 1.6rem;
+    overflow-x: auto;
+    padding-bottom: 1.6rem;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+
+    .project-modal__photo {
+      flex: 0 0 auto;
+      height: 36rem;
+      scroll-snap-align: start;
+
+      @include respond-to(sm) {
+        height: 56rem;
+      }
+    }
+
+    .project-modal__zoom {
+      height: 100%;
+      // Keep the slider's grab cursor (view-switch.scss); a click still opens.
+      cursor: inherit;
+    }
+
+    .project-modal__image {
+      width: auto;
+      height: 100%;
+    }
+  }
+
+  &__info {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3.2rem;
+    padding: 8rem 0;
+    align-items: start;
+
+    @include respond-to(sm) {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 6.4rem;
+    }
+
+    @include respond-to(md) {
+      padding: 12rem 0;
+    }
+  }
+
+  &__facts {
+    gap: 1.4rem;
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  &__fact {
+    display: grid;
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: 1.2rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid $line;
+  }
+
+  &__fact-label {
+    color: $muted;
+  }
+
+  &__fact-value {
+    margin: 0;
+  }
+
+  &__texts {
+    gap: 4rem;
+  }
+
+  &__text-block {
+    gap: 1.2rem;
+  }
+
+  &__text-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $navy;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: clamp(2rem, 1.9vw, 2.6rem);
+    font-weight: 300;
+    line-height: 1.45;
+  }
+
+  &__nav {
+    padding: 3.2rem 0 5.6rem;
+    border-top: 1px solid $line;
+    font-size: 1.4rem;
+  }
+
+  &__nav-link {
+    gap: 0.6rem;
+    min-height: 4.4rem;
+    color: $ink;
+    text-decoration: none;
+
+    &:hover {
+      color: $navy;
+    }
+
+    &--next {
+      align-items: flex-end;
+      text-align: right;
+    }
+  }
+
+  &__nav-label {
+    font-size: 1.2rem;
+    color: $muted;
+  }
+
+  &__nav-name {
+    font-weight: 500;
+  }
+
+  &__close,
+  &__nav-link {
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Built by split-lines.js (via projects.js); the padding keeps descenders
+// clear of the mask. Same as the about section's intro.
+.project-modal__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.project-modal__line-inner {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .project-modal[open] {
+    animation: project-modal-in 0.5s $project-modal-ease-out;
+  }
+
+  .project-modal__image {
+    transition: transform 0.8s $project-modal-ease-out;
+  }
+
+  .project-modal__zoom:hover .project-modal__image {
+    transform: scale(1.03);
+  }
+
+  // projects.js adds `--lines` only after splitting, so the text stays
+  // visible if the script doesn't run. Each line slides up from behind its
+  // mask, one after another (--line-index is set per line).
+  .project-modal__text--lines .project-modal__line-inner {
+    transform: translateY(110%);
+    transition: transform 1s $project-modal-ease-out;
+    transition-delay: calc(var(--line-index, 0) * 0.1s);
+  }
+
+  .project-modal__text--lines.is-visible .project-modal__line-inner {
+    transform: none;
+  }
+
+  .project-modal[open]::backdrop {
+    animation: project-modal-fade 0.5s $project-modal-ease-out;
+  }
+
+  // Re-run on every project switch (projects.js re-adds the class).
+  .project-modal__body.is-entering {
+    animation: project-modal-content-in 0.6s $project-modal-ease-out;
+  }
+}
+
+@keyframes project-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(4.8rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes project-modal-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes project-modal-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(2.4rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

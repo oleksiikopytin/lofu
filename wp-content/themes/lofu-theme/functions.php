@@ -21,6 +21,7 @@ function lofu_setup() {
 		'lib/shortcode.php',      // shortcode of the site
 		'lib/scss-compiler.php',  // compiler
 		'lib/ajax.php',           // Ajax functions
+		'lib/admin.php',          // wp-admin tweaks
 	);
 	foreach ( $roots_includes as $file ) {
 		if ( ! $filepath = locate_template( $file ) )

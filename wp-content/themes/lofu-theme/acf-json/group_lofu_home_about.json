@@ -350,6 +350,100 @@
                     ]
                 }
             ]
+        },
+        {
+            "key": "field_lofu_projects_tab",
+            "label": "Projects",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 0,
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_lofu_projects",
+            "label": "Projects",
+            "name": "projects",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "wpml_cf_preferences": 1,
+            "sub_fields": [
+                {
+                    "key": "field_lofu_projects_section_title",
+                    "label": "Section title",
+                    "name": "section_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Large heading of the section, e.g. \"Наші проекти\".",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "wpml_cf_preferences": 2,
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_lofu_projects_selected",
+                    "label": "Projects",
+                    "name": "selected_projects",
+                    "aria-label": "",
+                    "type": "relationship",
+                    "instructions": "Projects shown in the section, in this order. The order also sets the \"Project 03 \/ 10\" counter and the previous\/next links in the project window. The card layout repeats every 10 projects. Pick them on the Ukrainian page: the list is copied to other languages, and each language shows its own translation of every project (projects without one are hidden there).",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "wpml_cf_preferences": 1,
+                    "post_type": [
+                        "project"
+                    ],
+                    "post_status": [
+                        "publish"
+                    ],
+                    "taxonomy": "",
+                    "filters": [
+                        "search"
+                    ],
+                    "return_format": "id",
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "elements": [
+                        "featured_image"
+                    ],
+                    "bidirectional": 0,
+                    "bidirectional_target": []
+                }
+            ]
         }
     ],
     "location": [
@@ -370,11 +464,11 @@
         "the_content"
     ],
     "active": true,
-    "description": "About section of the Home page (template-parts\/home-page\/about.php).",
+    "description": "Home page sections (template-parts\/home-page\/*.php): About, Concepts, Projects.",
     "show_in_rest": 0,
     "display_title": "",
     "enable_acf_abilities": 1,
     "ai_description": "",
     "acfml_field_group_mode": "translation",
-    "modified": 1795425192
+    "modified": 1795432935
 }

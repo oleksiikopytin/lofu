@@ -36,17 +36,35 @@ function lofu_home_page_scripts() {
 		return;
 	}
 
-	$hero_css     = '/assets/css/pages/home-page/hero.css';
-	$about_css    = '/assets/css/pages/home-page/about.css';
-	$about_js     = '/assets/js/pages/home-page/about.js';
-	$concepts_css = '/assets/css/pages/home-page/concepts.css';
-	$concepts_js  = '/assets/js/pages/home-page/concepts.js';
+	$hero_css       = '/assets/css/pages/home-page/hero.css';
+	$about_css      = '/assets/css/pages/home-page/about.css';
+	$split_lines_js = '/assets/js/components/split-lines.js';
+	$about_js       = '/assets/js/pages/home-page/about.js';
+	$concepts_css   = '/assets/css/pages/home-page/concepts.css';
+	$concepts_js    = '/assets/js/pages/home-page/concepts.js';
 
 	wp_enqueue_style( 'lofu-home-hero', get_theme_file_uri( $hero_css ), array( 'main' ), filemtime( get_theme_file_path( $hero_css ) ) );
 	wp_enqueue_style( 'lofu-home-about', get_theme_file_uri( $about_css ), array( 'main' ), filemtime( get_theme_file_path( $about_css ) ) );
-	wp_enqueue_script( 'lofu-home-about', get_theme_file_uri( $about_js ), array(), filemtime( get_theme_file_path( $about_js ) ), true );
+	wp_register_script( 'lofu-split-lines', get_theme_file_uri( $split_lines_js ), array(), filemtime( get_theme_file_path( $split_lines_js ) ), true );
+	wp_enqueue_script( 'lofu-home-about', get_theme_file_uri( $about_js ), array( 'lofu-split-lines' ), filemtime( get_theme_file_path( $about_js ) ), true );
 	wp_enqueue_style( 'lofu-home-concepts', get_theme_file_uri( $concepts_css ), array( 'main' ), filemtime( get_theme_file_path( $concepts_css ) ) );
 	wp_enqueue_script( 'lofu-home-concepts', get_theme_file_uri( $concepts_js ), array( 'jquery', 'slick' ), filemtime( get_theme_file_path( $concepts_js ) ), true );
+
+	$view_switch_css   = '/assets/css/global/components/view-switch.css';
+	$view_switch_js    = '/assets/js/components/view-switch.js';
+	$projects_css      = '/assets/css/pages/home-page/projects.css';
+	$project_modal_css = '/assets/css/pages/home-page/project-modal.css';
+	$projects_js       = '/assets/js/pages/home-page/projects.js';
+	$photo_viewer_css  = '/assets/css/global/components/photo-viewer.css';
+	$photo_viewer_js   = '/assets/js/components/photo-viewer.js';
+
+	wp_enqueue_style( 'lofu-view-switch', get_theme_file_uri( $view_switch_css ), array( 'main' ), filemtime( get_theme_file_path( $view_switch_css ) ) );
+	wp_enqueue_script( 'lofu-view-switch', get_theme_file_uri( $view_switch_js ), array(), filemtime( get_theme_file_path( $view_switch_js ) ), true );
+	wp_enqueue_style( 'lofu-home-projects', get_theme_file_uri( $projects_css ), array( 'main' ), filemtime( get_theme_file_path( $projects_css ) ) );
+	wp_enqueue_style( 'lofu-home-project-modal', get_theme_file_uri( $project_modal_css ), array( 'main' ), filemtime( get_theme_file_path( $project_modal_css ) ) );
+	wp_enqueue_script( 'lofu-home-projects', get_theme_file_uri( $projects_js ), array( 'lofu-view-switch', 'lofu-split-lines' ), filemtime( get_theme_file_path( $projects_js ) ), true );
+	wp_enqueue_style( 'lofu-photo-viewer', get_theme_file_uri( $photo_viewer_css ), array( 'main' ), filemtime( get_theme_file_path( $photo_viewer_css ) ) );
+	wp_enqueue_script( 'lofu-photo-viewer', get_theme_file_uri( $photo_viewer_js ), array(), filemtime( get_theme_file_path( $photo_viewer_js ) ), true );
 }
 add_action( 'wp_enqueue_scripts', 'lofu_home_page_scripts' );
 
