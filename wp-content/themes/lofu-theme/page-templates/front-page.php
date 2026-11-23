@@ -15,5 +15,9 @@ get_template_part( 'template-parts/home-page/hero' );
 get_template_part( 'template-parts/home-page/about' );
 get_template_part( 'template-parts/home-page/concepts' );
 get_template_part( 'template-parts/home-page/projects' );
+get_template_part( 'template-parts/home-page/products' );
+
+// Full-screen photo viewer, shared by the project and product windows.
+get_template_part( 'template-parts/components/photo-viewer' );
 
 get_footer();

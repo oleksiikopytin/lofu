@@ -1,0 +1,172 @@
+@import "../../global/utils/variables";
+@import "../../global/mixins/mixin";
+@import "../../global/mixins/modal";
+
+// While a series (and maybe a product over it) is open the page behind
+// doesn't scroll. Locked on <body>, see project-modal.scss for why.
+html.has-products-modal {
+  scrollbar-gutter: stable;
+
+  body {
+    overflow: hidden;
+  }
+}
+
+.series-modal {
+  @include modal-window;
+
+  &__bar {
+    @include modal-bar;
+  }
+
+  &__bar-inner {
+    height: $header-height;
+  }
+
+  &__brand {
+    @include modal-brand;
+  }
+
+  &__close {
+    @include modal-close;
+  }
+
+  // Title, then the description below it.
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding: 4.8rem 0;
+
+    @include respond-to(md) {
+      gap: 3.2rem;
+      padding: 7.2rem 0;
+    }
+  }
+
+  &__heading {
+    gap: 1.6rem;
+  }
+
+  &__eyebrow {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $muted;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(4.4rem, 6.4vw, 9.6rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  &__description {
+    max-width: 90rem;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: $muted;
+
+    p {
+      margin: 0 0 1em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Products: one per row on phones, two on tablets, three on desktop.
+  &__list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4rem;
+    margin: 0;
+    padding: 0 0 8rem;
+    list-style: none;
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 5.6rem 2.4rem;
+    }
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding-bottom: 12rem;
+    }
+  }
+
+  &__card {
+    display: block;
+    background: none;
+    color: $ink;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: $ink;
+
+      .series-modal__name {
+        color: $navy;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 4px;
+    }
+  }
+
+  &__media {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border: 1px solid $line;
+    background: $line;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__caption {
+    margin-top: 1.6rem;
+    font-size: 1.3rem;
+  }
+
+  &__name {
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  &__type {
+    color: $muted;
+    text-align: right;
+  }
+
+  &__empty {
+    margin: 0;
+    padding-bottom: 8rem;
+    font-size: 1.5rem;
+    color: $muted;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .series-modal__image {
+    transition: transform 0.8s $modal-ease-out;
+  }
+
+  .series-modal__card:hover .series-modal__image {
+    transform: scale(1.03);
+  }
+}
+
+@include modal-keyframes;

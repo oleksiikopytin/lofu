@@ -1,0 +1,97 @@
+// Full-screen <dialog> window, as used by the series and product windows
+// (same look as project-modal.scss). Needs global/utils/variables.
+
+$modal-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+@mixin modal-window {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: $white;
+  color: $ink;
+
+  &::backdrop {
+    background: rgba($ink, 0.4);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &[open] {
+      animation: modal-window-in 0.5s $modal-ease-out;
+    }
+
+    &[open]::backdrop {
+      animation: modal-window-fade 0.5s $modal-ease-out;
+    }
+  }
+}
+
+// Sticky top bar: brand on the left, a "← back" button on the right.
+@mixin modal-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 1px solid $line;
+  background: rgba($white, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+@mixin modal-brand {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+@mixin modal-close {
+  gap: 0.8rem;
+  min-height: 4.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: $ink;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $navy;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $navy;
+    outline-offset: 2px;
+  }
+}
+
+// Emit once per stylesheet that uses modal-window.
+@mixin modal-keyframes {
+  @keyframes modal-window-in {
+    from {
+      opacity: 0;
+      transform: translateY(4.8rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes modal-window-fade {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,289 @@
+@import '../../global/utils/variables';
+@import '../../global/mixins/mixin';
+@import '../../global/mixins/modal';
+
+// Opened on top of the series window (series-modal.scss holds the page
+// scroll lock for both).
+.product-modal {
+  @include modal-window;
+
+  &__bar {
+    @include modal-bar;
+  }
+
+  &__bar-inner {
+    height: $header-height;
+  }
+
+  &__brand {
+    @include modal-brand;
+  }
+
+  &__close {
+    @include modal-close;
+  }
+
+  // Gallery 7 / info 5 on desktop, stacked below.
+  &__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+    padding: 3.2rem 0 6.4rem;
+
+    @include respond-to(md) {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 7.2rem;
+      padding: 5.6rem 0 9.6rem;
+    }
+  }
+
+  &__gallery {
+    gap: 1.6rem;
+  }
+
+  &__stage {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid $line;
+    background: $white;
+    touch-action: pan-y;
+  }
+
+  &__slides {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__slide {
+    height: 100%;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Wraps each photo; opens it full-size in the photo viewer.
+  &__zoom {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: -2px;
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: $ink;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    width: 4.8rem;
+    height: 4.8rem;
+    padding: 0;
+    border: 1px solid $line;
+    border-radius: 50%;
+    background: $white;
+    color: $ink;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: border-color 0.2s;
+
+    svg {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+
+    &:hover {
+      border-color: $ink;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 2px;
+    }
+
+    &--prev {
+      left: 1.6rem;
+    }
+
+    &--next {
+      right: 1.6rem;
+    }
+  }
+
+  &__thumbs {
+    gap: 0.8rem;
+  }
+
+  &__thumb {
+    width: 7.2rem;
+    height: 5.4rem;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid $line;
+    background: $line;
+    color: $muted;
+    cursor: pointer;
+    transition: border-color 0.2s;
+
+    &:hover {
+      border-color: $muted;
+    }
+
+    &[aria-current='true'] {
+      border-color: $navy;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 2px;
+    }
+
+    svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  &__thumb-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__counter {
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    color: $muted;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__info {
+    gap: 3.2rem;
+
+    @include respond-to(md) {
+      position: sticky;
+      top: calc(#{$header-height} + 3.2rem);
+    }
+  }
+
+  &__heading {
+    gap: 1rem;
+  }
+
+  &__eyebrow {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $muted;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(4rem, 4.6vw, 6.4rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 1.6rem;
+    line-height: 1.7;
+  }
+
+  &__specs {
+    font-size: 1.4rem;
+  }
+
+  &__specs-title {
+    margin: 0 0 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $navy;
+  }
+
+  &__spec-list {
+    margin: 0;
+  }
+
+  &__spec {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: 1.2rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid $line;
+
+    @include respond-to(sm) {
+      grid-template-columns: 18rem minmax(0, 1fr);
+    }
+  }
+
+  &__spec-label {
+    color: $muted;
+  }
+
+  &__spec-value {
+    margin: 0;
+  }
+
+  &__cta {
+    min-height: 5.2rem;
+    padding: 0 2.4rem;
+    background: $navy;
+    color: $white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s;
+
+    &:hover,
+    &:focus-visible {
+      background: $ink;
+      color: $white;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 2px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .product-modal__slide:not([hidden]) {
+    animation: modal-window-fade 0.4s $modal-ease-out;
+  }
+}
+
+@include modal-keyframes;

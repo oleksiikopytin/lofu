@@ -1,0 +1,179 @@
+@import '../../global/utils/variables';
+@import '../../global/mixins/mixin';
+
+$products-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+.products {
+  padding: 8rem 0;
+  border-top: 1px solid $line;
+  background: $white;
+  color: $ink;
+  scroll-margin-top: $header-height;
+
+  @include respond-to(md) {
+    padding: 12rem 0;
+  }
+
+  &__head {
+    gap: 1.6rem;
+    margin-bottom: 4.8rem;
+
+    @include respond-to(md) {
+      margin-bottom: 5.6rem;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(4rem, 6vw, 8.8rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  &__intro {
+    max-width: 36rem;
+    margin: 0;
+    font-size: 1.3rem;
+    color: $muted;
+  }
+
+  // One card per row on phones, three from tablets up.
+  &__list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.4rem;
+    }
+  }
+
+  &__card {
+    display: block;
+    background: none;
+    color: $ink;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: $ink;
+
+      .products__name {
+        color: $navy;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 4px;
+    }
+  }
+
+  &__media {
+    overflow: hidden;
+    aspect-ratio: 22 / 21;
+    border: 1px solid $line;
+    background: $white;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // A cut-out product, shown whole and centred.
+  &__media--contain &__image {
+    padding: 9%;
+    object-fit: contain;
+  }
+
+  &__caption {
+    margin-top: 1.6rem;
+    font-size: 1.3rem;
+  }
+
+  &__name {
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  &__more {
+    flex-shrink: 0;
+    color: $muted;
+  }
+}
+
+// Same masked title reveal as the projects section.
+.products__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.products__mask-inner {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .products__image {
+    transition: transform 0.8s $products-ease-out;
+  }
+
+  .products__card:hover .products__image {
+    transform: scale(1.03);
+  }
+
+  // products.js adds `products--reveal` only once it is running, so the
+  // content stays visible if the script fails.
+  .products--reveal {
+    .products__head .products__mask-inner {
+      transform: translateY(110%);
+      transition: transform 1s $products-ease-out;
+    }
+
+    .products__head.is-visible .products__mask-inner {
+      transform: none;
+    }
+
+    // The intro fades and slides up just after the title.
+    .products__intro {
+      opacity: 0;
+      transform: translateY(2.4rem);
+      transition: opacity 0.9s $products-ease-out 0.2s, transform 1.1s $products-ease-out 0.2s;
+    }
+
+    .products__head.is-visible .products__intro {
+      opacity: 1;
+      transform: none;
+    }
+
+    .products__item {
+      opacity: 0;
+      transform: translateY(4.8rem);
+      transition: opacity 0.9s $products-ease-out, transform 1.1s $products-ease-out;
+
+      &.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .products__item:nth-child(3n + 2) {
+      transition-delay: 0.1s;
+    }
+
+    .products__item:nth-child(3n + 3) {
+      transition-delay: 0.2s;
+    }
+  }
+}

@@ -100,8 +100,6 @@ $lofu_project_count  = count( $lofu_project_ids );
 
 <dialog id="project-modal" class="project-modal" aria-labelledby="project-modal-title"></dialog>
 
-<?php get_template_part( 'template-parts/components/photo-viewer' ); ?>
-
 <?php
 foreach ( $lofu_project_ids as $lofu_index => $lofu_project_id ) {
 	get_template_part(

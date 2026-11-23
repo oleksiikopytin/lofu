@@ -1,0 +1,206 @@
+html.has-products-modal {
+  scrollbar-gutter: stable;
+}
+html.has-products-modal body {
+  overflow: hidden;
+}
+
+.series-modal {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  color: #111111;
+}
+.series-modal::backdrop {
+  background: rgba(17, 17, 17, 0.4);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .series-modal[open] {
+    animation: modal-window-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .series-modal[open]::backdrop {
+    animation: modal-window-fade 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+.series-modal__bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 1px solid #F2F2F2;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+}
+.series-modal__bar-inner {
+  height: 6.4rem;
+}
+.series-modal__brand {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+.series-modal__close {
+  gap: 0.8rem;
+  min-height: 4.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #111111;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.series-modal__close:hover {
+  color: #000066;
+}
+.series-modal__close:focus-visible {
+  outline: 2px solid #000066;
+  outline-offset: 2px;
+}
+.series-modal__head {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 4.8rem 0;
+}
+@media (min-width: 1024px) {
+  .series-modal__head {
+    gap: 3.2rem;
+    padding: 7.2rem 0;
+  }
+}
+.series-modal__heading {
+  gap: 1.6rem;
+}
+.series-modal__eyebrow {
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #666666;
+}
+.series-modal__title {
+  margin: 0;
+  font-size: clamp(4.4rem, 6.4vw, 9.6rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+.series-modal__description {
+  max-width: 90rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: #666666;
+}
+.series-modal__description p {
+  margin: 0 0 1em;
+}
+.series-modal__description p:last-child {
+  margin-bottom: 0;
+}
+.series-modal__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4rem;
+  margin: 0;
+  padding: 0 0 8rem;
+  list-style: none;
+}
+@media (min-width: 768px) {
+  .series-modal__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5.6rem 2.4rem;
+  }
+}
+@media (min-width: 1024px) {
+  .series-modal__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-bottom: 12rem;
+  }
+}
+.series-modal__card {
+  display: block;
+  background: none;
+  color: #111111;
+  text-decoration: none;
+}
+.series-modal__card:hover, .series-modal__card:focus-visible {
+  color: #111111;
+}
+.series-modal__card:hover .series-modal__name, .series-modal__card:focus-visible .series-modal__name {
+  color: #000066;
+}
+.series-modal__card:focus-visible {
+  outline: 2px solid #000066;
+  outline-offset: 4px;
+}
+.series-modal__media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  border: 1px solid #F2F2F2;
+  background: #F2F2F2;
+}
+.series-modal__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.series-modal__caption {
+  margin-top: 1.6rem;
+  font-size: 1.3rem;
+}
+.series-modal__name {
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.series-modal__type {
+  color: #666666;
+  text-align: right;
+}
+.series-modal__empty {
+  margin: 0;
+  padding-bottom: 8rem;
+  font-size: 1.5rem;
+  color: #666666;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .series-modal__image {
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .series-modal__card:hover .series-modal__image {
+    transform: scale(1.03);
+  }
+}
+@keyframes modal-window-in {
+  from {
+    opacity: 0;
+    transform: translateY(4.8rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes modal-window-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*# sourceMappingURL=series-modal.css.map */

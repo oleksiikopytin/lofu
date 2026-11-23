@@ -1,0 +1,81 @@
+{
+    "key": "group_lofu_series",
+    "title": "Series",
+    "fields": [
+        {
+            "key": "field_lofu_series_image",
+            "label": "Card image",
+            "name": "image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Shown on the series card in the home page Products section. The window's text is the series' own Description field above.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 1,
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg, jpeg, png, webp",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_lofu_series_image_fit",
+            "label": "Card image fit",
+            "name": "image_fit",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "\"Fill\" crops a photo to the card. \"Fit\" shows a cut-out product whole, centred on white.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "wpml_cf_preferences": 1,
+            "choices": {
+                "cover": "Fill",
+                "contain": "Fit"
+            },
+            "default_value": "cover",
+            "return_format": "value",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "layout": "horizontal"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "series"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "Series card on the home page (template-parts\/home-page\/products.php).",
+    "show_in_rest": 0,
+    "display_title": "",
+    "enable_acf_abilities": 1,
+    "ai_description": "",
+    "acfml_field_group_mode": "translation",
+    "modified": 1795436235
+}
