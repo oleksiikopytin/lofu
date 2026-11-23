@@ -1,0 +1,432 @@
+@import '../../global/utils/variables';
+@import '../../global/mixins/mixin';
+
+$production-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+// Detail grid, repeated every 4 tiles: column start, column span, top
+// offset (the staggered rhythm) and crop. The crop is used by every view.
+$production-layout: (
+  (1, 7, 0, 16 / 10),
+  (9, 4, 12rem, 4 / 5),
+  (2, 4, 0, 3 / 4),
+  (7, 6, 16rem, 16 / 9)
+);
+
+.production {
+  padding: 8rem 0;
+  border-top: 1px solid $line;
+  background: $white;
+  color: $ink;
+  scroll-margin-top: $header-height;
+
+  @include respond-to(md) {
+    padding: 12rem 0;
+  }
+
+  &__head {
+    gap: 2.4rem 6.4rem;
+    margin-bottom: 4rem;
+
+    @include respond-to(md) {
+      margin-bottom: 5.6rem;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(4rem, 6vw, 8.8rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  &__description {
+    max-width: 56rem;
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: $muted;
+  }
+
+  &__switch {
+    margin-bottom: 4rem;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    --production-ratio: 4 / 3;
+  }
+
+  @for $i from 1 through length($production-layout) {
+    &__item:nth-child(#{length($production-layout)}n + #{$i}) {
+      --production-ratio: #{nth(nth($production-layout, $i), 4)};
+    }
+  }
+
+  &__card {
+    display: block;
+    color: $ink;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: $ink;
+
+      .production__name {
+        color: $navy;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 4px;
+    }
+  }
+
+  &__media {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: var(--production-ratio);
+    background: $line;
+  }
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__play {
+    position: relative;
+    width: 5.6rem;
+    height: 5.6rem;
+    border: 1px solid $ink;
+    border-radius: 50%;
+    background: $white;
+    color: $ink;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+    @include respond-to(sm) {
+      width: 7.2rem;
+      height: 7.2rem;
+    }
+
+    svg {
+      width: 1.6rem;
+      height: 1.6rem;
+
+      @include respond-to(sm) {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+    }
+  }
+
+  &__card:hover &__play,
+  &__card:focus-visible &__play {
+    border-color: $navy;
+    background: $navy;
+    color: $white;
+  }
+
+  &__caption {
+    gap: 1.6rem;
+    margin-top: 1.2rem;
+    font-size: 1.3rem;
+  }
+
+  &__name {
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  &__kind {
+    flex-shrink: 0;
+    color: $muted;
+  }
+
+  // Detail: the staggered 12-column grid (a single column on phones).
+  &__list[data-view='detail'] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4.8rem;
+    align-items: start;
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat($grid-columns, minmax(0, 1fr));
+      gap: 7.2rem 2.4rem;
+    }
+  }
+
+  @include respond-to(sm) {
+    @for $i from 1 through length($production-layout) {
+      $start: nth(nth($production-layout, $i), 1);
+      $span: nth(nth($production-layout, $i), 2);
+      $offset: nth(nth($production-layout, $i), 3);
+
+      &__list[data-view='detail'] &__item:nth-child(#{length($production-layout)}n + #{$i}) {
+        grid-column: #{$start} / span #{$span};
+        margin-top: $offset;
+      }
+    }
+  }
+
+  // Masonry: tiles in three columns, each at its own crop.
+  &__list[data-view='masonry'] {
+    column-gap: 2.4rem;
+
+    @include respond-to(sm) {
+      column-count: 3;
+    }
+
+    .production__item {
+      break-inside: avoid;
+      margin-bottom: 3.2rem;
+    }
+
+    .production__caption {
+      margin-top: 1rem;
+    }
+
+    .production__play {
+      width: 5.6rem;
+      height: 5.6rem;
+
+      @include respond-to(sm) {
+        width: 6.4rem;
+        height: 6.4rem;
+      }
+
+      svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+  }
+
+  // Slider: one row of equal-height tiles, scrolled sideways. `min-content`
+  // keeps each tile as wide as its media, so a long caption wraps.
+  &__list[data-view='slider'] {
+    display: flex;
+    gap: 1.6rem;
+    overflow-x: auto;
+    padding-bottom: 1.6rem;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+
+    .production__item {
+      flex: 0 0 auto;
+      width: min-content;
+      scroll-snap-align: start;
+    }
+
+    .production__media {
+      width: auto;
+      height: 36rem;
+
+      @include respond-to(sm) {
+        height: 52rem;
+      }
+    }
+
+    .production__caption {
+      margin-top: 1rem;
+    }
+
+    .production__kind {
+      display: none;
+    }
+  }
+}
+
+// Text that animates slides inside its own mask; the padding keeps
+// descenders clear of the clip (same trick as projects.scss).
+.production__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.production__mask-inner {
+  display: block;
+}
+
+// Full-screen video player (same look as the photo viewer).
+html.has-production-video {
+  scrollbar-gutter: stable;
+
+  body {
+    overflow: hidden;
+  }
+}
+
+.production-video {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: rgba($ink, 0.96);
+  color: $white;
+
+  &::backdrop {
+    background: transparent;
+  }
+
+  // Full-screen click area around the video (a click here closes).
+  &__stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 7.2rem 1.6rem 2.4rem;
+    box-sizing: border-box;
+
+    @include respond-to(sm) {
+      padding: 7.2rem 10.4rem 3.2rem;
+    }
+  }
+
+  &__figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+  }
+
+  &__player {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100vh - 14.4rem);
+    max-height: calc(100dvh - 14.4rem);
+    width: auto;
+    height: auto;
+    background: #000;
+  }
+
+  &__caption {
+    align-self: stretch;
+    margin-top: 1.6rem;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: rgba($white, 0.72);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    z-index: 1;
+    width: 4.4rem;
+    height: 4.4rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba($white, 0.12);
+    color: $white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    @include respond-to(sm) {
+      top: 2.4rem;
+      right: 2.4rem;
+      width: 5.6rem;
+      height: 5.6rem;
+    }
+
+    &:hover {
+      background: rgba($white, 0.24);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $white;
+      outline-offset: 2px;
+    }
+
+    svg {
+      width: 1.4rem;
+      height: 1.4rem;
+
+      @include respond-to(sm) {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .production__image {
+    transition: transform 0.8s $production-ease-out;
+  }
+
+  .production__card:hover .production__image {
+    transform: scale(1.03);
+  }
+
+  .production-video[open] {
+    animation: production-video-in 0.35s $production-ease-out;
+  }
+
+  // production.js adds `production--reveal` only once it is running, so the
+  // content stays visible if the script fails.
+  .production--reveal {
+    .production__head .production__mask-inner {
+      transform: translateY(110%);
+      transition: transform 1s $production-ease-out;
+    }
+
+    .production__head.is-visible .production__mask-inner {
+      transform: none;
+    }
+
+    .production__description {
+      opacity: 0;
+      transition: opacity 1s $production-ease-out 0.2s;
+    }
+
+    .production__head.is-visible .production__description {
+      opacity: 1;
+    }
+
+    .production__item {
+      opacity: 0;
+      transform: translateY(4.8rem);
+      transition: opacity 0.9s $production-ease-out, transform 1.1s $production-ease-out;
+
+      &.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}
+
+@keyframes production-video-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
