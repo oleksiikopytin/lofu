@@ -24,6 +24,24 @@ function lofu_scripts() {
 
 }
 add_action( 'wp_enqueue_scripts', 'lofu_scripts' );
+
+/**
+ * Enqueue the home page section assets, only on the "Home page" template.
+ *
+ * Done in the head (not from the template part) so the hero's initial
+ * animation state is styled before first paint.
+ */
+function lofu_home_page_scripts() {
+	if ( ! is_page_template( 'page-templates/front-page.php' ) ) {
+		return;
+	}
+
+	$hero_css = '/assets/css/pages/home-page/hero.css';
+
+	wp_enqueue_style( 'lofu-home-hero', get_theme_file_uri( $hero_css ), array( 'main' ), filemtime( get_theme_file_path( $hero_css ) ) );
+}
+add_action( 'wp_enqueue_scripts', 'lofu_home_page_scripts' );
+
 /**
  * Handles JavaScript detection.
  *

@@ -3551,14 +3551,31 @@ html {
   white-space: nowrap;
 }
 .header__menu a {
+  position: relative;
   display: block;
   padding: 1.2rem 0;
   color: #111111;
   border-bottom: 1px solid transparent;
+  transition: color 0.3s ease;
 }
-.header__menu a:hover {
+.header__menu a::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.header__menu a:hover, .header__menu a:focus-visible {
   color: #000066;
-  border-bottom-color: #000066;
+}
+.header__menu a:hover::after, .header__menu a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left center;
 }
 .header__burger {
   display: none;
@@ -3647,7 +3664,7 @@ html {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .header__burger-lines, .header__burger-lines::before, .header__burger-lines::after {
+  .header__burger-lines, .header__burger-lines::before, .header__burger-lines::after, .header__menu a, .header__menu a::after {
     transition: none;
   }
 }
