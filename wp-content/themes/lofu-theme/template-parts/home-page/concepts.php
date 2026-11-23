@@ -7,6 +7,10 @@
  * counter, title and dots in sync. Without JS only the first slide shows
  * and the controls stay hidden.
  *
+ * On scroll, concepts.js reveals the head and title text from behind their
+ * `concepts__mask`, wipes the stage in and draws the dots; on each slide
+ * change the title and counter digits roll to the new values.
+ *
  * @package WordPress
  * @subpackage lofu
  * @since lofu 1.0
@@ -27,11 +31,11 @@ $lofu_first_title    = $lofu_slides[0]['title'] ?? '';
 	<div class="ia-container">
 		<div class="concepts__head d-flex justify-content-between align-items-baseline gap-2">
 			<?php if ( $lofu_concepts_title ) : ?>
-				<h2 id="concepts-title" class="concepts__title"><?php echo esc_html( $lofu_concepts_title ); ?></h2>
+				<h2 id="concepts-title" class="concepts__title concepts__mask"><span class="concepts__title-text concepts__mask-inner"><?php echo esc_html( $lofu_concepts_title ); ?></span></h2>
 			<?php endif; ?>
 			<?php if ( $lofu_slide_count > 1 ) : ?>
-				<span class="concepts__counter js-only" aria-hidden="true">
-					<span class="concepts__counter-current">01</span> / <?php echo esc_html( sprintf( '%02d', $lofu_slide_count ) ); ?>
+				<span class="concepts__counter concepts__mask js-only" aria-hidden="true">
+					<span class="concepts__counter-text concepts__mask-inner"><span class="concepts__counter-current">01</span> / <?php echo esc_html( sprintf( '%02d', $lofu_slide_count ) ); ?></span>
 				</span>
 			<?php endif; ?>
 		</div>
@@ -86,7 +90,7 @@ $lofu_first_title    = $lofu_slides[0]['title'] ?? '';
 		</div>
 
 		<div class="concepts__foot d-flex justify-content-between align-items-center flex-wrap">
-			<p class="concepts__name" aria-live="polite"><?php echo esc_html( $lofu_first_title ); ?></p>
+			<p class="concepts__name concepts__mask" aria-live="polite"><span class="concepts__name-text concepts__mask-inner"><?php echo esc_html( $lofu_first_title ); ?></span></p>
 
 			<?php if ( $lofu_slide_count > 1 ) : ?>
 				<div class="concepts__dots js-only d-flex">
