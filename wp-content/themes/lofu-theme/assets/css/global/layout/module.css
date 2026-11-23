@@ -1,0 +1,14 @@
+.module {
+  padding: 8rem 0;
+  border-top: 1px solid #F2F2F2;
+  background: #fff;
+  color: #111111;
+  scroll-margin-top: 6.4rem;
+}
+@media (min-width: 1024px) {
+  .module {
+    padding: 12rem 0;
+  }
+}
+
+/*# sourceMappingURL=module.css.map */

@@ -5,23 +5,8 @@ $concepts-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 $concepts-ease-in-out: cubic-bezier(0.77, 0, 0.18, 1);
 
 .concepts {
-  padding-bottom: 8rem;
-  background: $white;
-  color: $ink;
-  scroll-margin-top: $header-height;
-
-  @include respond-to(md) {
-    padding-bottom: 12rem;
-  }
-
   &__head {
     margin-bottom: 2.4rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    line-height: 1.4;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: $muted;
   }
 
   &__title {

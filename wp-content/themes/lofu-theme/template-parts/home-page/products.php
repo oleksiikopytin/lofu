@@ -37,12 +37,12 @@ if ( empty( $lofu_series ) ) {
 $lofu_products_title = $lofu_products_field['section_title'] ?? '';
 $lofu_products_intro = $lofu_products_field['intro'] ?? '';
 ?>
-<section id="products" class="products"<?php echo $lofu_products_title ? ' aria-labelledby="products-title"' : ''; ?>>
+<section id="products" class="products module"<?php echo $lofu_products_title ? ' aria-labelledby="products-title"' : ''; ?>>
 	<div class="ia-container">
 		<?php if ( $lofu_products_title || $lofu_products_intro ) : ?>
 			<div class="products__head d-flex justify-content-between align-items-baseline flex-wrap">
 				<?php if ( $lofu_products_title ) : ?>
-					<h2 id="products-title" class="products__title products__mask"><span class="products__mask-inner"><?php echo esc_html( $lofu_products_title ); ?></span></h2>
+					<h2 id="products-title" class="products__title section-title products__mask"><span class="products__mask-inner"><?php echo esc_html( $lofu_products_title ); ?></span></h2>
 				<?php endif; ?>
 
 				<?php if ( $lofu_products_intro ) : ?>

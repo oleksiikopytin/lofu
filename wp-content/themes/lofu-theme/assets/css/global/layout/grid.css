@@ -1,75 +1,3 @@
-@keyframes hoverSetRevers {
-  from {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@keyframes hoverSet {
-  from {
-    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@keyframes hoverDef {
-  from {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@keyframes hoverSetRevers {
-  from {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@keyframes hoverSet {
-  from {
-    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@keyframes hoverDef {
-  from {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@keyframes hoverSetRevers {
-  from {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@keyframes hoverSet {
-  from {
-    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-@keyframes hoverDef {
-  from {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
 .ia-col-offset-1 {
   margin-left: 8.3333333333%;
 }
@@ -659,33 +587,6 @@
   }
   .ia-col-offset-lg-12 {
     margin-left: 100%;
-  }
-}
-.module {
-  margin: 9rem 0;
-}
-.module.module--filled {
-  margin: 0;
-  padding: 9rem 0;
-}
-.module.module--filled.bg--white + .module--filled.bg--white {
-  padding-top: 0;
-}
-
-@media (max-width: 1024px) {
-  .module {
-    margin: 6rem 0;
-  }
-  .module.module--filled {
-    padding: 6rem 0;
-  }
-}
-@media (max-width: 767px) {
-  .module {
-    margin: 6rem 0;
-  }
-  .module.module--filled {
-    padding: 6rem 0;
   }
 }
 .two-columns {

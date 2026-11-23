@@ -38,11 +38,11 @@ if ( empty( $lofu_project_ids ) ) {
 $lofu_projects_title = $lofu_projects_field['section_title'] ?? '';
 $lofu_project_count  = count( $lofu_project_ids );
 ?>
-<section id="projects" class="projects"<?php echo $lofu_projects_title ? ' aria-labelledby="projects-title"' : ''; ?>>
+<section id="projects" class="projects module"<?php echo $lofu_projects_title ? ' aria-labelledby="projects-title"' : ''; ?>>
 	<div class="ia-container">
 		<div class="projects__head d-flex justify-content-between align-items-end flex-wrap">
 			<?php if ( $lofu_projects_title ) : ?>
-				<h2 id="projects-title" class="projects__title projects__mask"><span class="projects__mask-inner"><?php echo esc_html( $lofu_projects_title ); ?></span></h2>
+				<h2 id="projects-title" class="projects__title section-title projects__mask"><span class="projects__mask-inner"><?php echo esc_html( $lofu_projects_title ); ?></span></h2>
 			<?php endif; ?>
 
 			<?php get_template_part( 'template-parts/components/view-switch', null, array( 'controls' => 'projects-list' ) ); ?>

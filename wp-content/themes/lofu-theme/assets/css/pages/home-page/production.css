@@ -1,15 +1,3 @@
-.production {
-  padding: 8rem 0;
-  border-top: 1px solid #F2F2F2;
-  background: #fff;
-  color: #111111;
-  scroll-margin-top: 6.4rem;
-}
-@media (min-width: 1024px) {
-  .production {
-    padding: 12rem 0;
-  }
-}
 .production__head {
   gap: 2.4rem 6.4rem;
   margin-bottom: 4rem;
@@ -18,13 +6,6 @@
   .production__head {
     margin-bottom: 5.6rem;
   }
-}
-.production__title {
-  margin: 0;
-  font-size: clamp(4rem, 6vw, 8.8rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.03em;
 }
 .production__description {
   max-width: 56rem;
@@ -76,7 +57,7 @@
   overflow: hidden;
   width: 100%;
   aspect-ratio: var(--production-ratio);
-  background: #F2F2F2;
+  background: #f2f2f2;
 }
 .production__image {
   position: absolute;

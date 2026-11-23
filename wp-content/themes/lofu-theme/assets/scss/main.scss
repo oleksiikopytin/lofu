@@ -19,10 +19,12 @@
 //Grid
 @import "global/utils/grid-helper";
 @import "global/layout/grid";
+@import "global/layout/module";
 
 //Components
 //@import "global/components/icons";NEED TO REMOVE
 @import "global/components/button";
+@import "global/components/section-heading";
 //@import "global/components/pagination"; NEED CHECK DESIGN INNER PAGES
 //@import "global/components/breadcrumbs"; NEED CHECK DESIGN INNER PAGES
 //@import "global/components/close"; NEED TO REMOVE

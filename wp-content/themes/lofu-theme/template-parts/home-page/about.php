@@ -20,12 +20,12 @@ if ( empty( $lofu_about ) ) {
 $lofu_about_title       = $lofu_about['section_title'] ?? '';
 $lofu_about_description = $lofu_about['description'] ?? '';
 ?>
-<section id="about" class="about"<?php echo $lofu_about_title ? ' aria-labelledby="about-title"' : ''; ?>>
+<section id="about" class="about module"<?php echo $lofu_about_title ? ' aria-labelledby="about-title"' : ''; ?>>
 	<div class="ia-container">
 		<div class="about__intro">
 			<div class="about__aside about__rows d-flex flex-column gap-3">
 				<?php if ( $lofu_about_title ) : ?>
-					<h2 id="about-title" class="about__title"><span class="about__title-text"><?php echo esc_html( $lofu_about_title ); ?></span></h2>
+					<h2 id="about-title" class="about__title section-label"><span class="about__title-text"><?php echo esc_html( $lofu_about_title ); ?></span></h2>
 				<?php endif; ?>
 
 				<?php if ( have_rows( 'about' ) ) : ?>

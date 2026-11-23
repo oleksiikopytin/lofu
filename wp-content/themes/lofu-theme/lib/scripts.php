@@ -81,6 +81,19 @@ function lofu_home_page_scripts() {
 
 	wp_enqueue_style( 'lofu-home-production', get_theme_file_uri( $production_css ), array( 'main' ), filemtime( get_theme_file_path( $production_css ) ) );
 	wp_enqueue_script( 'lofu-home-production', get_theme_file_uri( $production_js ), array( 'lofu-view-switch' ), filemtime( get_theme_file_path( $production_js ) ), true );
+
+	$partners_css = '/assets/css/pages/home-page/partners.css';
+
+	wp_enqueue_style( 'lofu-home-partners', get_theme_file_uri( $partners_css ), array( 'main' ), filemtime( get_theme_file_path( $partners_css ) ) );
+
+	$contacts_css = '/assets/css/pages/home-page/contacts.css';
+
+	wp_enqueue_style( 'lofu-home-contacts', get_theme_file_uri( $contacts_css ), array( 'main' ), filemtime( get_theme_file_path( $contacts_css ) ) );
+
+	// Scroll reveal of the partners and contacts headings (`.reveal`).
+	$reveal_js = '/assets/js/components/reveal.js';
+
+	wp_enqueue_script( 'lofu-reveal', get_theme_file_uri( $reveal_js ), array(), filemtime( get_theme_file_path( $reveal_js ) ), true );
 }
 add_action( 'wp_enqueue_scripts', 'lofu_home_page_scripts' );
 

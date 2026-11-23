@@ -1,0 +1,119 @@
+@import '../../global/utils/variables';
+@import '../../global/mixins/mixin';
+
+$partners-gap: 5.6rem;
+$partners-duration: 38s;
+
+.partners {
+  &__title {
+    margin: 0 0 4rem;
+
+    @include respond-to(md) {
+      margin-bottom: 5.6rem;
+    }
+  }
+
+  &__marquee {
+    overflow: hidden;
+    padding: 2.8rem 0;
+    border-top: 1px solid $line;
+    border-bottom: 1px solid $line;
+
+    @include respond-to(md) {
+      padding: 3.6rem 0;
+    }
+  }
+
+  &__track {
+    width: max-content;
+  }
+
+  &__list {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    flex-shrink: 0;
+    gap: $partners-gap;
+    padding-right: $partners-gap;
+  }
+
+  &__link {
+    display: block;
+    border-radius: 2px;
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 0.6rem;
+    }
+  }
+
+  &__logo {
+    display: block;
+    width: auto;
+    max-width: 18rem;
+    height: clamp(3.2rem, 3.4vw, 4.8rem);
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.75;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+
+    @include respond-to(md) {
+      max-width: 22rem;
+    }
+  }
+
+  &__item:hover &__logo,
+  &__link:focus-visible &__logo {
+    filter: none;
+    opacity: 1;
+  }
+
+  &__dot {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $navy;
+  }
+}
+
+@keyframes lofu-partners-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .partners__track {
+    animation: lofu-partners-marquee $partners-duration linear infinite;
+  }
+
+  .partners__marquee:hover .partners__track,
+  .partners__marquee:focus-within .partners__track {
+    animation-play-state: paused;
+  }
+}
+
+// Without motion the strip is static: show one set and let it scroll by hand.
+@media (prefers-reduced-motion: reduce) {
+  .partners__marquee {
+    overflow-x: auto;
+  }
+
+  .partners__list[aria-hidden='true'],
+  .partners__item[aria-hidden='true'] {
+    display: none !important;
+  }
+
+  .partners__logo {
+    transition: none;
+  }
+}

@@ -81,53 +81,6 @@
     }
   }
 }
-.module {
-  margin: map-get($element-spacing, 'module') 0;
-  &.module--filled {
-    margin: 0;
-    padding: map-get($element-spacing, 'module') 0;
-    &.bg--white {
-      + .module--filled {
-        &.bg--white {
-          padding-top: 0;
-        }
-      }
-    }
-
-  }
-}
-@media (max-width: 1024px) {
-  .module {
-    margin: map-get($mobile-spacing, 'module') 0;
-    &.module--filled {
-      padding: map-get($mobile-spacing, 'module') 0;
-    }
-  }
-}
-//@media (max-width: 1200px) {
-//  .module {
-//    margin: 8rem 0;
-//    &.module--filled {
-//      padding: 8rem 0;
-//    }
-//  }
-//}
-//@media (max-width: 1023px) {
-//  .module {
-//    margin: 8rem 0;
-//    &.module--filled {
-//      padding: 8rem 0;
-//    }
-//  }
-//}
-@media (max-width: 767px) {
-  .module {
-    margin: map-get($mobile-spacing, 'module') 0;
-    &.module--filled {
-      padding: map-get($mobile-spacing, 'module') 0;
-    }
-  }
-}
 
 //////////////////////////////////////////
 .two-columns {

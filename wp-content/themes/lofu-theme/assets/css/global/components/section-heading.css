@@ -1,0 +1,40 @@
+.section-title {
+  margin: 0;
+  font-size: clamp(4rem, 6vw, 8.8rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.section-label {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #666666;
+}
+
+.reveal {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.reveal__inner {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.is-armed .reveal__inner {
+    transform: translateY(110%);
+    transition: transform 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.is-armed.is-visible .reveal__inner {
+    transform: none;
+  }
+}
+
+/*# sourceMappingURL=section-heading.css.map */

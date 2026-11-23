@@ -1,12 +1,33 @@
-:root {
-  --grid-gutter-width: 30px;
-  --border-opacity: 1;
+.footer {
+  background: #fff;
+  color: #666666;
 }
-
-@media (max-width: 767px) {
-  :root {
-    --grid-gutter-width: 40px;
+.footer__bar {
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 2.4rem 0 4.8rem;
+  border-top: 1px solid #F2F2F2;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+@media (min-width: 768px) {
+  .footer__bar {
+    flex-direction: row;
+    gap: 1.6rem;
   }
+}
+.footer__top {
+  align-self: flex-start;
+  background: none;
+  color: #666666;
+}
+.footer__top:hover {
+  color: #111111;
+}
+.footer__top:focus-visible {
+  outline: 2px solid #000066;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /*# sourceMappingURL=footer.css.map */

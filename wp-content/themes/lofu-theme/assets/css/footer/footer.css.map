@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"\/assets\/scss","sources":["assets\/scss\/global\/utils\/variables.scss"],"names":[],"mappings":"AAAA;EACE;EACA;;;AAkFF;EACE;IACE","file":"footer.css"}
+{"version":3,"sourceRoot":"\/assets\/scss","sources":["assets\\scss\\footer\\footer.scss","assets\\scss\\global\\utils\\variables.scss","assets\\scss\\global\\mixins\\mixin.scss"],"names":[],"mappings":"AAGA;EACE,YCgJM;ED\/IN,OC0IM;;ADxIN;EACE;EACA;EACA;EACA;EACA;EACA;;AEJA;EFFF;IASI;IACA;;;AAIJ;EACE;EACA;EACA,OCuHI;;ADrHJ;EACE,OCiHA;;AD9GF;EACE;EACA;EACA","file":"footer.css"}

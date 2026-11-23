@@ -1,0 +1,87 @@
+@import "../../global/utils/variables";
+@import "../../global/mixins/mixin";
+
+.contacts {
+  &__grid {
+    display: grid;
+    gap: 4.8rem;
+    align-items: start;
+
+    // The title only takes its own width, leaving the rest to the contacts.
+    @include respond-to(lg) {
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 6.4rem 9.6rem;
+    }
+  }
+
+  &__columns {
+    display: grid;
+    gap: 4.2rem;
+    font-size: 1.4rem;
+    line-height: 1.9;
+
+    // `auto` tracks grow to their longest line (an email or address stays on
+    // one row) and only wrap when there is no room. Next to the title, the
+    // group sits at the right edge, like the mockup's right half.
+    @include respond-to(sm) {
+      grid-template-columns: repeat(3, auto);
+      justify-content: start;
+    }
+
+    @include respond-to(lg) {
+      justify-content: end;
+      gap: 8.2rem;
+    }
+
+    // 2 or 4 columns read better as a 2-wide grid than as 3 + an orphan.
+    &--even {
+      @include respond-to(sm) {
+        grid-template-columns: repeat(2, auto);
+      }
+    }
+  }
+
+  &__label {
+    margin: 0 0 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.9;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $muted;
+  }
+
+  &__lines {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  // `break-word` (not `anywhere`) so a long email doesn't shrink its column's
+  // minimum width; it only breaks if it can't fit the screen at all.
+  &__line {
+    overflow-wrap: break-word;
+  }
+
+  &__link {
+    background: none;
+    color: $navy;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.2s ease;
+
+    &:hover {
+      text-decoration-color: transparent;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+}

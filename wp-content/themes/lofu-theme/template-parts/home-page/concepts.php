@@ -27,9 +27,9 @@ $lofu_concepts_title = $lofu_concepts['section_title'] ?? '';
 $lofu_slide_count    = count( $lofu_slides );
 $lofu_first_title    = $lofu_slides[0]['title'] ?? '';
 ?>
-<section id="concepts" class="concepts" aria-roledescription="<?php esc_attr_e( 'carousel', 'lofu' ); ?>"<?php echo $lofu_concepts_title ? ' aria-labelledby="concepts-title"' : ''; ?>>
+<section id="concepts" class="concepts module pt-0 border-0" aria-roledescription="<?php esc_attr_e( 'carousel', 'lofu' ); ?>"<?php echo $lofu_concepts_title ? ' aria-labelledby="concepts-title"' : ''; ?>>
 	<div class="ia-container">
-		<div class="concepts__head d-flex justify-content-between align-items-baseline gap-2">
+		<div class="concepts__head section-label d-flex justify-content-between align-items-baseline gap-2">
 			<?php if ( $lofu_concepts_title ) : ?>
 				<h2 id="concepts-title" class="concepts__title concepts__mask"><span class="concepts__title-text concepts__mask-inner"><?php echo esc_html( $lofu_concepts_title ); ?></span></h2>
 			<?php endif; ?>

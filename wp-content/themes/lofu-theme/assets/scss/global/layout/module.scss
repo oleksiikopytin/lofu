@@ -1,0 +1,17 @@
+@import '../utils/variables';
+@import '../mixins/mixin';
+
+// Shared page section ("module") spacing and frame: every home page section
+// except the hero. Drop the top/bottom spacing or the divider line with the
+// utility classes in markup, e.g. `module pt-0 border-0`, `module pb-0`.
+.module {
+  padding: $module-spacing 0;
+  border-top: 1px solid $line;
+  background: $white;
+  color: $ink;
+  scroll-margin-top: $header-height;
+
+  @include respond-to(md) {
+    padding: $module-spacing-md 0;
+  }
+}

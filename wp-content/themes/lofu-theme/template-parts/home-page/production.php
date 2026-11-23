@@ -44,12 +44,12 @@ $lofu_production_title       = $lofu_production_field['section_title'] ?? '';
 $lofu_production_description = $lofu_production_field['section_description'] ?? '';
 $lofu_has_video              = (bool) array_filter( wp_list_pluck( $lofu_production_items, 'video' ) );
 ?>
-<section id="production" class="production"<?php echo $lofu_production_title ? ' aria-labelledby="production-title"' : ''; ?>>
+<section id="production" class="production module"<?php echo $lofu_production_title ? ' aria-labelledby="production-title"' : ''; ?>>
 	<div class="ia-container">
 		<?php if ( $lofu_production_title || $lofu_production_description ) : ?>
 			<div class="production__head d-flex justify-content-between align-items-end flex-wrap">
 				<?php if ( $lofu_production_title ) : ?>
-					<h2 id="production-title" class="production__title production__mask"><span class="production__mask-inner"><?php echo esc_html( $lofu_production_title ); ?></span></h2>
+					<h2 id="production-title" class="production__title section-title production__mask"><span class="production__mask-inner"><?php echo esc_html( $lofu_production_title ); ?></span></h2>
 				<?php endif; ?>
 
 				<?php if ( $lofu_production_description ) : ?>

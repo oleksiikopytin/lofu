@@ -17,6 +17,8 @@ get_template_part( 'template-parts/home-page/concepts' );
 get_template_part( 'template-parts/home-page/projects' );
 get_template_part( 'template-parts/home-page/products' );
 get_template_part( 'template-parts/home-page/production' );
+get_template_part( 'template-parts/home-page/partners' );
+get_template_part( 'template-parts/home-page/contacts' );
 
 // Full-screen photo viewer, shared by the project and product windows and the production gallery.
 get_template_part( 'template-parts/components/photo-viewer' );

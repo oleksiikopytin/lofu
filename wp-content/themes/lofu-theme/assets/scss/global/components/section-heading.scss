@@ -1,0 +1,50 @@
+@import '../utils/variables';
+
+// Shared section headings. Spacing (margins) stays in each section's partial.
+
+// Large section title, e.g. "Проєкти", "Контакти".
+.section-title {
+  margin: 0;
+  font-size: clamp(4rem, 6vw, 8.8rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+// Small uppercase label, e.g. "Про нас", "Партнери".
+.section-label {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $muted;
+}
+
+// Masked scroll reveal for a heading whose section has no script of its own:
+// <h2 class="... reveal"><span class="reveal__inner">Text</span></h2>.
+// reveal.js adds `is-armed` only once it runs (so text stays visible without
+// JS), then `is-visible` when the heading scrolls in. The padding keeps
+// descenders clear of the clip.
+.reveal {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.reveal__inner {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.is-armed .reveal__inner {
+    transform: translateY(110%);
+    transition: transform 1s $ease-out;
+  }
+
+  .reveal.is-armed.is-visible .reveal__inner {
+    transform: none;
+  }
+}

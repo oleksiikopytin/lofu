@@ -2,6 +2,13 @@ $grid-columns: 12;
 $container-max-width: 1440px;
 $header-height: 6.4rem;
 
+// Vertical padding of a page section (.module): mobile / from $breakpoint-md.
+$module-spacing: 6rem;
+$module-spacing-md: 12rem;
+
+// Easing of the scroll reveals (same curve as the section partials).
+$ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+
 //breakpoint
 $breakpoint-xs: 480px;
 $breakpoint-sm: 768px;
@@ -20,61 +27,61 @@ $spacing-values: (
   2: 2rem,
   3: 3rem,
   4: 4rem,
-  5: 5rem
+  5: 5rem,
 );
 //Desktop margin bottom
 $element-spacing: (
-  'h1': 4rem,
-  'h2': 4rem,
-  'h3': 3rem,
-  'h4': 3rem,
-  'h5': 2rem,
-  'h6': 2rem,
-  'p': 2rem,
-  'ul': 3rem,
-  'ol': 3rem,
-  'li': 1rem,
-  'module': 9rem,
-  'content-entry': 4rem,
+  "h1": 4rem,
+  "h2": 4rem,
+  "h3": 3rem,
+  "h4": 3rem,
+  "h5": 2rem,
+  "h6": 2rem,
+  "p": 2rem,
+  "ul": 3rem,
+  "ol": 3rem,
+  "li": 1rem,
+  "module": 9rem,
+  "content-entry": 4rem,
 );
 //Mobile font size
 $mobile-typography: (
-  'h1': 6.2rem,
-  'h2': 3.6rem,
-  'h3': 3rem,
-  'h4': 2.4rem,
-  'h5': 2rem,
-  'h6': 1.6rem,
-  'p0': 2rem,
-  'p1': 1.8rem,
-  'p2': 1.6rem,
-  'p3': 1.4rem,
-  'p4': 1.4rem,
-  'p5': 1.4rem,
-  'p6': 1.2rem
+  "h1": 6.2rem,
+  "h2": 3.6rem,
+  "h3": 3rem,
+  "h4": 2.4rem,
+  "h5": 2rem,
+  "h6": 1.6rem,
+  "p0": 2rem,
+  "p1": 1.8rem,
+  "p2": 1.6rem,
+  "p3": 1.4rem,
+  "p4": 1.4rem,
+  "p5": 1.4rem,
+  "p6": 1.2rem,
 );
 //Mobile margin bottom
 $mobile-spacing: (
-  'module': 6rem,
-  'content-entry': 3rem,
-  'h1': 3rem,
-  'h2': 2.4rem,
-  'h3': 2.4rem,
-  'h4': 2.4rem,
-  'h5': 2rem,
-  'h6': 2rem,
-  'p': 2rem,
-  'ul': 3rem,
-  'ol': 3rem,
-  'li': 1rem
+  "module": 6rem,
+  "content-entry": 3rem,
+  "h1": 3rem,
+  "h2": 2.4rem,
+  "h3": 2.4rem,
+  "h4": 2.4rem,
+  "h5": 2rem,
+  "h6": 2rem,
+  "p": 2rem,
+  "ul": 3rem,
+  "ol": 3rem,
+  "li": 1rem,
 );
 //spacing
 $spacing: 1rem;
-$spacing-xs: $spacing*0.5;
-$spacing-sm: $spacing*0.75;
-$spacing-md: $spacing*2;
-$spacing-lg: $spacing*3;
-$spacing-xl: $spacing*4;
+$spacing-xs: $spacing * 0.5;
+$spacing-sm: $spacing * 0.75;
+$spacing-md: $spacing * 2;
+$spacing-lg: $spacing * 3;
+$spacing-xl: $spacing * 4;
 
 //buttons
 $button-padding-sm: 1.4rem 2rem;
@@ -109,7 +116,7 @@ $head-sizes: (
   3: $h3,
   4: $h4,
   5: $h5,
-  6: $h6
+  6: $h6,
 );
 
 $fz1: $h1;
@@ -125,80 +132,86 @@ $p2: 1.6rem; //15
 $p3: 1.4rem; //14
 $p4: 1.2rem; //12
 $p5: 1rem; //10
-$p6: .8rem; //8
+$p6: 0.8rem; //8
 
 //colors
-$primary: #5E16A6;
-$secondary: #B598D3;
-$danger: #AC2020;
+$primary: #5e16a6;
+$secondary: #b598d3;
+$danger: #ac2020;
 $dark: #150725;
-$warning: #F98F72;
-$light: #D8D8D8;
+$warning: #f98f72;
+$light: #d8d8d8;
 $success: #079455;
-$info: #FCF1E6;
+$info: #fcf1e6;
 
 // LOFU design palette
 $ink: #111111;
 $navy: #000066;
-$line: #F2F2F2;
+$line: #f2f2f2;
 $muted: #666666;
 
 //$blue: #3156FF;
-$gray: #D9D9D9;
+$gray: #d9d9d9;
 //natural colors
 $white: #fff;
 $black: #000;
 
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark,
-  "white":      $white
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "white": $white,
 );
 
 // SCROLLBAR WIDTH
 $sbWidth: var(--scroll-width);
-
 
 /////////////////////////////////////// old mixin
 @mixin transition($transition...) {
   -webkit-transition: $transition;
   transition: $transition;
 }
-@mixin transition-delay($transition){
+@mixin transition-delay($transition) {
   -webkit-transition-delay: $transition;
   transition-delay: $transition;
 }
-@mixin translate ($Xtranslate, $Ytranslate, $Ztranslate) {
+@mixin translate($Xtranslate, $Ytranslate, $Ztranslate) {
   -webkit-transform: translate3d($Xtranslate, $Ytranslate, $Ztranslate);
   transform: translate3d($Xtranslate, $Ytranslate, $Ztranslate);
 }
 
-@mixin scale ($scale) {
+@mixin scale($scale) {
   -webkit-transform: scale($scale);
   transform: scale($scale);
 }
-@mixin scaleY ($scale) {
+@mixin scaleY($scale) {
   -webkit-transform: scaleY($scale);
   transform: scaleY($scale);
 }
-@mixin rotate ($rotate) {
+@mixin rotate($rotate) {
   -webkit-transform: rotate($rotate);
   transform: rotate($rotate);
 }
-@mixin grayscale ($grayscale) {
+@mixin grayscale($grayscale) {
   -webkit-filter: grayscale($grayscale); /* Safari 6.0 - 9.0 */
   filter: grayscale($grayscale);
 }
 @mixin placeholder {
-  &::-webkit-input-placeholder {@content}
-  &:-moz-placeholder           {@content}
-  &::-moz-placeholder          {@content}
-  &:-ms-input-placeholder      {@content}
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
 }
-
