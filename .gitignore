@@ -1,5 +1,9 @@
 # Common ignore patterns
 /CLAUDE.local.md
+
+# Design exports (local reference only)
+/exported_lofu/
+
 *~
 .github
 .cursor

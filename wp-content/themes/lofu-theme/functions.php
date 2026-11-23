@@ -147,3 +147,40 @@ function lofu_highlight_words( $text, $word ) {
 
 /*Disable automatic plugin updates */
 add_filter( 'auto_update_plugin', '__return_false' );
+/**
+ * Remove the WPML "registered as a development site" footer banner
+ * (.otgs-development-site-front-end). OTGS Installer adds it to wp_footer as
+ * an anonymous closure, so it can't be removed with remove_action().
+ */
+function lofu_remove_wpml_dev_site_banner() {
+	global $wp_filter;
+
+	if ( empty( $wp_filter['wp_footer']->callbacks[999] ) ) {
+		return;
+	}
+
+	foreach ( $wp_filter['wp_footer']->callbacks[999] as $callback ) {
+		if ( ! $callback['function'] instanceof Closure ) {
+			continue;
+		}
+
+		$reflection = new ReflectionFunction( $callback['function'] );
+		if ( false !== strpos( wp_normalize_path( $reflection->getFileName() ), 'otgs/installer/loader.php' ) ) {
+			remove_action( 'wp_footer', $callback['function'], 999 );
+		}
+	}
+}
+add_action( 'wp_footer', 'lofu_remove_wpml_dev_site_banner', 1 );
+
+/**
+ * Hide WPML's footer language switcher. The header has its own switcher.
+ *
+ * @param string       $html  Switcher markup.
+ * @param array        $model Template model.
+ * @param WPML_LS_Slot $slot  Switcher slot.
+ * @return string
+ */
+function lofu_hide_wpml_footer_switcher( $html, $model, $slot ) {
+	return $slot->is_footer() ? '' : $html;
+}
+add_filter( 'wpml_ls_html', 'lofu_hide_wpml_footer_switcher', 10, 3 );

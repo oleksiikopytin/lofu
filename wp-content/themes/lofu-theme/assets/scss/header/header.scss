@@ -1,27 +1,281 @@
 @import "../global/utils/variables";
+
+$header-height: 6.4rem;
+
+html {
+  scroll-padding-top: $header-height;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 .header {
-  &__top {
-    padding: 0.8rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba($white, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid $line;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: $ink;
+
+  .logged-in & {
+    top: 32px;
+  }
+
+  &__inner {
+    height: $header-height;
+  }
+
+  a {
+    background: none;
+  }
+
+  // Undo the global typography list spacing.
+  li {
+    margin: 0;
+    font-size: inherit;
+  }
+
+  // Nav
+  &__menu {
+    display: flex;
+    gap: 2.8rem;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+
+    a {
+      display: block;
+      padding: 1.2rem 0;
+      color: $ink;
+      border-bottom: 1px solid transparent;
+
+      &:hover {
+        color: $navy;
+        border-bottom-color: $navy;
+      }
+    }
+  }
+
+  // Burger (mobile only)
+  &__burger {
+    display: none;
+    position: relative;
+    width: 4.4rem;
+    height: 4.4rem;
+    margin-left: -1rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: $ink;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 2px;
+    }
+  }
+
+  &__burger-lines,
+  &__burger-lines::before,
+  &__burger-lines::after {
+    position: absolute;
+    left: 1rem;
+    width: 2.4rem;
+    height: 1px;
+    background: currentColor;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+
+  &__burger-lines {
+    top: 50%;
+
+    &::before,
+    &::after {
+      content: "";
+      left: 0;
+    }
+
+    &::before {
+      transform: translateY(-0.7rem);
+    }
+
+    &::after {
+      transform: translateY(0.7rem);
+    }
+  }
+
+  &__burger[aria-expanded="true"] &__burger-lines {
+    background-color: transparent;
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  @media (max-width: $breakpoint-md - 1) {
+    &__burger {
+      display: block;
+    }
+
+    // backdrop-filter makes .header the containing block, so size the panel
+    // to the viewport explicitly instead of using bottom: 0.
+    .js &__nav {
+      display: none;
+      position: fixed;
+      top: 100%;
+      right: 0;
+      left: 0;
+      height: calc(100vh - #{$header-height});
+      height: calc(100dvh - #{$header-height});
+      overflow-y: auto;
+      padding: 2.4rem calc(var(--grid-gutter-width) / 2);
+      background: $white;
+      border-top: 1px solid $line;
+    }
+
+    .js &--nav-open &__nav {
+      display: block;
+    }
+
+    .js &__menu {
+      flex-direction: column;
+      gap: 0;
+
+      a {
+        padding: 1.6rem 0;
+        font-size: 2rem;
+        border-bottom-color: $line;
+      }
+    }
+
+    // Without JS, fall back to the design's horizontally scrolling row.
+    .no-js &__burger {
+      display: none;
+    }
+
+    .no-js &__nav {
+      min-width: 0;
+      overflow-x: auto;
+    }
+
+    .no-js &__menu {
+      gap: 1.8rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__burger-lines,
+    &__burger-lines::before,
+    &__burger-lines::after {
+      transition: none;
+    }
+  }
+}
+
+html.header-nav-open {
+  @media (max-width: $breakpoint-md - 1) {
+    overflow: hidden;
+  }
+}
+
+// WPML language switcher ("Dropdown click" template), restyled to the design.
+.header__lang {
+  flex-shrink: 0;
+  margin-left: auto;
+
+  .wpml-ls-legacy-dropdown-click {
+    width: auto;
+    font-size: 1.3rem;
+
     a {
       display: flex;
       align-items: center;
-      transition: color 0.35s;
-      line-height: 1.2;
-      gap: 0.6rem;
+      justify-content: space-between;
+      gap: 1.6rem;
+      padding: 1.2rem 1.4rem;
+      min-height: 4.4rem;
+      box-sizing: border-box;
+      color: $ink;
+      background: $white;
+      border: 0;
+      line-height: 1.3;
+
       &:hover,
-      &.active {
-        color: #171db6;
-        text-decoration: underline;
-      }
-      &.active {
-        pointer-events: none;
+      &:focus {
+        color: $navy;
+        background: $line;
       }
     }
-    &-left {
-      gap: 2.4rem;
+
+    // Toggle button: "Українська ⌄"
+    a.wpml-ls-item-toggle {
+      gap: 0.8rem;
+      padding: 1rem 0;
+      background: transparent;
+      border-bottom: 1px solid $ink;
+
+      &::after {
+        content: "";
+        position: static;
+        width: 0.6rem;
+        height: 0.6rem;
+        margin-top: -0.4rem;
+        border: solid currentColor;
+        border-width: 0 1.3px 1.3px 0;
+        transform: rotate(45deg);
+        transition: transform 0.3s;
+      }
+
+      &[aria-expanded="true"]::after {
+        margin-top: 0.4rem;
+        transform: rotate(-135deg);
+      }
+
+      &:hover,
+      &:focus {
+        background: transparent;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $navy;
+        outline-offset: 2px;
+      }
     }
-    &-right {
-      gap: 2.4rem;
+
+    .wpml-ls-current-language:hover > a {
+      color: $navy;
+      background: transparent;
+    }
+
+    .wpml-ls-sub-menu {
+      top: 5.2rem;
+      right: 0;
+      left: auto;
+      min-width: 18rem;
+      padding: 0.8rem;
+      background: $white;
+      border: 1px solid $line;
+      box-shadow: 0 12px 32px rgba($ink, 0.08);
+
+      a {
+        border: 0;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wpml-ls-legacy-dropdown-click a.wpml-ls-item-toggle::after {
+      transition: none;
     }
   }
 }

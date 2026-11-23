@@ -5,6 +5,29 @@ register_nav_menus( array(
 	//    'footer'  => __( 'Footer Menu', 'lofu' )
 ) );
 
+/**
+ * Main menu items are "#section" links to home page sections. Outside the
+ * front page, point them at the home page in the current language.
+ *
+ * @param array    $atts Link attributes.
+ * @param WP_Post  $item Menu item.
+ * @param stdClass $args wp_nav_menu() arguments.
+ * @return array
+ */
+function lofu_main_menu_anchor_links( $atts, $item, $args ) {
+	if ( 'main' !== $args->theme_location || is_front_page() ) {
+		return $atts;
+	}
+
+	if ( ! empty( $atts['href'] ) && 0 === strpos( $atts['href'], '#' ) ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's public hook.
+		$atts['href'] = trailingslashit( apply_filters( 'wpml_home_url', home_url( '/' ) ) ) . $atts['href'];
+	}
+
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'lofu_main_menu_anchor_links', 10, 3 );
+
 add_theme_support( 'post-thumbnails' );
 
 // Theme image sizes

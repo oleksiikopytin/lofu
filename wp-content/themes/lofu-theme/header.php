@@ -1,5 +1,6 @@
 <?php
 /**
+ * The header for the theme.
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
@@ -8,10 +9,11 @@
  * @since 1.0
  * @version 1.0
  */
+
 ?>
 
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="no-js no-svg <?php echo ! wp_is_mobile() ? 'desktop-version' : 'device-version'; ?>">
+<html <?php language_attributes(); ?> class="no-js no-svg">
 
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -24,16 +26,46 @@
 
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
+	<a class="skip-to-main-content-link" href="#content"><?php esc_html_e( 'Skip to content', 'lofu' ); ?></a>
 	<!-- main container of all the page elements -->
 	<div id="wrapper">
 		<header class="header">
-			<div class="ia-container py-5">
-				<div class="logo">
-					<a href="<?php echo esc_url( get_home_url() ); ?>">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/logo.svg" class="nolazy" width="232" height="22" alt="Logo of LOFU">
-					</a>
-				</div>
+			<div class="ia-container header__inner d-flex align-items-center justify-content-between gap-4">
+				<?php if ( has_nav_menu( 'main' ) ) : ?>
+					<button type="button" class="header__burger" aria-expanded="false" aria-controls="header-nav">
+						<span class="header__burger-lines" aria-hidden="true"></span>
+						<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'lofu' ); ?></span>
+					</button>
 
+					<nav id="header-nav" class="header__nav" aria-label="<?php esc_attr_e( 'Site sections', 'lofu' ); ?>">
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'main',
+								'container' => false,
+								'menu_class' => 'header__menu',
+								'depth' => 1,
+								'fallback_cb' => false,
+							)
+						);
+						?>
+					</nav>
+				<?php endif; ?>
+
+				<div class="header__lang">
+					<?php
+					do_action(
+						'wpml_language_switcher',
+						array(
+							'template' => 'wpml-legacy-dropdown-click',
+							'flags' => 0,
+							'native' => 1,
+							'translated' => 0,
+							'link_current' => 1,
+						)
+					);
+					?>
+				</div>
 			</div>
 		</header>
 		<!-- End the header of the page -->
