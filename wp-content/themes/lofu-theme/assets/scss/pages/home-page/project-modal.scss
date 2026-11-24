@@ -1,18 +1,11 @@
-@import '../../global/utils/variables';
-@import '../../global/mixins/mixin';
+@import "../../global/utils/variables";
+@import "../../global/mixins/mixin";
 
 $project-modal-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 
 // Detail grid, repeated every 6 photos: column start, column span,
 // top offset and crop (the crop is used by every view).
-$project-modal-layout: (
-  (1, 3, 0, 3 / 4),
-  (4, 4, 0, 4 / 5),
-  (10, 3, 18rem, 3 / 4),
-  (1, 6, 0, 16 / 10),
-  (8, 4, 12rem, 1 / 1),
-  (3, 5, 0, 4 / 3)
-);
+$project-modal-layout: ((1, 3, 0, 3 / 4), (4, 4, 0, 4 / 5), (10, 3, 18rem, 3 / 4), (1, 6, 0, 16 / 10), (8, 4, 12rem, 1 / 1), (3, 5, 0, 4 / 3));
 
 // Opened by projects.js; while it is open the page behind doesn't scroll.
 // Lock on <body>, not <html>: reset.scss gives both `height: 100%`, and
@@ -154,7 +147,7 @@ html.has-project-modal {
   }
 
   // Detail: staggered 12-column grid (a single column on phones).
-  &__gallery[data-view='detail'] {
+  &__gallery[data-view="detail"] {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 1.6rem;
@@ -172,7 +165,7 @@ html.has-project-modal {
       $span: nth(nth($project-modal-layout, $i), 2);
       $offset: nth(nth($project-modal-layout, $i), 3);
 
-      &__gallery[data-view='detail'] &__photo:nth-child(#{length($project-modal-layout)}n + #{$i}) {
+      &__gallery[data-view="detail"] &__photo:nth-child(#{length($project-modal-layout)}n + #{$i}) {
         grid-column: #{$start} / span #{$span};
         margin-top: $offset;
       }
@@ -180,7 +173,7 @@ html.has-project-modal {
   }
 
   // Masonry: three columns of photos at their own crops.
-  &__gallery[data-view='masonry'] {
+  &__gallery[data-view="masonry"] {
     column-gap: 1.6rem;
 
     @include respond-to(sm) {
@@ -194,7 +187,7 @@ html.has-project-modal {
   }
 
   // Slider: one row of equal-height photos, scrolled sideways.
-  &__gallery[data-view='slider'] {
+  &__gallery[data-view="slider"] {
     display: flex;
     gap: 1.6rem;
     overflow-x: auto;

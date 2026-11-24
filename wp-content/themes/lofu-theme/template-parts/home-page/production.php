@@ -10,7 +10,8 @@
  * repeat every 4 tiles (see production.scss). Each tile links to its full
  * photo or video file, so it still works without JS; with JS a photo opens
  * in the shared photo viewer and a video in the `production-video` dialog
- * (production.js).
+ * (production.js), which switches to the optional MP4 fallback when the
+ * browser can't play the main file (e.g. WebM on older iOS).
  *
  * @package WordPress
  * @subpackage lofu
@@ -21,18 +22,22 @@ $lofu_production_field = get_field( 'production' );
 $lofu_production_items = array();
 
 foreach ( (array) ( $lofu_production_field['items'] ?? array() ) as $lofu_row ) {
-	$lofu_image_id = (int) ( $lofu_row['image'] ?? 0 );
-	$lofu_video_id = 'video' === ( $lofu_row['type'] ?? '' ) ? (int) ( $lofu_row['video'] ?? 0 ) : 0;
-	$lofu_video    = $lofu_video_id ? wp_get_attachment_url( $lofu_video_id ) : '';
+	$lofu_image_id    = (int) ( $lofu_row['image'] ?? 0 );
+	$lofu_is_video    = 'video' === ( $lofu_row['type'] ?? '' );
+	$lofu_video_id    = $lofu_is_video ? (int) ( $lofu_row['video'] ?? 0 ) : 0;
+	$lofu_fallback_id = $lofu_is_video ? (int) ( $lofu_row['video_fallback'] ?? 0 ) : 0;
+	$lofu_video       = $lofu_video_id ? wp_get_attachment_url( $lofu_video_id ) : '';
 
 	if ( ! $lofu_video && ! $lofu_image_id ) {
 		continue;
 	}
 
 	$lofu_production_items[] = array(
-		'image'   => $lofu_image_id,
-		'video'   => $lofu_video,
-		'caption' => trim( (string) ( $lofu_row['caption'] ?? '' ) ),
+		'image'          => $lofu_image_id,
+		'video'          => $lofu_video,
+		'video_type'     => $lofu_video_id ? (string) get_post_mime_type( $lofu_video_id ) : '',
+		'video_fallback' => $lofu_fallback_id ? (string) wp_get_attachment_url( $lofu_fallback_id ) : '',
+		'caption'        => trim( (string) ( $lofu_row['caption'] ?? '' ) ),
 	);
 }
 
@@ -72,7 +77,8 @@ $lofu_has_video              = (bool) array_filter( wp_list_pluck( $lofu_product
 				$lofu_alt      = $lofu_alt ? $lofu_alt : $lofu_caption;
 
 				if ( $lofu_is_video ) {
-					$lofu_href   = $lofu_item['video'];
+					// Without JS the link opens the file itself; the MP4 plays everywhere.
+					$lofu_href   = $lofu_item['video_fallback'] ? $lofu_item['video_fallback'] : $lofu_item['video'];
 					$lofu_poster = $lofu_image_id ? wp_get_attachment_image_src( $lofu_image_id, 'lofu-featured-image' ) : false;
 					$lofu_label  = $lofu_caption
 						/* translators: %s: video caption */
@@ -92,7 +98,11 @@ $lofu_has_video              = (bool) array_filter( wp_list_pluck( $lofu_product
 						<a
 							class="production__card production__card--video"
 							href="<?php echo esc_url( $lofu_href ); ?>"
-							data-video-src="<?php echo esc_url( $lofu_href ); ?>"
+							data-video-src="<?php echo esc_url( $lofu_item['video'] ); ?>"
+							<?php if ( $lofu_item['video_fallback'] ) : ?>
+								data-video-type="<?php echo esc_attr( $lofu_item['video_type'] ); ?>"
+								data-video-fallback="<?php echo esc_url( $lofu_item['video_fallback'] ); ?>"
+							<?php endif; ?>
 							data-video-poster="<?php echo esc_url( $lofu_poster ? $lofu_poster[0] : '' ); ?>"
 							data-video-caption="<?php echo esc_attr( $lofu_caption ); ?>"
 							aria-label="<?php echo esc_attr( $lofu_label ); ?>"

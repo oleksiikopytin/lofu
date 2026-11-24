@@ -53,13 +53,21 @@
 	var closingFromHistory = false;
 	var focusAfterPop = null;
 
+	// The main file (usually WebM), or the MP4 fallback where it can't play.
+	function videoSrc(tile) {
+		var type = tile.dataset.videoType;
+		var fallback = tile.dataset.videoFallback;
+		if (fallback && type && !player.canPlayType(type)) return fallback;
+		return tile.dataset.videoSrc;
+	}
+
 	function open(tile) {
 		opener = tile;
 		caption.textContent = tile.dataset.videoCaption || '';
 		player.setAttribute('aria-label', tile.getAttribute('aria-label') || '');
 		if (tile.dataset.videoPoster) player.poster = tile.dataset.videoPoster;
 		else player.removeAttribute('poster');
-		player.src = tile.dataset.videoSrc;
+		player.src = videoSrc(tile);
 
 		dialog.showModal();
 		root.classList.add('has-production-video');

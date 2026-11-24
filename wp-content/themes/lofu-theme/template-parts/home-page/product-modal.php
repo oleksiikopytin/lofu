@@ -30,15 +30,22 @@ $lofu_gallery     = (array) get_field( 'gallery', $lofu_product_id );
 $lofu_video_id    = (int) get_field( 'video', $lofu_product_id );
 $lofu_video_url   = $lofu_video_id ? wp_get_attachment_url( $lofu_video_id ) : '';
 
-$lofu_specs = array_filter(
-	array(
-		__( 'Розміри', 'lofu' )             => get_field( 'dimensions', $lofu_product_id ),
-		__( 'Матеріали', 'lofu' )           => get_field( 'materials', $lofu_product_id ),
-		__( 'Джерело світла', 'lofu' )      => get_field( 'light_source', $lofu_product_id ),
-		__( 'Колірна температура', 'lofu' ) => get_field( 'color_temperature', $lofu_product_id ),
-		__( 'Кольори', 'lofu' )             => get_field( 'colors', $lofu_product_id ),
-	)
-);
+$lofu_specs = array();
+
+if ( have_rows( 'specifications', $lofu_product_id ) ) {
+	while ( have_rows( 'specifications', $lofu_product_id ) ) {
+		the_row();
+
+		$lofu_spec = array(
+			'label' => trim( (string) get_sub_field( 'label' ) ),
+			'value' => trim( (string) get_sub_field( 'value' ) ),
+		);
+
+		if ( '' !== $lofu_spec['label'] && '' !== $lofu_spec['value'] ) {
+			$lofu_specs[] = $lofu_spec;
+		}
+	}
+}
 
 $lofu_eyebrow = implode(
 	' · ',
@@ -188,10 +195,10 @@ $lofu_slide_count = count( $lofu_gallery ) + ( $lofu_video_url ? 1 : 0 );
 						<div class="product-modal__specs">
 							<h3 class="product-modal__specs-title"><?php esc_html_e( 'Характеристики', 'lofu' ); ?></h3>
 							<dl class="product-modal__spec-list">
-								<?php foreach ( $lofu_specs as $lofu_label => $lofu_value ) : ?>
+								<?php foreach ( $lofu_specs as $lofu_spec ) : ?>
 									<div class="product-modal__spec">
-										<dt class="product-modal__spec-label"><?php echo esc_html( $lofu_label ); ?></dt>
-										<dd class="product-modal__spec-value"><?php echo esc_html( $lofu_value ); ?></dd>
+										<dt class="product-modal__spec-label"><?php echo esc_html( $lofu_spec['label'] ); ?></dt>
+										<dd class="product-modal__spec-value"><?php echo esc_html( $lofu_spec['value'] ); ?></dd>
 									</div>
 								<?php endforeach; ?>
 							</dl>

@@ -734,7 +734,7 @@
                             "name": "video",
                             "aria-label": "",
                             "type": "file",
-                            "instructions": "MP4 (H.264) or WebM, ideally under 50 MB.",
+                            "instructions": "WebM (VP9) or MP4 (H.264), ideally under 50 MB. For a WebM, also add an MP4 fallback below.",
                             "required": 1,
                             "conditional_logic": [
                                 [
@@ -757,6 +757,37 @@
                             "min_size": "",
                             "max_size": "",
                             "mime_types": "mp4, webm",
+                            "allow_in_bindings": 0
+                        },
+                        {
+                            "key": "field_lofu_production_item_video_fallback",
+                            "label": "MP4 fallback",
+                            "name": "video_fallback",
+                            "aria-label": "",
+                            "type": "file",
+                            "instructions": "Optional. The same video as MP4 (H.264), played by browsers that can't play the WebM above (older iPhones and iPads).",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_lofu_production_item_type",
+                                        "operator": "==",
+                                        "value": "video"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "wpml_cf_preferences": 1,
+                            "parent_repeater": "field_lofu_production_items",
+                            "return_format": "id",
+                            "library": "all",
+                            "min_size": "",
+                            "max_size": "",
+                            "mime_types": "mp4",
                             "allow_in_bindings": 0
                         }
                     ]
@@ -1114,5 +1145,5 @@
     "enable_acf_abilities": 1,
     "ai_description": "",
     "acfml_field_group_mode": "translation",
-    "modified": 1795447805
+    "modified": 1795513385
 }

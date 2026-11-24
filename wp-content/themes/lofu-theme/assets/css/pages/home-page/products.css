@@ -56,7 +56,7 @@
   object-fit: cover;
 }
 .products__media--contain .products__image {
-  padding: 9%;
+  padding: 0;
   object-fit: contain;
 }
 .products__caption {

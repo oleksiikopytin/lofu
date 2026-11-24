@@ -26,7 +26,7 @@ html.has-project-modal body {
   position: sticky;
   top: 0;
   z-index: 2;
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #f2f2f2;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(8px);
 }
@@ -87,7 +87,7 @@ html.has-project-modal body {
 }
 .project-modal__photo {
   --project-modal-ratio: 4 / 3;
-  background: #F2F2F2;
+  background: #f2f2f2;
 }
 .project-modal__photo:nth-child(6n+1) {
   --project-modal-ratio: 0.75;
@@ -231,7 +231,7 @@ html.has-project-modal body {
   grid-template-columns: 14rem minmax(0, 1fr);
   gap: 1.2rem;
   padding-bottom: 1.4rem;
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #f2f2f2;
 }
 .project-modal__fact-label {
   color: #666666;
@@ -261,7 +261,7 @@ html.has-project-modal body {
 }
 .project-modal__nav {
   padding: 3.2rem 0 5.6rem;
-  border-top: 1px solid #F2F2F2;
+  border-top: 1px solid #f2f2f2;
   font-size: 1.4rem;
 }
 .project-modal__nav-link {
