@@ -15,5 +15,4 @@ the_post(); ?>
 	<?php the_content(); ?>
 </div>
 <?php
-//wp_enqueue_style('blog-post-style', get_template_directory_uri() . "/assets/css/pages/post/hero.css");
 get_footer();

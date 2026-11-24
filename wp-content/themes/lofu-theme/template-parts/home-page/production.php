@@ -20,6 +20,15 @@
 
 $lofu_production_field = get_field( 'production' );
 $lofu_production_items = array();
+$lofu_production_rows  = (array) ( $lofu_production_field['items'] ?? array() );
+
+lofu_prime_posts(
+	array_merge(
+		array_column( $lofu_production_rows, 'image' ),
+		array_column( $lofu_production_rows, 'video' ),
+		array_column( $lofu_production_rows, 'video_fallback' )
+	)
+);
 
 foreach ( (array) ( $lofu_production_field['items'] ?? array() ) as $lofu_row ) {
 	$lofu_image_id    = (int) ( $lofu_row['image'] ?? 0 );

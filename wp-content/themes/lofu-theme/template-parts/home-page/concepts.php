@@ -23,6 +23,8 @@ if ( empty( $lofu_slides ) ) {
 	return;
 }
 
+lofu_prime_posts( array_column( (array) $lofu_slides, 'image' ) );
+
 $lofu_concepts_title = $lofu_concepts['section_title'] ?? '';
 $lofu_slide_count    = count( $lofu_slides );
 $lofu_first_title    = $lofu_slides[0]['title'] ?? '';
@@ -45,6 +47,12 @@ $lofu_first_title    = $lofu_slides[0]['title'] ?? '';
 			<?php
 			foreach ( $lofu_slides as $lofu_index => $lofu_slide ) :
 				$lofu_slide_title = $lofu_slide['title'] ?? '';
+				$lofu_image_attrs = array(
+					'class'   => 'concepts__image',
+					'alt'     => $lofu_slide_title,
+					'sizes'   => '(min-width: 1440px) 1360px, 100vw',
+					'loading' => 'lazy',
+				);
 				?>
 				<div
 					class="concepts__slide"
@@ -55,17 +63,14 @@ $lofu_first_title    = $lofu_slides[0]['title'] ?? '';
 				>
 					<?php if ( ! empty( $lofu_slide['image'] ) ) : ?>
 						<?php
-						echo wp_get_attachment_image(
-							$lofu_slide['image'],
-							'lofu-featured-image',
-							false,
-							array(
-								'class'   => 'concepts__image',
-								'alt'     => $lofu_slide_title,
-								'sizes'   => '(min-width: 1440px) 1360px, 100vw',
-								'loading' => 'lazy',
-							)
-						);
+						// Every slide's image loads only as the section nears the
+						// viewport (concepts.js); without JS the first one shows
+						// from <noscript> instead.
+						echo wp_get_attachment_image( $lofu_slide['image'], 'lofu-featured-image', false, $lofu_image_attrs + array( 'data-defer' => true ) );
+
+						if ( 0 === $lofu_index ) {
+							echo '<noscript>' . wp_get_attachment_image( $lofu_slide['image'], 'lofu-featured-image', false, $lofu_image_attrs ) . '</noscript>';
+						}
 						?>
 					<?php else : ?>
 						<div class="concepts__placeholder d-flex align-items-center justify-content-center">

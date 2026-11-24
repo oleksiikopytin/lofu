@@ -6,6 +6,3 @@ function lofu_ajax_popup_dimension() {
 
 	wp_die();
 }
-
-
-

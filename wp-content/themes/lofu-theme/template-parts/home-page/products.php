@@ -7,37 +7,41 @@
  * the series URL, which lofu_product_redirect() sends back here with a
  * `#series-{slug}` hash; a product URL comes back with `#product-{slug}`.
  *
- * Every series and every product in them is rendered once into a <template>.
- * products.js opens a series in the `series-modal` dialog (its description
- * and a grid of its products), and a product in the `product-modal` dialog
- * on top of it, and keeps the hash in sync.
+ * Every series and every product in them sits in a <template>
+ * (products-templates.php), which lazy-templates.js loads into this section
+ * from `data-templates-src` as it comes near the viewport. products.js opens
+ * a series in the `series-modal` dialog (its description and a grid of its
+ * products), and a product in the `product-modal` dialog on top of it, and
+ * keeps the hash in sync.
  *
  * @package WordPress
  * @subpackage lofu
  * @since lofu 1.0
  */
 
-$lofu_products_field = get_field( 'products' );
-// The list may hold the default language's IDs; show this language's versions.
-$lofu_series_ids = lofu_translated_series_ids( $lofu_products_field['selected_series'] ?? array() );
-$lofu_series     = array();
-
-foreach ( $lofu_series_ids as $lofu_series_id ) {
-	$lofu_term = get_term( $lofu_series_id, 'series' );
-
-	if ( $lofu_term instanceof WP_Term ) {
-		$lofu_series[] = $lofu_term;
-	}
-}
+$lofu_series = lofu_home_series();
 
 if ( empty( $lofu_series ) ) {
 	return;
 }
 
+// The cards' images, in a few queries.
+$lofu_series_term_ids = wp_list_pluck( $lofu_series, 'term_id' );
+update_termmeta_cache( $lofu_series_term_ids );
+lofu_prime_posts(
+	array_map(
+		function ( $term_id ) {
+			return get_term_meta( $term_id, 'image', true );
+		},
+		$lofu_series_term_ids
+	)
+);
+
+$lofu_products_field = get_field( 'products' );
 $lofu_products_title = $lofu_products_field['section_title'] ?? '';
 $lofu_products_intro = $lofu_products_field['intro'] ?? '';
 ?>
-<section id="products" class="products module"<?php echo $lofu_products_title ? ' aria-labelledby="products-title"' : ''; ?>>
+<section id="products" class="products module" data-templates-src="<?php echo esc_url( lofu_home_templates_url( 'products' ) ); ?>"<?php echo $lofu_products_title ? ' aria-labelledby="products-title"' : ''; ?>>
 	<div class="ia-container">
 		<?php if ( $lofu_products_title || $lofu_products_intro ) : ?>
 			<div class="products__head d-flex justify-content-between align-items-baseline flex-wrap">
@@ -96,49 +100,3 @@ $lofu_products_intro = $lofu_products_field['intro'] ?? '';
 
 <dialog id="series-modal" class="series-modal" aria-labelledby="series-modal-title"></dialog>
 <dialog id="product-modal" class="product-modal" aria-labelledby="product-modal-title"></dialog>
-
-<?php
-foreach ( $lofu_series as $lofu_term ) {
-	$lofu_product_ids = get_posts(
-		array(
-			'post_type'        => 'product',
-			'post_status'      => 'publish',
-			'posts_per_page'   => -1,
-			'fields'           => 'ids',
-			'orderby'          => array(
-				'menu_order' => 'ASC',
-				'title'      => 'ASC',
-			),
-			'no_found_rows'    => true,
-			'suppress_filters' => false,
-			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- one small query per series.
-			'tax_query'        => array(
-				array(
-					'taxonomy' => 'series',
-					'field'    => 'term_id',
-					'terms'    => $lofu_term->term_id,
-				),
-			),
-		)
-	);
-
-	get_template_part(
-		'template-parts/home-page/series-modal',
-		null,
-		array(
-			'series'      => $lofu_term,
-			'product_ids' => $lofu_product_ids,
-		)
-	);
-
-	foreach ( $lofu_product_ids as $lofu_product_id ) {
-		get_template_part(
-			'template-parts/home-page/product-modal',
-			null,
-			array(
-				'product_id' => $lofu_product_id,
-				'series'     => $lofu_term,
-			)
-		);
-	}
-}

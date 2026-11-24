@@ -10,10 +10,10 @@
  * @version 1.0
  */
 
-	get_header(); 
-	$tag = get_queried_object();
+get_header();
 ?>
 
 
 
-<?php get_footer();
+<?php
+get_footer();

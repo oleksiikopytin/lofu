@@ -7,9 +7,11 @@
  * project's own URL, which lofu_project_redirect() sends back here with a
  * `#project-{slug}` hash.
  *
- * Every project's details are rendered once into a <template>. projects.js
- * opens the matching one in the `project-modal` dialog when a card is
- * clicked or the page loads with that hash, and keeps the hash in sync.
+ * Every project's details sit in a <template> (projects-templates.php),
+ * which lazy-templates.js loads into this section from `data-templates-src`
+ * as it comes near the viewport. projects.js opens the matching one in the
+ * `project-modal` dialog when a card is clicked or the page loads with that
+ * hash, and keeps the hash in sync.
  *
  * The cards are laid out by the view switcher (detail grid, masonry tiles or
  * a horizontal slider); the detail grid's positions and every card's crop
@@ -20,25 +22,16 @@
  * @since lofu 1.0
  */
 
-$lofu_projects_field = get_field( 'projects' );
-// The list may hold the default language's IDs; show this language's versions.
-$lofu_project_ids = array_values(
-	array_filter(
-		lofu_translated_project_ids( $lofu_projects_field['selected_projects'] ?? array() ),
-		function ( $project_id ) {
-			return 'publish' === get_post_status( $project_id );
-		}
-	)
-);
+$lofu_project_ids = lofu_home_project_ids();
 
 if ( empty( $lofu_project_ids ) ) {
 	return;
 }
 
+$lofu_projects_field = get_field( 'projects' );
 $lofu_projects_title = $lofu_projects_field['section_title'] ?? '';
-$lofu_project_count  = count( $lofu_project_ids );
 ?>
-<section id="projects" class="projects module"<?php echo $lofu_projects_title ? ' aria-labelledby="projects-title"' : ''; ?>>
+<section id="projects" class="projects module" data-templates-src="<?php echo esc_url( lofu_home_templates_url( 'projects' ) ); ?>"<?php echo $lofu_projects_title ? ' aria-labelledby="projects-title"' : ''; ?>>
 	<div class="ia-container">
 		<div class="projects__head d-flex justify-content-between align-items-end flex-wrap">
 			<?php if ( $lofu_projects_title ) : ?>
@@ -99,18 +92,3 @@ $lofu_project_count  = count( $lofu_project_ids );
 </section>
 
 <dialog id="project-modal" class="project-modal" aria-labelledby="project-modal-title"></dialog>
-
-<?php
-foreach ( $lofu_project_ids as $lofu_index => $lofu_project_id ) {
-	get_template_part(
-		'template-parts/home-page/project-modal',
-		null,
-		array(
-			'project_id' => $lofu_project_id,
-			'index'      => $lofu_index,
-			'count'      => $lofu_project_count,
-			'prev_id'    => $lofu_project_ids[ ( $lofu_index - 1 + $lofu_project_count ) % $lofu_project_count ],
-			'next_id'    => $lofu_project_ids[ ( $lofu_index + 1 ) % $lofu_project_count ],
-		)
-	);
-}

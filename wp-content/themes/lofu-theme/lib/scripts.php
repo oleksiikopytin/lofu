@@ -4,24 +4,13 @@
  */
 function lofu_scripts() {
 	// Theme stylesheet.
-	wp_enqueue_style( 'animate', get_template_directory_uri() . "/assets/css/animate.css" );
-	wp_enqueue_style( 'fancybox3-style', get_template_directory_uri() . "/assets/css/jquery.fancybox.min.css" );
-	wp_enqueue_style( 'main', get_template_directory_uri() . "/assets/css/main.css" );
+	wp_enqueue_style( 'main', get_theme_file_uri( '/assets/css/main.css' ), array(), filemtime( get_theme_file_path( '/assets/css/main.css' ) ) );
 
-
-	// Load the html5 shiv.
-	wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/slick.min.js', array( 'jquery' ), '20170801', true );
-
-	wp_enqueue_script( 'fancybox3', get_template_directory_uri() . '/assets/js/jquery.fancybox.min.js', array( 'jquery' ), '20220117', true );
-	wp_enqueue_script( 'scripts', get_theme_file_uri( '/assets/js/scripts.js' ), array( 'jquery' ), null, true );
+	wp_enqueue_script( 'scripts', get_theme_file_uri( '/assets/js/scripts.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/scripts.js' ) ), true );
 
 	if ( has_nav_menu( 'main' ) ) {
 		wp_enqueue_script( 'lofu-header', get_theme_file_uri( '/assets/js/header/header.js' ), array(), filemtime( get_theme_file_path( '/assets/js/header/header.js' ) ), true );
 	}
-
-
-
-
 }
 add_action( 'wp_enqueue_scripts', 'lofu_scripts' );
 
@@ -48,6 +37,8 @@ function lofu_home_page_scripts() {
 	wp_register_script( 'lofu-split-lines', get_theme_file_uri( $split_lines_js ), array(), filemtime( get_theme_file_path( $split_lines_js ) ), true );
 	wp_enqueue_script( 'lofu-home-about', get_theme_file_uri( $about_js ), array( 'lofu-split-lines' ), filemtime( get_theme_file_path( $about_js ) ), true );
 	wp_enqueue_style( 'lofu-home-concepts', get_theme_file_uri( $concepts_css ), array( 'main' ), filemtime( get_theme_file_path( $concepts_css ) ) );
+	// Slick is only used by the concepts slider.
+	wp_register_script( 'slick', get_theme_file_uri( '/assets/js/slick.min.js' ), array( 'jquery' ), '20170801', true );
 	wp_enqueue_script( 'lofu-home-concepts', get_theme_file_uri( $concepts_js ), array( 'jquery', 'slick' ), filemtime( get_theme_file_path( $concepts_js ) ), true );
 
 	$view_switch_css   = '/assets/css/global/components/view-switch.css';
@@ -62,7 +53,11 @@ function lofu_home_page_scripts() {
 	wp_enqueue_script( 'lofu-view-switch', get_theme_file_uri( $view_switch_js ), array(), filemtime( get_theme_file_path( $view_switch_js ) ), true );
 	wp_enqueue_style( 'lofu-home-projects', get_theme_file_uri( $projects_css ), array( 'main' ), filemtime( get_theme_file_path( $projects_css ) ) );
 	wp_enqueue_style( 'lofu-home-project-modal', get_theme_file_uri( $project_modal_css ), array( 'main' ), filemtime( get_theme_file_path( $project_modal_css ) ) );
-	wp_enqueue_script( 'lofu-home-projects', get_theme_file_uri( $projects_js ), array( 'lofu-view-switch', 'lofu-split-lines' ), filemtime( get_theme_file_path( $projects_js ) ), true );
+	// Loads the project/series/product window templates after the page.
+	$lazy_templates_js = '/assets/js/components/lazy-templates.js';
+	wp_register_script( 'lofu-lazy-templates', get_theme_file_uri( $lazy_templates_js ), array(), filemtime( get_theme_file_path( $lazy_templates_js ) ), true );
+
+	wp_enqueue_script( 'lofu-home-projects', get_theme_file_uri( $projects_js ), array( 'lofu-view-switch', 'lofu-split-lines', 'lofu-lazy-templates' ), filemtime( get_theme_file_path( $projects_js ) ), true );
 	wp_enqueue_style( 'lofu-photo-viewer', get_theme_file_uri( $photo_viewer_css ), array( 'main' ), filemtime( get_theme_file_path( $photo_viewer_css ) ) );
 	wp_enqueue_script( 'lofu-photo-viewer', get_theme_file_uri( $photo_viewer_js ), array(), filemtime( get_theme_file_path( $photo_viewer_js ) ), true );
 
@@ -74,7 +69,7 @@ function lofu_home_page_scripts() {
 	wp_enqueue_style( 'lofu-home-products', get_theme_file_uri( $products_css ), array( 'main' ), filemtime( get_theme_file_path( $products_css ) ) );
 	wp_enqueue_style( 'lofu-home-series-modal', get_theme_file_uri( $series_modal_css ), array( 'main' ), filemtime( get_theme_file_path( $series_modal_css ) ) );
 	wp_enqueue_style( 'lofu-home-product-modal', get_theme_file_uri( $product_modal_css ), array( 'main' ), filemtime( get_theme_file_path( $product_modal_css ) ) );
-	wp_enqueue_script( 'lofu-home-products', get_theme_file_uri( $products_js ), array(), filemtime( get_theme_file_path( $products_js ) ), true );
+	wp_enqueue_script( 'lofu-home-products', get_theme_file_uri( $products_js ), array( 'lofu-lazy-templates' ), filemtime( get_theme_file_path( $products_js ) ), true );
 
 	$production_css = '/assets/css/pages/home-page/production.css';
 	$production_js  = '/assets/js/pages/home-page/production.js';
@@ -117,4 +112,3 @@ function lofu_remove_block_library_css() {
 	wp_dequeue_style( 'wp-block-library' );
 }
 add_action( 'wp_enqueue_scripts', 'lofu_remove_block_library_css' );
-

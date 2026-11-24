@@ -8,7 +8,44 @@
 	'use strict';
 
 	var section = document.querySelector('.concepts');
-	if (!section || !$ || !$.fn.slick) return;
+	if (!section) return;
+
+	/**
+	 * The slides' images are rendered with data-src/srcset/sizes (see
+	 * lofu_defer_image_attributes()), Slick's clones included; set the real
+	 * attributes so they load. Runs once the section is within half a screen
+	 * of the viewport (so the first image is in by the time it shows), or on
+	 * the first slide change if that comes sooner. Set up before the slider,
+	 * so the images still load if Slick is missing or there is one slide.
+	 */
+	var deferredLoaded = false;
+
+	function loadDeferredImages() {
+		if (deferredLoaded) return;
+		deferredLoaded = true;
+
+		section.querySelectorAll('img[data-src]').forEach(function (img) {
+			if (img.dataset.sizes) img.sizes = img.dataset.sizes;
+			if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+			img.src = img.dataset.src;
+			img.removeAttribute('data-sizes');
+			img.removeAttribute('data-srcset');
+			img.removeAttribute('data-src');
+		});
+	}
+
+	if ('IntersectionObserver' in window) {
+		var imageObserver = new IntersectionObserver(function (entries) {
+			if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+			imageObserver.disconnect();
+			loadDeferredImages();
+		}, { rootMargin: '50% 0px' });
+		imageObserver.observe(section);
+	} else {
+		loadDeferredImages();
+	}
+
+	if (!$ || !$.fn.slick) return;
 
 	var track = section.querySelector('.concepts__track');
 	if (!track || track.children.length < 2) return;
@@ -69,6 +106,7 @@
 
 	// Update the labels as the slide starts moving, not when it lands.
 	$track.on('beforeChange', function (event, slick, current, next) {
+		loadDeferredImages();
 		sync(next);
 	});
 

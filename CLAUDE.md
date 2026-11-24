@@ -60,7 +60,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - Minimum supported WP version `5.9`.
 - Tools come from the root `composer.json` / `composer.lock` (PHPCS 3.13, WPCS 3.4) into root `vendor/`. Restore with `composer install`.
 - Run from the site root: `composer lint` or `php vendor/bin/phpcs [file]`; auto-fix with `composer lint:fix` or `php vendor/bin/phpcbf [file]`.
-- Existing code still has ~70 errors / ~20 warnings, mostly formatting that `phpcbf` can fix. Lint the files you change. Don't mass-fix the whole theme as part of an unrelated task.
+- The theme lints clean (0 errors / 0 warnings as of 2026-11-24). Keep it that way: lint the files you change before finishing.
 - The `.cursor/rules/*.mdc` files describe an aspirational OOP/PSR style the ruleset does **not** enforce. The actual theme code is flat, procedural and hook-based. Match that.
 
 ## 📐 Coding Standards (Team Guidelines)
@@ -100,7 +100,7 @@ e.g. `assets/scss/pages/home-page/hero.scss`. Reusable/shared components → `te
 - Use the `bg--{name}` / `text--{name}` / `border--{name}` classes generated in `colors.scss` from `$theme-colors` instead of writing `background-color: $color;` in a component partial.
 - ⚠️ These utility classes are declared `!important`. A responsive override for the same property inside a component partial must also use `!important` to win.
 
-**Never hand-edit a generated `.css` file.** Every file in `assets/css/` except the vendor files (`animate.css`, `jquery.fancybox.min.css`) is compiler output.
+**Never hand-edit a generated `.css` file.** Every file in `assets/css/` is compiler output.
 
 ### ⚡ JavaScript
 
@@ -112,7 +112,7 @@ e.g. `assets/js/pages/home-page/hero.js`.
 - Wrap in an IIFE/module pattern, avoid polluting globals.
 - Guard against a missing element: `if (!el) return;`. JS should enhance, not gate, core functionality.
 - Enqueue section CSS/JS conditionally, from the section's template part or for the template that uses it, rather than adding it to the global `lofu_scripts()`.
-- Prefer vanilla JS. jQuery, Slick and Fancybox are already loaded globally if needed.
+- Prefer vanilla JS. jQuery is loaded globally; Slick is registered on the home page only (a dependency of `concepts.js`).
 
 ### 🧩 PHP / ACF
 
@@ -187,15 +187,16 @@ The site is bilingual through WPML: **Ukrainian (`uk`) is the default language**
 
 ### Bootstrap
 
-`functions.php`: `lofu_setup()` (on `after_setup_theme`) requires each `lib/` file via `locate_template()` (`post-types.php`, `config.php`, `scripts.php`, `shortcode.php`, `scss-compiler.php`, `ajax.php`), calls `load_theme_textdomain( 'lofu' )`, and adds `automatic-feed-links`, `title-tag`, `custom-logo` and `customize-selective-refresh-widgets` support. The rest is a flat tail: a pingback header (`lofu_pingback_header`), an ACF options page (`acf_add_options_page()` with no args), emoji-disabling (`lofu_disable_emojis*`), a single `sidebar-1` widget area (`lofu_widgets_init`), self-pingback prevention (`lofu_no_self_ping`), an oEmbed `frameborder` stripper (`lofu_remove_frameborder`), an unused search-highlight helper `lofu_highlight_words()`, and `add_filter( 'auto_update_plugin', '__return_false' )`.
+`functions.php`: `lofu_setup()` (on `after_setup_theme`) requires each `lib/` file via `locate_template()` (`post-types.php`, `home-page.php`, `config.php`, `scripts.php`, `shortcode.php`, `scss-compiler.php`, `ajax.php`), calls `load_theme_textdomain( 'lofu' )`, and adds `automatic-feed-links`, `title-tag`, `custom-logo` and `customize-selective-refresh-widgets` support. The rest is a flat tail: a pingback header (`lofu_pingback_header`), an ACF options page (`acf_add_options_page()` with no args), emoji-disabling (`lofu_disable_emojis*`), a single `sidebar-1` widget area (`lofu_widgets_init`), self-pingback prevention (`lofu_no_self_ping`), an oEmbed `frameborder` stripper (`lofu_remove_frameborder`), an unused search-highlight helper `lofu_highlight_words()`, and `add_filter( 'auto_update_plugin', '__return_false' )`.
 
 ### `lib/` responsibilities
 
 | File | Contains |
 |---|---|
-| `post-types.php` | Empty. No `register_post_type()` anywhere in the theme. |
+| `post-types.php` | The `project` and `product` post types and the `series` taxonomy (no single pages: their URLs redirect to the home page hash that opens the window), hash-anchor and WPML translation helpers, and `lofu_prime_posts()` / `lofu_prime_wpml_translations()`, which batch-load posts, meta, referenced media and WPML translation data. Call `lofu_prime_posts()` before rendering many posts/images, or every post and image costs its own queries. |
+| `home-page.php` | Home page data (`lofu_home_project_ids()`, `lofu_home_series()`, `lofu_series_product_ids()`) and `lofu_home_templates_endpoint()`: the project/series/product window `<template>`s are **not** in the page HTML. `?lofu_templates=projects|products` on the home page URL serves them (`template-parts/home-page/{projects,products}-templates.php`), and `assets/js/components/lazy-templates.js` (`window.lofu.loadTemplates()`) fetches them as the section nears the viewport. projects.js/products.js wait for them when a click or URL hash comes first. |
 | `config.php` | Registers a single `main` nav menu location, `post-thumbnails` support, image size `lofu-featured-image` (1800×9999, no crop), and `html5` support (comment-form, comment-list, gallery, caption). |
-| `scripts.php` | `lofu_scripts()` enqueues globally: `animate.css`, `jquery.fancybox.min.css`, `main.css`, `slick.min.js`, `jquery.fancybox.min.js`, `scripts.js`. Also prints the `no-js`→`js` snippet (`lofu_javascript_detection`), dequeues `jquery-ui-core` (`lofu_dequeue_jquery_ui`) and the `wp-block-library` CSS (`lofu_remove_block_library_css`). |
+| `scripts.php` | `lofu_scripts()` enqueues globally: `main.css`, `scripts.js` (and `header.js` when the main menu is set). `lofu_home_page_scripts()` enqueues the home page section CSS/JS (and registers `slick.min.js`) only on the "Home page" template. Also prints the `no-js`→`js` snippet (`lofu_javascript_detection`), dequeues `jquery-ui-core` (`lofu_dequeue_jquery_ui`) and the `wp-block-library` CSS (`lofu_remove_block_library_css`). |
 | `shortcode.php` | Empty stub. |
 | `ajax.php` | `wp_ajax_popup_dimension` / `wp_ajax_nopriv_popup_dimension` hooks → `lofu_ajax_popup_dimension()`, which is just `wp_die()` (scaffold). |
 | `scss-compiler.php` | The runtime SCSS pipeline (see Commands above). |
@@ -205,7 +206,6 @@ The site is bilingual through WPML: **Ukrainian (`uk`) is the default language**
 
 - Generic top-level templates: `index.php`, `page.php`, `single.php`, `archive.php`, `category.php`, `tag.php`, `search.php`, `404.php`, `comments.php`, `sidebar.php`, `header.php`, `footer.php`. No `Walker_Nav_Menu` subclass, and `header.php` doesn't call `wp_nav_menu()` yet.
 - `page-templates/front-page.php` (Template Name "Home page"): outputs `the_content()`, then loops the ACF `hero` rows into `template-parts/home-page/hero.php`. That partial, `assets/js/pages/home-page/hero.js` and `assets/scss/pages/home-page/hero.scss` are currently empty placeholders being rebuilt.
-- `category.php` and `single.php` contain commented-out enqueues for files that don't exist (`pages/knowledge-center/*`, `pages/post/hero.css`). They're leftovers from the source theme.
 
 ### ACF fields
 
@@ -221,8 +221,8 @@ None. The database only has `page`, `post`, `revision` and `wp_navigation` posts
 
 Hand-written, no bundler.
 
-- `assets/js/`: vendor `slick.min.js`, `jquery.fancybox.min.js`; theme `scripts.js` (global, enqueued with a `jquery` dependency, currently empty), `components/accordion.js` (not enqueued; pairs with `global/components/accordion.scss`, which `main.scss` has commented out), `pages/home-page/hero.js`.
-- `assets/css/`: vendor `animate.css`, `jquery.fancybox.min.css`; everything else is compiler output.
+- `assets/js/`: vendor `slick.min.js`; theme `scripts.js` (global, enqueued with a `jquery` dependency, currently empty), `components/accordion.js` (not enqueued; pairs with `global/components/accordion.scss`, which `main.scss` has commented out), `pages/home-page/hero.js`.
+- `assets/css/`: compiler output only (no vendor CSS).
 - `assets/scss/`: `global/` (base, components, content, layout, mixins, utils, `slick.scss`), `header/`, `footer/`, `pages/` (`home-page/`, plus `animation-page/` and `global-page/` sources left from removed templates, not imported by `main.scss`). Several `global/components/*.scss` (icons, pagination, breadcrumbs, close, tabs, accordion, start-quiz, tooltip, vimeo, hero-zoom, bg-move, divider-line) exist but aren't imported.
 - `assets/images/`: `logo.svg`, `placeholder.png`.
 - `assets/fonts/montserrat/`: **Montserrat**, self-hosted as a variable font (weights 100–900, normal and italic, `latin`, `latin-ext`, `cyrillic` and `cyrillic-ext` subsets, `.woff2`, from `@fontsource-variable/montserrat` 5.1.1). The `@font-face` rules are generated in `global/base/font.scss` (imported by `main.scss`) with `unicode-range` per subset and `font-display: swap`. `variables.scss` sets `$font-base` and `$font-base-heading` to Montserrat; `$font-deco` is a system monospace stack. No Google Fonts or other external font requests. To use another weight, just set `font-weight`, since the variable font covers the whole range.

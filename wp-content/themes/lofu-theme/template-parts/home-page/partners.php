@@ -19,6 +19,8 @@
 $lofu_partners_field = get_field( 'partners' );
 $lofu_partners       = array();
 
+lofu_prime_posts( array_column( (array) ( $lofu_partners_field['items'] ?? array() ), 'logo' ) );
+
 foreach ( (array) ( $lofu_partners_field['items'] ?? array() ) as $lofu_row ) {
 	$lofu_logo_id = (int) ( $lofu_row['logo'] ?? 0 );
 

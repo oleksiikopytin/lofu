@@ -183,6 +183,80 @@ function lofu_translated_project_ids( $project_ids ) {
 }
 
 /**
+ * Loads posts, their meta and the media they reference into the object cache
+ * in a few queries, instead of one or two queries per post as the templates
+ * read them.
+ *
+ * The home page renders every project and product (with its photos) into
+ * <template>s, so without this it runs hundreds of small queries.
+ *
+ * @param int[]    $post_ids   Posts to load.
+ * @param string[] $media_keys Meta keys holding attachment IDs (an ID or an
+ *                             array of IDs, e.g. ACF image, file and gallery
+ *                             fields). The featured image is always included.
+ */
+function lofu_prime_posts( $post_ids, $media_keys = array() ) {
+	$post_ids = array_filter( array_map( 'absint', (array) $post_ids ) );
+
+	if ( ! $post_ids ) {
+		return;
+	}
+
+	_prime_post_caches( $post_ids, false, true );
+
+	$media_ids = array();
+
+	foreach ( $post_ids as $post_id ) {
+		foreach ( array_merge( array( '_thumbnail_id' ), $media_keys ) as $key ) {
+			$media_ids = array_merge( $media_ids, (array) maybe_unserialize( get_post_meta( $post_id, $key, true ) ) );
+		}
+	}
+
+	$media_ids = array_unique( array_filter( array_map( 'absint', $media_ids ) ) );
+
+	if ( $media_ids ) {
+		_prime_post_caches( $media_ids, false, true );
+	}
+
+	lofu_prime_wpml_translations( array_merge( $post_ids, $media_ids ) );
+}
+
+/**
+ * Loads WPML's translation data for posts in batches. Without it WPML (and
+ * WPML Media's caption/alt filters) looks each post or image up on its own.
+ *
+ * Mirrors WPML Media's own priming (WPML_Media_Image_Translate::
+ * primeAttachmentHydrationCaches()). Does nothing without WPML, or if a
+ * WPML update drops these methods.
+ *
+ * @param int[] $post_ids Post IDs (any post type, attachments included).
+ */
+function lofu_prime_wpml_translations( $post_ids ) {
+	global $wpml_post_translations, $sitepress;
+
+	if ( ! $post_ids || ! is_object( $wpml_post_translations ) || ! method_exists( $wpml_post_translations, 'prefetch_ids' ) ) {
+		return;
+	}
+
+	$wpml_post_translations->prefetch_ids( $post_ids );
+
+	if ( ! $sitepress || ! class_exists( 'WPML_Translations' ) || ! method_exists( 'WPML_Translations', 'prime_cache_for_trids' ) ) {
+		return;
+	}
+
+	$trids = array();
+
+	foreach ( $post_ids as $post_id ) {
+		$trids[ 'post_' . get_post_type( $post_id ) ][] = $wpml_post_translations->get_element_trid( $post_id );
+	}
+
+	foreach ( $trids as $element_type => $type_trids ) {
+		$translations = new WPML_Translations( $sitepress );
+		$translations->prime_cache_for_trids( array_filter( $type_trids ), $element_type );
+	}
+}
+
+/**
  * Redirects a single project URL to the home page (in the same language),
  * with the hash that opens that project's modal.
  *

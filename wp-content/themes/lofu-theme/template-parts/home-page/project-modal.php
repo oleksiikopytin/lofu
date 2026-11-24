@@ -24,27 +24,27 @@ if ( ! $lofu_project_id ) {
 	return;
 }
 
-$lofu_count = (int) ( $args['count'] ?? 1 );
-$lofu_prev_id = (int) ( $args['prev_id'] ?? 0 );
-$lofu_next_id = (int) ( $args['next_id'] ?? 0 );
-$lofu_title = get_the_title( $lofu_project_id );
-$lofu_gallery = get_field( 'gallery', $lofu_project_id );
-$lofu_task = get_field( 'task', $lofu_project_id );
+$lofu_count    = (int) ( $args['count'] ?? 1 );
+$lofu_prev_id  = (int) ( $args['prev_id'] ?? 0 );
+$lofu_next_id  = (int) ( $args['next_id'] ?? 0 );
+$lofu_title    = get_the_title( $lofu_project_id );
+$lofu_gallery  = get_field( 'gallery', $lofu_project_id );
+$lofu_task     = get_field( 'task', $lofu_project_id );
 $lofu_solution = get_field( 'solution', $lofu_project_id );
 
 $lofu_facts = array_filter(
 	array(
 		__( 'Місцезнаходження', 'lofu' ) => get_field( 'location', $lofu_project_id ),
-		__( 'Рік', 'lofu' ) => get_field( 'year', $lofu_project_id ),
-		__( 'Тип об’єкта', 'lofu' ) => get_field( 'object_type', $lofu_project_id ),
-		__( 'Оснащення', 'lofu' ) => get_field( 'fixtures', $lofu_project_id ),
+		__( 'Рік', 'lofu' )              => get_field( 'year', $lofu_project_id ),
+		__( 'Тип об’єкта', 'lofu' )      => get_field( 'object_type', $lofu_project_id ),
+		__( 'Оснащення', 'lofu' )        => get_field( 'fixtures', $lofu_project_id ),
 	)
 );
 
 $lofu_texts = array_filter(
 	array(
 		__( 'Завдання', 'lofu' ) => $lofu_task,
-		__( 'Рішення', 'lofu' ) => $lofu_solution,
+		__( 'Рішення', 'lofu' )  => $lofu_solution,
 	)
 );
 ?>

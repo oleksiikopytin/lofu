@@ -27,25 +27,28 @@ if ( post_password_required() ) {
 
 	<?php
 	// You can start editing here -- including this comment!
-	if ( have_comments() ) : ?>
+	if ( have_comments() ) :
+		?>
 		<h2 class="comments-title">
 			<?php
 			$lofu_comments_number = get_comments_number();
 			if ( '1' === $lofu_comments_number ) {
 				/* translators: %s: post title */
-				printf( _x( 'One Reply to &ldquo;%s&rdquo;', 'comments title', 'lofu' ), get_the_title() );
+				printf( esc_html_x( 'One Reply to &ldquo;%s&rdquo;', 'comments title', 'lofu' ), esc_html( get_the_title() ) );
 			} else {
 				printf(
-					/* translators: 1: number of comments, 2: post title */
-					_nx(
-						'%1$s Reply to &ldquo;%2$s&rdquo;',
-						'%1$s Replies to &ldquo;%2$s&rdquo;',
-						$lofu_comments_number,
-						'comments title',
-						'lofu'
+					esc_html(
+						/* translators: 1: number of comments, 2: post title */
+						_nx(
+							'%1$s Reply to &ldquo;%2$s&rdquo;',
+							'%1$s Replies to &ldquo;%2$s&rdquo;',
+							$lofu_comments_number,
+							'comments title',
+							'lofu'
+						)
 					),
-					number_format_i18n( $lofu_comments_number ),
-					get_the_title()
+					esc_html( number_format_i18n( $lofu_comments_number ) ),
+					esc_html( get_the_title() )
 				);
 			}
 			?>
@@ -53,27 +56,33 @@ if ( post_password_required() ) {
 
 		<ol class="comment-list">
 			<?php
-				wp_list_comments( array(
-					'avatar_size' => 100,
-					'style'       => 'ol',
-					'short_ping'  => true,
-					'reply_text'  =>  __( 'Reply', 'lofu' ),
-				) );
+				wp_list_comments(
+					array(
+						'avatar_size' => 100,
+						'style'       => 'ol',
+						'short_ping'  => true,
+						'reply_text'  => __( 'Reply', 'lofu' ),
+					)
+				);
 			?>
 		</ol>
 
-		<?php the_comments_pagination( array(
-			'prev_text' => '<span class="screen-reader-text">' . __( 'Previous', 'lofu' ) . '</span>',
-			'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'lofu' ) . '</span>',
-		) );
+		<?php
+		the_comments_pagination(
+			array(
+				'prev_text' => '<span class="screen-reader-text">' . __( 'Previous', 'lofu' ) . '</span>',
+				'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'lofu' ) . '</span>',
+			)
+		);
 
 	endif; // Check for have_comments().
 
 	// If comments are closed and there are comments, let's leave a little note, shall we?
-	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
+	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
+		?>
 
-		<p class="no-comments"><?php _e( 'Comments are closed.', 'lofu' ); ?></p>
-	<?php
+		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'lofu' ); ?></p>
+		<?php
 	endif;
 
 	comment_form();

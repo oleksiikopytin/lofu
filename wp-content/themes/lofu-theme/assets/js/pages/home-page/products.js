@@ -3,8 +3,9 @@
  * and the product window over it, and the product photo slider.
  *
  * Each series' content sits in a <template id="series-{slug}-modal"> and
- * each product's in a <template id="product-{slug}-modal" data-series="…">.
- * A series card opens its series in `#series-modal`; a product card there
+ * each product's in a <template id="product-{slug}-modal" data-series="…">,
+ * loaded into the section after the page by lazy-templates.js; anything that
+ * needs one before then waits for it. A series card opens its series in `#series-modal`; a product card there
  * opens the product in `#product-modal` on top. The URL hash follows what is
  * open, so `/#series-{slug}` and `/#product-{slug}` (where series and product
  * URLs redirect) open them on load; a product hash opens its series under it.
@@ -57,6 +58,19 @@
 		if (!anchor || anchor.indexOf(prefix) !== 0) return null;
 		var template = document.getElementById(anchor + '-modal');
 		return template && template.content ? template : null;
+	}
+
+	function isWindowAnchor(anchor) {
+		return /^(series|product)-/.test(anchor);
+	}
+
+	// The templates are still to come (lazy-templates.js).
+	function templatesPending() {
+		return section.hasAttribute('data-templates-src') && !!(window.lofu && window.lofu.loadTemplates);
+	}
+
+	function loadTemplates() {
+		return templatesPending() ? window.lofu.loadTemplates(section) : Promise.resolve();
 	}
 
 	// The entry was added by us (opened from a card), so Back undoes it.
@@ -199,10 +213,24 @@
 
 		var isProduct = link.hasAttribute('data-product');
 		var anchor = link.getAttribute(isProduct ? 'data-product' : 'data-series');
-		if (!(isProduct ? openProduct(anchor) : openSeries(anchor))) return;
 
+		function open() {
+			if (!(isProduct ? openProduct(anchor) : openSeries(anchor))) return false;
+			history.pushState({ lofuProducts: true }, '', '#' + anchor);
+			return true;
+		}
+
+		if (!templatesPending()) {
+			if (open()) event.preventDefault();
+			return;
+		}
+
+		// Clicked before the templates arrived: open once they do, or follow
+		// the series' URL if they can't be loaded.
 		event.preventDefault();
-		history.pushState({ lofuProducts: true }, '', '#' + anchor);
+		loadTemplates().then(function () {
+			if (!open()) window.location.href = link.href;
+		});
 	});
 
 	[seriesDialog, productDialog].forEach(function (dialog) {
@@ -255,6 +283,14 @@
 
 	// Back / Forward, and plain hash links (e.g. the "contact us" button).
 	window.addEventListener('popstate', function () {
+		if (isWindowAnchor(hashAnchor()) && templatesPending()) {
+			loadTemplates().then(onHistoryChange);
+		} else {
+			onHistoryChange();
+		}
+	});
+
+	function onHistoryChange() {
 		var anchor = hashAnchor();
 
 		if (templateFor(anchor, 'product-')) {
@@ -275,9 +311,14 @@
 			// to another section, leave the browser's scroll to it alone.
 			if (!anchor) focusIn(section, closedSeries);
 		}
-	});
+	}
 
 	// Arrived through a series / product URL (redirected here) or a shared link.
 	var initial = hashAnchor();
-	if (!openProduct(initial)) openSeries(initial);
+	if (isWindowAnchor(initial)) {
+		loadTemplates().then(function () {
+			if (hashAnchor() !== initial || seriesDialog.open) return;
+			if (!openProduct(initial)) openSeries(initial);
+		});
+	}
 })();

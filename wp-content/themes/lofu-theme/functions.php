@@ -16,6 +16,7 @@
 function lofu_setup() {
 	$roots_includes = array(
 		'lib/post-types.php',     // set post type
+		'lib/home-page.php',      // home page data + window templates endpoint
 		'lib/config.php',         // set image size
 		'lib/scripts.php',        // Scripts and stylesheets
 		'lib/shortcode.php',      // shortcode of the site
@@ -24,8 +25,10 @@ function lofu_setup() {
 		'lib/admin.php',          // wp-admin tweaks
 	);
 	foreach ( $roots_includes as $file ) {
-		if ( ! $filepath = locate_template( $file ) )
+		$filepath = locate_template( $file );
+		if ( ! $filepath ) {
 			continue;
+		}
 		require_once $filepath;
 	}
 	unset( $file, $filepath );
@@ -49,11 +52,14 @@ function lofu_setup() {
 	add_theme_support( 'title-tag' );
 
 	// Add theme support for Custom Logo.
-	add_theme_support( 'custom-logo', array(
-		'width' => 250,
-		'height' => 250,
-		'flex-width' => true,
-	) );
+	add_theme_support(
+		'custom-logo',
+		array(
+			'width'      => 250,
+			'height'     => 250,
+			'flex-width' => true,
+		)
+	);
 
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
@@ -63,7 +69,7 @@ add_action( 'after_setup_theme', 'lofu_setup' );
 /* Add a pingback url auto-discovery header for singularly identifiable articles. */
 function lofu_pingback_header() {
 	if ( is_singular() && pings_open() ) {
-		printf( '<link rel="pingback" href="%s">' . "\n", get_bloginfo( 'pingback_url' ) );
+		printf( '<link rel="pingback" href="%s">' . "\n", esc_url( get_bloginfo( 'pingback_url' ) ) );
 	}
 }
 add_action( 'wp_head', 'lofu_pingback_header' );
@@ -101,7 +107,7 @@ function lofu_disable_emojis_tinymce( $plugins ) {
 
 /* Remove emoji CDN hostname from DNS prefetching hints. */
 function lofu_disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
-	if ( 'dns-prefetch' == $relation_type ) {
+	if ( 'dns-prefetch' === $relation_type ) {
 		/** This filter is documented in wp-includes/formatting.php */
 		$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- core filter.
 
@@ -112,37 +118,41 @@ function lofu_disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
 /* register widgets area */
 function lofu_widgets_init() {
-	register_sidebar( array(
-		'name' => __( 'Sidebar Widgets', 'lofu' ),
-		'id' => 'sidebar-1',
-		'description' => __( 'Widgets in this area will be shown on all posts and pages.', 'lofu' ),
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget' => '</div>',
-		'before_title' => '<h2 class="widgettitle">',
-		'after_title' => '</h2>',
-	) );
+	register_sidebar(
+		array(
+			'name'          => __( 'Sidebar Widgets', 'lofu' ),
+			'id'            => 'sidebar-1',
+			'description'   => __( 'Widgets in this area will be shown on all posts and pages.', 'lofu' ),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h2 class="widgettitle">',
+			'after_title'   => '</h2>',
+		)
+	);
 }
 add_action( 'widgets_init', 'lofu_widgets_init' );
 
 /*prevent self-pings */
 function lofu_no_self_ping( &$links ) {
 	$home = home_url();
-	foreach ( $links as $l => $link )
-		if ( 0 === strpos( $link, $home ) )
+	foreach ( $links as $l => $link ) {
+		if ( 0 === strpos( $link, $home ) ) {
 			unset( $links[ $l ] );
+		}
+	}
 }
 add_action( 'pre_ping', 'lofu_no_self_ping' );
 
 /* Replace the frameborder attribute with an empty string. */
-function lofu_remove_frameborder( $html, $url ) {
+function lofu_remove_frameborder( $html ) {
 	$html = str_replace( 'frameborder="0"', '', $html );
 	return $html;
 }
-add_filter( 'embed_oembed_html', 'lofu_remove_frameborder', 10, 2 );
+add_filter( 'embed_oembed_html', 'lofu_remove_frameborder' );
 
 /*smart search results*/
 function lofu_highlight_words( $text, $word ) {
-	$text = preg_replace( '#' . preg_quote( $word ) . '#i', '<span class="hlw">\\0</span>', $text );
+	$text = preg_replace( '#' . preg_quote( $word, '#' ) . '#i', '<span class="hlw">\\0</span>', $text );
 	return $text;
 }
 
@@ -185,3 +195,13 @@ function lofu_hide_wpml_footer_switcher( $html, $model, $slot ) {
 	return $slot->is_footer() ? '' : $html;
 }
 add_filter( 'wpml_ls_html', 'lofu_hide_wpml_footer_switcher', 10, 3 );
+
+add_action(
+	'send_headers',
+	function () {
+		header( 'X-Frame-Options: SAMEORIGIN' );
+		header( 'X-Content-Type-Options: nosniff' );
+		header( 'Referrer-Policy: strict-origin-when-cross-origin' );
+		header( 'Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()' );
+	}
+);

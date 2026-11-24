@@ -18,11 +18,12 @@ get_header(); ?>
 	<div class="inner">
 		<div class="content-thin">
 			<div class="content-entry">
-				<h1 class="title-section"><?php echo __("Oops! That page can’t be found.", "lofu"); ?></h1>
-				<p><?php echo __("It looks like nothing was found at this location. ", "lofu"); ?><a href="<?php echo get_home_url(); ?>"><?php echo __("Go back Home", "lofu"); ?></a></p>
+				<h1 class="title-section"><?php esc_html_e( 'Oops! That page can’t be found.', 'lofu' ); ?></h1>
+				<p><?php esc_html_e( 'It looks like nothing was found at this location. ', 'lofu' ); ?><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Go back Home', 'lofu' ); ?></a></p>
 			</div>
 		</div>
 	</div>
 </div>
 
-<?php get_footer();
+<?php
+get_footer();

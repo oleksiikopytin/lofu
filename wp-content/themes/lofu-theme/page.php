@@ -36,7 +36,7 @@ the_post(); ?>
 					wp_link_pages(
 						array(
 							'before' => '<div class="page-links">' . __( 'Pages:', 'lofu' ),
-							'after' => '</div>',
+							'after'  => '</div>',
 						)
 					);
 					?>
@@ -46,4 +46,5 @@ the_post(); ?>
 	</div>
 </div>
 
-<?php get_footer();
+<?php
+get_footer();

@@ -1,8 +1,9 @@
 /**
  * Home page: projects — scroll reveal of the cards, and the project window.
  *
- * Each project's details sit in a <template id="project-{slug}-modal">.
- * Clicking a card (or a previous/next link inside the window) clones that
+ * Each project's details sit in a <template id="project-{slug}-modal">,
+ * loaded into the section after the page by lazy-templates.js; anything that
+ * needs one before then waits for it. Clicking a card (or a previous/next link inside the window) clones that
  * template into the `#project-modal` dialog, and the URL hash follows the
  * open project, so `/#project-{slug}` (where single project URLs redirect)
  * opens it on load. Opening from a card adds one history entry, so Back
@@ -60,10 +61,23 @@
 		}
 	}
 
+	function isProjectAnchor(anchor) {
+		return !!anchor && anchor.indexOf('project-') === 0;
+	}
+
 	function templateFor(anchor) {
-		if (!anchor || anchor.indexOf('project-') !== 0) return null;
+		if (!isProjectAnchor(anchor)) return null;
 		var template = document.getElementById(anchor + '-modal');
 		return template && template.content ? template : null;
+	}
+
+	// The templates are still to come (lazy-templates.js).
+	function templatesPending() {
+		return section.hasAttribute('data-templates-src') && !!(window.lofu && window.lofu.loadTemplates);
+	}
+
+	function loadTemplates() {
+		return templatesPending() ? window.lofu.loadTemplates(section) : Promise.resolve();
 	}
 
 	function focusCard(anchor) {
@@ -153,17 +167,31 @@
 		if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
 		var anchor = link.getAttribute('data-project');
-		var wasOpen = dialog.open;
-		if (!show(anchor)) return;
 
-		event.preventDefault();
+		function open() {
+			var wasOpen = dialog.open;
+			if (!show(anchor)) return false;
 
-		if (wasOpen) {
-			history.replaceState(null, '', '#' + anchor);
-		} else {
-			history.pushState(null, '', '#' + anchor);
-			openedWithPush = true;
+			if (wasOpen) {
+				history.replaceState(null, '', '#' + anchor);
+			} else {
+				history.pushState(null, '', '#' + anchor);
+				openedWithPush = true;
+			}
+			return true;
 		}
+
+		if (!templatesPending()) {
+			if (open()) event.preventDefault();
+			return;
+		}
+
+		// Clicked before the templates arrived: open once they do, or follow
+		// the project's URL if they can't be loaded.
+		event.preventDefault();
+		loadTemplates().then(function () {
+			if (!open()) window.location.href = link.href;
+		});
 	});
 
 	dialog.addEventListener('click', function (event) {
@@ -198,6 +226,14 @@
 
 	// Back / Forward, and plain "#project-…" links elsewhere on the page.
 	window.addEventListener('popstate', function () {
+		if (isProjectAnchor(hashAnchor()) && templatesPending()) {
+			loadTemplates().then(onHistoryChange);
+		} else {
+			onHistoryChange();
+		}
+	});
+
+	function onHistoryChange() {
 		var anchor = hashAnchor();
 
 		if (templateFor(anchor)) {
@@ -216,8 +252,13 @@
 			focusCard(focusAfterPop);
 			focusAfterPop = null;
 		}
-	});
+	}
 
 	// Arrived through a project URL (redirected here) or a shared link.
-	show(hashAnchor());
+	var initial = hashAnchor();
+	if (isProjectAnchor(initial)) {
+		loadTemplates().then(function () {
+			if (hashAnchor() === initial && !dialog.open) show(initial);
+		});
+	}
 })();

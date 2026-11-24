@@ -21,9 +21,9 @@ if ( ! $lofu_controls ) {
 }
 
 $lofu_views = array(
-	'detail' => __( 'Детально', 'lofu' ),
+	'detail'  => __( 'Детально', 'lofu' ),
 	'masonry' => __( 'Плитки', 'lofu' ),
-	'slider' => __( 'Слайдер', 'lofu' ),
+	'slider'  => __( 'Слайдер', 'lofu' ),
 );
 ?>
 <div class="view-switch js-only d-flex" role="group" aria-label="<?php esc_attr_e( 'Gallery view', 'lofu' ); ?>">
