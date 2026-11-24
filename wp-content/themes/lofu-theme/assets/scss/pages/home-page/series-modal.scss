@@ -78,17 +78,16 @@ html.has-products-modal {
     }
   }
 
-  // Products: one per row on phones, two on tablets, three on desktop.
+  // Products: two per row on phones and tablets, three on desktop.
   &__list {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 4rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3.2rem 1.6rem;
     margin: 0;
     padding: 0 0 8rem;
     list-style: none;
 
     @include respond-to(sm) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 5.6rem 2.4rem;
     }
 
@@ -134,12 +133,24 @@ html.has-products-modal {
     object-fit: cover;
   }
 
+  // Name above type in the narrow phone columns, side by side from tablets.
+  // The gaps override the `gap-3` utility, hence !important.
   &__caption {
-    margin-top: 1.6rem;
-    font-size: 1.3rem;
+    flex-direction: column;
+    gap: 0.4rem !important;
+    margin-top: 1.2rem;
+    font-size: 1.2rem;
+
+    @include respond-to(sm) {
+      flex-direction: row;
+      gap: 1.5rem !important;
+      margin-top: 1.6rem;
+      font-size: 1.3rem;
+    }
   }
 
   &__name {
+    overflow-wrap: anywhere;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -148,7 +159,10 @@ html.has-products-modal {
 
   &__type {
     color: $muted;
-    text-align: right;
+
+    @include respond-to(sm) {
+      text-align: right;
+    }
   }
 
   &__empty {

@@ -21,8 +21,17 @@ html {
   font-weight: 500;
   color: $ink;
 
-  .logged-in & {
+  // Offset below the WP admin bar (46px under 783px, not fixed under 601px).
+  .admin-bar & {
     top: 32px;
+
+    @media (max-width: 782px) {
+      top: 46px;
+    }
+
+    @media (max-width: 600px) {
+      top: 0;
+    }
   }
 
   &__inner {

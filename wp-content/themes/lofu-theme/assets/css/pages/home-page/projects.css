@@ -7,6 +7,14 @@
     margin-bottom: 7.2rem;
   }
 }
+.projects__head .view-switch {
+  display: none !important;
+}
+@media (min-width: 768px) {
+  .js .projects__head .view-switch {
+    display: flex !important;
+  }
+}
 .projects__list {
   margin: 0;
   padding: 0;

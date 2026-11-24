@@ -905,7 +905,7 @@ svg {
 }
 @media (max-width: 767px) {
   body:not(.page-template-flexible-page) #wrapper {
-    overflow: hidden;
+    overflow: clip;
   }
   body {
     font-size: 1.6rem;
@@ -3278,8 +3278,18 @@ html {
   font-weight: 500;
   color: #111111;
 }
-.logged-in .header {
+.admin-bar .header {
   top: 32px;
+}
+@media (max-width: 782px) {
+  .admin-bar .header {
+    top: 46px;
+  }
+}
+@media (max-width: 600px) {
+  .admin-bar .header {
+    top: 0;
+  }
 }
 .header__inner {
   height: 6.4rem;

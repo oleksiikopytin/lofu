@@ -361,8 +361,9 @@ svg {
 }
 @media (max-width: 767px) {
   body:not(.page-template-flexible-page) {
+    // clip, not hidden: hidden makes #wrapper a scroll container and breaks the sticky header.
     #wrapper {
-      overflow: hidden;
+      overflow: clip;
     }
   }
   body {

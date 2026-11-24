@@ -27,6 +27,18 @@ $projects-layout: (
     @include respond-to(md) {
       margin-bottom: 7.2rem;
     }
+
+    // Phones keep the default detail view (a single column), so no switcher.
+    // !important beats the d-flex utility; .js keeps it hidden without JS.
+    .view-switch {
+      display: none !important;
+
+      @include respond-to(sm) {
+        .js & {
+          display: flex !important;
+        }
+      }
+    }
   }
 
   &__list {

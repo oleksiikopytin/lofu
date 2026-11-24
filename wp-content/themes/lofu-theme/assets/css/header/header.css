@@ -13,13 +13,23 @@ html {
   z-index: 20;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #f2f2f2;
   font-size: 1.3rem;
   font-weight: 500;
   color: #111111;
 }
-.logged-in .header {
+.admin-bar .header {
   top: 32px;
+}
+@media (max-width: 782px) {
+  .admin-bar .header {
+    top: 46px;
+  }
+}
+@media (max-width: 600px) {
+  .admin-bar .header {
+    top: 0;
+  }
 }
 .header__inner {
   height: 6.4rem;
@@ -126,7 +136,7 @@ html {
     overflow-y: auto;
     padding: 2.4rem calc(var(--grid-gutter-width) / 2);
     background: #fff;
-    border-top: 1px solid #F2F2F2;
+    border-top: 1px solid #f2f2f2;
   }
   .js .header--nav-open .header__nav {
     display: block;
@@ -138,7 +148,7 @@ html {
   .js .header__menu a {
     padding: 1.6rem 0;
     font-size: 2rem;
-    border-bottom-color: #F2F2F2;
+    border-bottom-color: #f2f2f2;
   }
   .no-js .header__burger {
     display: none;
@@ -186,7 +196,7 @@ html {
 }
 .header__lang .wpml-ls-legacy-dropdown-click a:hover, .header__lang .wpml-ls-legacy-dropdown-click a:focus {
   color: #000066;
-  background: #F2F2F2;
+  background: #f2f2f2;
 }
 .header__lang .wpml-ls-legacy-dropdown-click a.wpml-ls-item-toggle {
   gap: 0.8rem;
@@ -227,7 +237,7 @@ html {
   min-width: 18rem;
   padding: 0.8rem;
   background: #fff;
-  border: 1px solid #F2F2F2;
+  border: 1px solid #f2f2f2;
   box-shadow: 0 12px 32px rgba(17, 17, 17, 0.08);
 }
 .header__lang .wpml-ls-legacy-dropdown-click .wpml-ls-sub-menu a {

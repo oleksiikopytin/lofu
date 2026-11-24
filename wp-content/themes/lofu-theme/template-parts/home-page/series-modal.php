@@ -78,7 +78,7 @@ $lofu_product_ids = (array) ( $args['product_ids'] ?? array() );
 											array(
 												'class'   => 'series-modal__image',
 												'alt'     => '',
-												'sizes'   => '(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw',
+												'sizes'   => '(min-width: 1024px) 33vw, 50vw',
 												'loading' => 'lazy',
 											)
 										);

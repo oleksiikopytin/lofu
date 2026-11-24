@@ -12,7 +12,62 @@ $production-layout: (
   (7, 6, 16rem, 16 / 9)
 );
 
+// Slider: one row of equal-height tiles, scrolled sideways. `min-content`
+// keeps each tile as wide as its media, so a long caption wraps. A wide crop
+// is capped at 80vw and cropped narrower, so every tile keeps the same height.
+@mixin production-slider {
+  display: flex;
+  gap: 1.6rem;
+  overflow-x: auto;
+  padding-bottom: 1.6rem;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .production__item {
+    flex: 0 0 auto;
+    width: min-content;
+    scroll-snap-align: start;
+  }
+
+  .production__media {
+    width: auto;
+    max-width: 80vw;
+    height: 36rem;
+
+    @include respond-to(sm) {
+      height: 52rem;
+    }
+  }
+
+  .production__caption {
+    margin-top: 1rem;
+  }
+
+  .production__kind {
+    display: none;
+  }
+}
+
+// No view switcher here: phones get the slider, wider screens the detail
+// grid. The masonry/slider `data-view` rules stay in case one is added back.
 .production {
+  // Phones: the slider runs off the right edge of the screen; the head
+  // keeps the container's gutter.
+  @media (max-width: $breakpoint-sm - 1px) {
+    .ia-container {
+      padding-right: 0;
+    }
+
+    &__head {
+      padding-right: calc(var(--grid-gutter-width) / 2);
+    }
+  }
+
   &__head {
     gap: 2.4rem 6.4rem;
     margin-bottom: 4rem;
@@ -28,10 +83,6 @@ $production-layout: (
     font-size: 1.5rem;
     line-height: 1.6;
     color: $muted;
-  }
-
-  &__switch {
-    margin-bottom: 4rem;
   }
 
   &__list {
@@ -135,16 +186,23 @@ $production-layout: (
     color: $muted;
   }
 
-  // Detail: the staggered 12-column grid (a single column on phones).
+  // Detail: the staggered 12-column grid; on phones, the slider.
   &__list[data-view='detail'] {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 4.8rem;
-    align-items: start;
+    @media (max-width: $breakpoint-sm - 1px) {
+      @include production-slider;
+
+      // The container has no right padding here; padding (unlike a margin)
+      // reliably counts in the scroll width, so the last tile ends on the gutter.
+      .production__item:last-child {
+        padding-right: calc(var(--grid-gutter-width) / 2);
+      }
+    }
 
     @include respond-to(sm) {
+      display: grid;
       grid-template-columns: repeat($grid-columns, minmax(0, 1fr));
       gap: 7.2rem 2.4rem;
+      align-items: start;
     }
   }
 
@@ -194,38 +252,8 @@ $production-layout: (
     }
   }
 
-  // Slider: one row of equal-height tiles, scrolled sideways. `min-content`
-  // keeps each tile as wide as its media, so a long caption wraps.
   &__list[data-view='slider'] {
-    display: flex;
-    gap: 1.6rem;
-    overflow-x: auto;
-    padding-bottom: 1.6rem;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-x: contain;
-
-    .production__item {
-      flex: 0 0 auto;
-      width: min-content;
-      scroll-snap-align: start;
-    }
-
-    .production__media {
-      width: auto;
-      height: 36rem;
-
-      @include respond-to(sm) {
-        height: 52rem;
-      }
-    }
-
-    .production__caption {
-      margin-top: 1rem;
-    }
-
-    .production__kind {
-      display: none;
-    }
+    @include production-slider;
   }
 }
 
@@ -397,6 +425,13 @@ html.has-production-video {
 
       &.is-visible {
         opacity: 1;
+        transform: none;
+      }
+    }
+
+    // A tile rising inside the phone slider would be clipped: fade only.
+    @media (max-width: $breakpoint-sm - 1px) {
+      .production__list[data-view='detail'] .production__item {
         transform: none;
       }
     }

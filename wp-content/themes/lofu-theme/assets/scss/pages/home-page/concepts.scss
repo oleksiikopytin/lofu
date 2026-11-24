@@ -78,6 +78,12 @@ $concepts-ease-in-out: cubic-bezier(0.77, 0, 0.18, 1);
     transform: translateY(-50%);
     transition: background-color 0.2s;
 
+    // Swipe and the dots cover navigation on phones. `!important` to beat
+    // the `d-flex` utility on the button.
+    @media (max-width: $breakpoint-sm - 1px) {
+      display: none !important;
+    }
+
     @include respond-to(sm) {
       width: 5.6rem;
       height: 5.6rem;

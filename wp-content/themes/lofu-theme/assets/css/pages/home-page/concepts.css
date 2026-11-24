@@ -60,6 +60,11 @@
   transform: translateY(-50%);
   transition: background-color 0.2s;
 }
+@media (max-width: 767px) {
+  .concepts__arrow {
+    display: none !important;
+  }
+}
 @media (min-width: 768px) {
   .concepts__arrow {
     width: 5.6rem;

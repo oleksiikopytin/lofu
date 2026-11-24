@@ -5,9 +5,9 @@
  * The title, description and the ordered photos/videos come from the
  * "Home page" ACF group (`production` group field).
  *
- * The tiles are laid out by the view switcher (detail grid, masonry tiles or
- * a horizontal slider); the detail grid's positions and every tile's crop
- * repeat every 4 tiles (see production.scss). Each tile links to its full
+ * The tiles are a staggered detail grid from tablet width up and a horizontal
+ * slider on phones; the grid's positions and every tile's crop repeat every
+ * 4 tiles (see production.scss). Each tile links to its full
  * photo or video file, so it still works without JS; with JS a photo opens
  * in the shared photo viewer and a video in the `production-video` dialog
  * (production.js), which switches to the optional MP4 fallback when the
@@ -71,10 +71,6 @@ $lofu_has_video              = (bool) array_filter( wp_list_pluck( $lofu_product
 				<?php endif; ?>
 			</div>
 		<?php endif; ?>
-
-		<div class="production__switch d-flex justify-content-end">
-			<?php get_template_part( 'template-parts/components/view-switch', null, array( 'controls' => 'production-list' ) ); ?>
-		</div>
 
 		<ul id="production-list" class="production__list" data-view="detail" data-photo-group>
 			<?php

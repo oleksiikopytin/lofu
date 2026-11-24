@@ -77,6 +77,27 @@ $about-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
     padding: 0;
     list-style: none;
 
+    // Phones: one row of 80vw cards, scrolled sideways and running off the
+    // right edge of the screen (the negative margin cancels the gutter).
+    @media (max-width: $breakpoint-sm - 1px) {
+      display: flex;
+      gap: 2.4rem;
+      margin-right: calc(var(--grid-gutter-width) / -2);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .about__pillar {
+        flex: 0 0 80vw;
+        scroll-snap-align: start;
+      }
+    }
+
     @include respond-to(sm) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -131,6 +152,15 @@ $about-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
     @for $i from 2 through 6 {
       .about__pillar:nth-child(#{$i}) {
         transition-delay: ($i - 1) * 0.12s;
+      }
+    }
+
+    // Phones: the pillars are a sideways slider, so they just show.
+    @media (max-width: $breakpoint-sm - 1px) {
+      .about__pillar.about__reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
       }
     }
 

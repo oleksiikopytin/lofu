@@ -257,7 +257,7 @@ html.overlayed #wrapper {
   }
 }
 :focus-visible {
-  outline: 2px dashed #5E16A6 !important;
+  outline: 2px dashed #5e16a6 !important;
   outline-offset: 5px !important;
 }
 
@@ -356,7 +356,7 @@ svg {
 }
 @media (max-width: 767px) {
   body:not(.page-template-flexible-page) #wrapper {
-    overflow: hidden;
+    overflow: clip;
   }
   body {
     font-size: 1.6rem;
