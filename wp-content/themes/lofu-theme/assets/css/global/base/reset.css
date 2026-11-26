@@ -421,10 +421,6 @@ svg {
   height: auto;
 }
 
-.grecaptcha-badge {
-  visibility: hidden;
-}
-
 .cky-notice-content-wrapper + div {
   display: none;
 }
@@ -497,6 +493,12 @@ svg {
 @media (max-width: 768px) {
   .cmplz-cookiebanner .cmplz-buttons {
     align-items: center;
+  }
+}
+@media (max-width: 576px) {
+  .cky-box-bottom-left {
+    bottom: 0 !important;
+    left: 0 !important;
   }
 }
 

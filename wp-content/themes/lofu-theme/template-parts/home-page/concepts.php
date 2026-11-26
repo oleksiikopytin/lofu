@@ -3,9 +3,9 @@
  * Home page: concepts (one-image-at-a-time slider).
  *
  * Content comes from the "Home page" ACF group (`concepts` group field).
- * concepts.js turns `concepts__track` into a Slick slider and keeps the
- * counter, title and dots in sync. Without JS only the first slide shows
- * and the controls stay hidden.
+ * concepts.js slides `concepts__rail` inside `concepts__track` (arrows,
+ * dots, swipe/drag, arrow keys) and keeps the counter, title and dots in
+ * sync. Without JS only the first slide shows and the controls stay hidden.
  *
  * On scroll, concepts.js reveals the head and title text from behind their
  * `concepts__mask`, wipes the stage in and draws the dots; on each slide
@@ -44,6 +44,7 @@ $lofu_first_title = $lofu_slides[0]['title'] ?? '';
 
 		<div class="concepts__stage">
 			<div class="concepts__track">
+				<div class="concepts__rail">
 				<?php
 				foreach ( $lofu_slides as $lofu_index => $lofu_slide ) :
 					$lofu_slide_title = $lofu_slide['title'] ?? '';
@@ -77,6 +78,7 @@ $lofu_first_title = $lofu_slides[0]['title'] ?? '';
 						<?php endif; ?>
 					</div>
 				<?php endforeach; ?>
+				</div>
 			</div>
 
 			<?php if ( $lofu_slide_count > 1 ) : ?>

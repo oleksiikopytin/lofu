@@ -28,12 +28,29 @@ $concepts-ease-in-out: cubic-bezier(0.77, 0, 0.18, 1);
     background: $ink;
   }
 
-  // Until Slick initialises (or without JS), show only the first slide.
-  &__track:not(.slick-initialized) &__slide + &__slide {
+  &__track {
+    user-select: none;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+
+    &.is-dragging {
+      cursor: grabbing;
+    }
+  }
+
+  // Moved by concepts.js; the stage's overflow clips the other slides.
+  &__rail {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  // Without JS, only the first slide.
+  .no-js &__slide + &__slide {
     display: none;
   }
 
   &__slide {
+    flex: 0 0 100%;
     width: 100%;
     max-height: 78rem;
     aspect-ratio: 16 / 9;

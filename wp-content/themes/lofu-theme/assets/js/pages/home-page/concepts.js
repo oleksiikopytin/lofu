@@ -1,22 +1,25 @@
 /**
- * Home page: concepts — Slick slider driven by the section's own arrows and
- * dots. The counter, title and active dot follow the current slide (the
- * counter and title roll to their new values), and the section reveals
- * itself on scroll with a wipe across the stage.
+ * Home page: concepts — an infinite one-image-at-a-time slider driven by the
+ * section's own arrows and dots, plus swipe/drag and the arrow keys. The
+ * counter, title and active dot follow the current slide (the counter and
+ * title roll to their new values), and the section reveals itself on scroll
+ * with a wipe across the stage.
  */
-(function ($) {
+(function () {
 	'use strict';
 
 	var section = document.querySelector('.concepts');
 	if (!section) return;
 
+	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 	/**
 	 * The slides' images are rendered with data-src/srcset/sizes (see
-	 * lofu_defer_image_attributes()), Slick's clones included; set the real
-	 * attributes so they load. Runs once the section is within half a screen
-	 * of the viewport (so the first image is in by the time it shows), or on
-	 * the first slide change if that comes sooner. Set up before the slider,
-	 * so the images still load if Slick is missing or there is one slide.
+	 * lofu_defer_image_attributes()); set the real attributes so they load.
+	 * Runs once the section is within half a screen of the viewport (so the
+	 * first image is in by the time it shows), or on the first slide change
+	 * or drag if that comes sooner. The wrap-around clones are made before
+	 * this can run, so they are covered too.
 	 */
 	var deferredLoaded = false;
 
@@ -34,6 +37,38 @@
 		});
 	}
 
+	// Scroll reveal: head text slides up, the stage wipes in and the foot
+	// (title + dots) follows it via CSS sibling selectors.
+	function setupReveal() {
+		if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+		var observer = new IntersectionObserver(function (entries) {
+			entries.forEach(function (entry) {
+				if (!entry.isIntersecting) return;
+				entry.target.classList.add('is-visible');
+				observer.unobserve(entry.target);
+			});
+		}, { rootMargin: '0px 0px -10% 0px', threshold: 0.25 });
+
+		section.classList.add('concepts--reveal');
+		section.querySelectorAll('.concepts__head, .concepts__stage').forEach(function (el) {
+			observer.observe(el);
+		});
+	}
+
+	var track = section.querySelector('.concepts__track');
+	var rail = section.querySelector('.concepts__rail');
+	var slides = rail ? Array.prototype.slice.call(rail.children) : [];
+	var count = slides.length;
+
+	// Clone the edge slides before the image observer can fire.
+	if (count > 1) {
+		var cloneLast = makeClone(slides[count - 1]);
+		var cloneFirst = makeClone(slides[0]);
+		rail.insertBefore(cloneLast, slides[0]);
+		rail.appendChild(cloneFirst);
+	}
+
 	if ('IntersectionObserver' in window) {
 		var imageObserver = new IntersectionObserver(function (entries) {
 			if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
@@ -45,19 +80,45 @@
 		loadDeferredImages();
 	}
 
-	if (!$ || !$.fn.slick) return;
+	setupReveal();
 
-	var track = section.querySelector('.concepts__track');
-	if (!track || track.children.length < 2) return;
+	if (count < 2) return;
+
+	var SPEED = reduceMotion ? 0 : 800;
+	var EASE = 'cubic-bezier(0.65, 0, 0.35, 1)';
 
 	var dots = section.querySelectorAll('.concepts__dot');
 	var counter = section.querySelector('.concepts__counter-current');
 	var name = section.querySelector('.concepts__name-text');
-	var titles = Array.prototype.map.call(track.children, function (slide) {
+	var titles = slides.map(function (slide) {
 		return slide.getAttribute('data-title');
 	});
-	var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	var $track = $(track);
+
+	var current = 0; // Real slide index.
+	var position = 1; // Index in the rail, which starts with the last slide's clone.
+	var busy = false;
+	var finishTimer = null;
+
+	/**
+	 * A copy of an edge slide placed at the other end of the rail, so moving
+	 * past either end slides on instead of rewinding.
+	 */
+	function makeClone(slide) {
+		var clone = slide.cloneNode(true);
+		clone.setAttribute('aria-hidden', 'true');
+		clone.removeAttribute('role');
+		clone.removeAttribute('aria-roledescription');
+		clone.removeAttribute('aria-label');
+		clone.querySelectorAll('noscript').forEach(function (el) {
+			el.remove();
+		});
+		return clone;
+	}
+
+	function setPosition(pos, animate, offset) {
+		rail.style.transition = animate && SPEED ? 'transform ' + SPEED + 'ms ' + EASE : 'none';
+		rail.style.transform = 'translateX(calc(' + (-pos * 100) + '% + ' + (offset || 0) + 'px))';
+	}
 
 	function pad(n) {
 		return (n < 10 ? '0' : '') + n;
@@ -100,56 +161,140 @@
 		dots.forEach(function (dot, i) {
 			dot.setAttribute('aria-current', i === index ? 'true' : 'false');
 		});
+		slides.forEach(function (slide, i) {
+			if (i === index) slide.removeAttribute('aria-hidden');
+			else slide.setAttribute('aria-hidden', 'true');
+		});
 		roll(counter, pad(index + 1));
 		roll(name, titles[index]);
 	}
 
-	// Update the labels as the slide starts moving, not when it lands.
-	$track.on('beforeChange', function (event, slick, current, next) {
+	// After landing on a clone, jump to the real slide it copies.
+	function finish() {
+		if (!busy) return;
+		window.clearTimeout(finishTimer);
+
+		if (position === 0 || position === count + 1) {
+			position = current + 1;
+			setPosition(position, false);
+			void rail.offsetWidth; // Commit the jump before the next transition.
+		}
+		busy = false;
+	}
+
+	/**
+	 * Moves to slide `index`; -1 and `count` mean the clones past either end.
+	 * Input is ignored while a move runs.
+	 */
+	function goTo(index) {
+		if (busy) return;
+		busy = true;
+
+		current = (index + count) % count;
+		position = index + 1;
+
+		// Update the labels as the slide starts moving, not when it lands.
 		loadDeferredImages();
-		sync(next);
+		sync(current);
+		setPosition(position, true);
+
+		// Fallback in case transitionend doesn't fire (e.g. a hidden tab).
+		finishTimer = window.setTimeout(finish, SPEED + 100);
+	}
+
+	function prev() {
+		goTo(current - 1);
+	}
+
+	function next() {
+		goTo(current + 1);
+	}
+
+	rail.addEventListener('transitionend', function (event) {
+		if (event.target === rail && event.propertyName === 'transform') finish();
 	});
 
-	$track.slick({
-		prevArrow: section.querySelector('.concepts__arrow--prev'),
-		nextArrow: section.querySelector('.concepts__arrow--next'),
-		dots: false,
-		infinite: true,
-		speed: reduceMotion ? 0 : 800,
-		cssEase: 'cubic-bezier(0.65, 0, 0.35, 1)',
-		accessibility: true
-	});
+	setPosition(position, false);
+	sync(current);
+
+	var prevArrow = section.querySelector('.concepts__arrow--prev');
+	var nextArrow = section.querySelector('.concepts__arrow--next');
+
+	if (prevArrow) prevArrow.addEventListener('click', prev);
+	if (nextArrow) nextArrow.addEventListener('click', next);
 
 	dots.forEach(function (dot, i) {
 		dot.addEventListener('click', function () {
-			$track.slick('slickGoTo', i);
+			if (i !== current) goTo(i);
 		});
 	});
 
-	// Scroll reveal: head text slides up, the stage wipes in and the foot
-	// (title + dots) follows it via CSS sibling selectors.
-	if (!reduceMotion && 'IntersectionObserver' in window) {
-		var observer = new IntersectionObserver(function (entries) {
-			entries.forEach(function (entry) {
-				if (!entry.isIntersecting) return;
-				entry.target.classList.add('is-visible');
-				observer.unobserve(entry.target);
-			});
-		}, { rootMargin: '0px 0px -10% 0px', threshold: 0.25 });
-
-		section.classList.add('concepts--reveal');
-		section.querySelectorAll('.concepts__head, .concepts__stage').forEach(function (el) {
-			observer.observe(el);
-		});
-	}
-
-	// Arrow keys anywhere in the section (Slick's own handler only fires
-	// while its list has focus, so skip those to avoid a double move).
 	section.addEventListener('keydown', function (event) {
-		if (event.target.closest('.slick-list')) return;
-		if (event.key === 'ArrowLeft') $track.slick('slickPrev');
-		else if (event.key === 'ArrowRight') $track.slick('slickNext');
+		if (event.key === 'ArrowLeft') prev();
+		else if (event.key === 'ArrowRight') next();
 		else return;
 		event.preventDefault();
 	});
-})(window.jQuery);
+
+	/**
+	 * Swipe (touch) and drag (mouse/pen). `touch-action: pan-y` on the track
+	 * leaves vertical scrolling to the browser; a mostly vertical gesture is
+	 * dropped. A fifth of the width moves to the neighbour, less snaps back.
+	 */
+	var drag = null;
+
+	track.addEventListener('dragstart', function (event) {
+		event.preventDefault();
+	});
+
+	track.addEventListener('pointerdown', function (event) {
+		if (busy || !event.isPrimary || event.button !== 0) return;
+		drag = { id: event.pointerId, x: event.clientX, y: event.clientY, dx: 0, active: false };
+	});
+
+	track.addEventListener('pointermove', function (event) {
+		if (!drag || event.pointerId !== drag.id) return;
+
+		var dx = event.clientX - drag.x;
+
+		if (!drag.active) {
+			if (Math.abs(dx) < 6) return;
+			if (Math.abs(event.clientY - drag.y) > Math.abs(dx)) {
+				drag = null;
+				return;
+			}
+			drag.active = true;
+			track.setPointerCapture(drag.id);
+			track.classList.add('is-dragging');
+			loadDeferredImages();
+		}
+
+		drag.dx = dx;
+		setPosition(position, false, dx);
+	});
+
+	function endDrag(event) {
+		if (!drag || event.pointerId !== drag.id) return;
+
+		var ended = drag;
+		drag = null;
+		if (!ended.active) return;
+
+		track.classList.remove('is-dragging');
+
+		var threshold = track.offsetWidth / 5;
+		var dx = event.type === 'pointercancel' ? 0 : ended.dx;
+
+		if (dx <= -threshold) next();
+		else if (dx >= threshold) prev();
+		else {
+			// Snap back to the current slide.
+			busy = true;
+			setPosition(position, true);
+			finishTimer = window.setTimeout(finish, SPEED + 100);
+		}
+	}
+
+	track.addEventListener('pointerup', endDrag);
+	track.addEventListener('pointercancel', endDrag);
+})();

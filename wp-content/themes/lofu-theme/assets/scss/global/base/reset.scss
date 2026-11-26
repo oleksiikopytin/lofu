@@ -498,3 +498,9 @@ svg {
     align-items: center;
   }
 }
+@media (max-width: 576px) {
+  .cky-box-bottom-left {
+    bottom: 0 !important;
+    left: 0 !important;
+  }
+}

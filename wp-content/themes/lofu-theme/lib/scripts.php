@@ -36,9 +36,7 @@ function lofu_home_page_scripts() {
 	wp_register_script( 'lofu-split-lines', get_theme_file_uri( $split_lines_js ), array(), filemtime( get_theme_file_path( $split_lines_js ) ), true );
 	wp_enqueue_script( 'lofu-home-about', get_theme_file_uri( $about_js ), array( 'lofu-split-lines' ), filemtime( get_theme_file_path( $about_js ) ), true );
 	wp_enqueue_style( 'lofu-home-concepts', get_theme_file_uri( $concepts_css ), array( 'main' ), filemtime( get_theme_file_path( $concepts_css ) ) );
-	// Slick is only used by the concepts slider.
-	wp_register_script( 'slick', get_theme_file_uri( '/assets/js/slick.min.js' ), array( 'jquery' ), '20170801', true );
-	wp_enqueue_script( 'lofu-home-concepts', get_theme_file_uri( $concepts_js ), array( 'jquery', 'slick' ), filemtime( get_theme_file_path( $concepts_js ) ), true );
+	wp_enqueue_script( 'lofu-home-concepts', get_theme_file_uri( $concepts_js ), array(), filemtime( get_theme_file_path( $concepts_js ) ), true );
 
 	$view_switch_css = '/assets/css/global/components/view-switch.css';
 	$view_switch_js = '/assets/js/components/view-switch.js';

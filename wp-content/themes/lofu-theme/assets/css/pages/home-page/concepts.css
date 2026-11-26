@@ -17,10 +17,23 @@
   overflow: hidden;
   background: #111111;
 }
-.concepts__track:not(.slick-initialized) .concepts__slide + .concepts__slide {
+.concepts__track {
+  user-select: none;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+.concepts__track.is-dragging {
+  cursor: grabbing;
+}
+.concepts__rail {
+  display: flex;
+  align-items: flex-start;
+}
+.no-js .concepts__slide + .concepts__slide {
   display: none;
 }
 .concepts__slide {
+  flex: 0 0 100%;
   width: 100%;
   max-height: 78rem;
   aspect-ratio: 16/9;

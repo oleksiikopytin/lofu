@@ -112,7 +112,7 @@ e.g. `assets/js/pages/home-page/hero.js`.
 - Wrap in an IIFE/module pattern, avoid polluting globals.
 - Guard against a missing element: `if (!el) return;`. JS should enhance, not gate, core functionality.
 - Enqueue section CSS/JS conditionally, from the section's template part or for the template that uses it, rather than adding it to the global `lofu_scripts()`.
-- Prefer vanilla JS. jQuery is loaded globally; Slick is registered on the home page only (a dependency of `concepts.js`).
+- Prefer vanilla JS. No slider library: the concepts slider (`concepts.js`) is hand-written vanilla JS.
 
 ### 🧩 PHP / ACF
 
@@ -196,7 +196,7 @@ The site is bilingual through WPML: **Ukrainian (`uk`) is the default language**
 | `post-types.php` | The `project` and `product` post types and the `series` taxonomy (no single pages: their URLs redirect to the home page hash that opens the window), hash-anchor and WPML translation helpers, and `lofu_prime_posts()` / `lofu_prime_wpml_translations()`, which batch-load posts, meta, referenced media and WPML translation data. Call `lofu_prime_posts()` before rendering many posts/images, or every post and image costs its own queries. |
 | `home-page.php` | Home page data (`lofu_home_project_ids()`, `lofu_home_series()`, `lofu_series_product_ids()`) and `lofu_home_templates_endpoint()`: the project/series/product window `<template>`s are **not** in the page HTML. `?lofu_templates=projects|products` on the home page URL serves them (`template-parts/home-page/{projects,products}-templates.php`), and `assets/js/components/lazy-templates.js` (`window.lofu.loadTemplates()`) fetches them as the section nears the viewport. projects.js/products.js wait for them when a click or URL hash comes first. |
 | `config.php` | Registers a single `main` nav menu location, `post-thumbnails` support, image size `lofu-featured-image` (1800×9999, no crop), and `html5` support (comment-form, comment-list, gallery, caption). |
-| `scripts.php` | `lofu_scripts()` enqueues globally: `main.css`, `scripts.js` (and `header.js` when the main menu is set). `lofu_home_page_scripts()` enqueues the home page section CSS/JS (and registers `slick.min.js`) only on the "Home page" template. Also prints the `no-js`→`js` snippet (`lofu_javascript_detection`), dequeues `jquery-ui-core` (`lofu_dequeue_jquery_ui`) and the `wp-block-library` CSS (`lofu_remove_block_library_css`). |
+| `scripts.php` | `lofu_scripts()` enqueues globally: `main.css`, `scripts.js` (and `header.js` when the main menu is set). `lofu_home_page_scripts()` enqueues the home page section CSS/JS only on the "Home page" template. Also prints the `no-js`→`js` snippet (`lofu_javascript_detection`), dequeues `jquery-ui-core` (`lofu_dequeue_jquery_ui`) and the `wp-block-library` CSS (`lofu_remove_block_library_css`). |
 | `shortcode.php` | Empty stub. |
 | `ajax.php` | `wp_ajax_popup_dimension` / `wp_ajax_nopriv_popup_dimension` hooks → `lofu_ajax_popup_dimension()`, which is just `wp_die()` (scaffold). |
 | `scss-compiler.php` | The runtime SCSS pipeline (see Commands above). |
@@ -221,8 +221,8 @@ None. The database only has `page`, `post`, `revision` and `wp_navigation` posts
 
 Hand-written, no bundler.
 
-- `assets/js/`: vendor `slick.min.js`; theme `scripts.js` (global, enqueued with a `jquery` dependency, currently empty), `components/accordion.js` (not enqueued; pairs with `global/components/accordion.scss`, which `main.scss` has commented out), `pages/home-page/hero.js`.
+- `assets/js/`: theme `scripts.js` (global, enqueued with a `jquery` dependency, currently empty), `components/accordion.js` (not enqueued; pairs with `global/components/accordion.scss`, which `main.scss` has commented out), `pages/home-page/hero.js`.
 - `assets/css/`: compiler output only (no vendor CSS).
-- `assets/scss/`: `global/` (base, components, content, layout, mixins, utils, `slick.scss`), `header/`, `footer/`, `pages/` (`home-page/`, plus `animation-page/` and `global-page/` sources left from removed templates, not imported by `main.scss`). Several `global/components/*.scss` (icons, pagination, breadcrumbs, close, tabs, accordion, start-quiz, tooltip, vimeo, hero-zoom, bg-move, divider-line) exist but aren't imported.
+- `assets/scss/`: `global/` (base, components, content, layout, mixins, utils), `header/`, `footer/`, `pages/` (`home-page/`, plus `animation-page/` and `global-page/` sources left from removed templates, not imported by `main.scss`). Several `global/components/*.scss` (icons, pagination, breadcrumbs, close, tabs, accordion, start-quiz, tooltip, vimeo, hero-zoom, bg-move, divider-line) exist but aren't imported.
 - `assets/images/`: `logo.svg`, `placeholder.png`.
 - `assets/fonts/montserrat/`: **Montserrat**, self-hosted as a variable font (weights 100–900, normal and italic, `latin`, `latin-ext`, `cyrillic` and `cyrillic-ext` subsets, `.woff2`, from `@fontsource-variable/montserrat` 5.1.1). The `@font-face` rules are generated in `global/base/font.scss` (imported by `main.scss`) with `unicode-range` per subset and `font-display: swap`. `variables.scss` sets `$font-base` and `$font-base-heading` to Montserrat; `$font-deco` is a system monospace stack. No Google Fonts or other external font requests. To use another weight, just set `font-weight`, since the variable font covers the whole range.
