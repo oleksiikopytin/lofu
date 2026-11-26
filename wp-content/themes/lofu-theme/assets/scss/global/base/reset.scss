@@ -1,5 +1,71 @@
-@import '../utils/variables';
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+@import "../utils/variables";
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -29,13 +95,25 @@ body {
   -ms-text-size-adjust: none;
   height: 100%;
   //cursor: none;
-
 }
 #snippet-box {
   display: none;
 }
-::-ms-clear { display:none; } 
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, main {
+::-ms-clear {
+  display: none;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main {
   display: block;
 }
 * {
@@ -48,14 +126,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 main {
   //min-height: 100vh;
   box-sizing: border-box;
-
 }
 img {
   max-width: 100%;
   height: auto;
 }
 html.desktop-version {
-  margin-top: 0!important;
+  margin-top: 0 !important;
 }
 nav {
   ul {
@@ -65,7 +142,8 @@ nav {
 blockquote {
   quotes: none;
 }
-select, button {
+select,
+button {
   border-radius: 0;
   outline: none;
   -webkit-appearance: none;
@@ -78,7 +156,8 @@ button {
 }
 
 blockquote {
-  &:before, &:after {
+  &:before,
+  &:after {
     content: none;
   }
 }
@@ -90,14 +169,13 @@ a {
   vertical-align: baseline;
   background: transparent;
   text-decoration: none;
-
 }
 input,
 a,
 button,
 select {
   &:focus {
-    outline: none;  
+    outline: none;
   }
 }
 input {
@@ -116,7 +194,8 @@ mark {
 del {
   text-decoration: line-through;
 }
-abbr[title], dfn[title] {
+abbr[title],
+dfn[title] {
   border-bottom: 1px dotted;
   cursor: help;
 }
@@ -134,7 +213,8 @@ hr {
   margin: 1em 0;
   padding: 0;
 }
-input, select {
+input,
+select {
   vertical-align: middle;
   box-sizing: border-box;
 }
@@ -190,7 +270,7 @@ html.overlayed {
   }
   &:after {
     clear: both;
-    content: '';
+    content: "";
     display: block;
   }
 }
@@ -242,7 +322,7 @@ html.overlayed {
 }
 .ia-btn:focus-visible,
 button.module-title:focus-visible,
-a.module-title:focus-visible{
+a.module-title:focus-visible {
   outline-offset: -2px !important;
 }
 .bg--primary :focus-visible {
@@ -297,7 +377,8 @@ a.module-title:focus-visible{
 .text-right {
   text-align: right !important;
 }
-.text-center, .aligncenter {
+.text-center,
+.aligncenter {
   text-align: center !important;
 }
 
@@ -307,8 +388,6 @@ a.module-title:focus-visible{
 .right {
   float: right;
 }
-
-
 
 .hidden {
   position: absolute;
@@ -324,10 +403,10 @@ a.module-title:focus-visible{
   padding-bottom: 1px;
 }
 video::-internal-media-controls-download-button {
-  display:none;
+  display: none;
 }
 video::-webkit-media-controls-enclosure {
-  overflow:hidden;
+  overflow: hidden;
 }
 video::-webkit-media-controls-panel {
   width: calc(100% + 30px); /* Adjust as needed */
@@ -336,10 +415,39 @@ svg {
   max-width: 100%;
   height: auto;
 }
-
-@media (max-width: 1300px) {
-
+// .grecaptcha-badge {
+//   visibility: hidden;
+// }
+.cky-notice-content-wrapper + div {
+  display: none;
 }
+.cky-btn-reject,
+.cky-btn-accept,
+.cky-btn-preferences {
+  border-color: #000 !important;
+  background-color: #000 !important;
+}
+.cky-btn-customize {
+  border-color: #000 !important;
+  color: #000 !important;
+  &:hover {
+    color: #666 !important;
+  }
+}
+.cky-notice-des * {
+  font-size: 12px !important;
+}
+.cky-notice .cky-title {
+  margin-bottom: 6px !important;
+}
+.cky-consent-bar .cky-notice-content-wrapper {
+  padding-top: 12px !important;
+}
+.cky-box-bottom-left {
+  bottom: 2rem !important;
+  left: 2rem !important;
+}
+
 @media (max-width: 1024px) {
   .wp-caption {
     width: 100% !important;
@@ -356,7 +464,7 @@ svg {
 }
 @media (max-width: 1023px) {
   #wrapper {
-  //overflow: hidden;
+    //overflow: hidden;
   }
 }
 @media (max-width: 767px) {
@@ -375,11 +483,13 @@ svg {
 
   .wp-caption {
     img {
-      margin-bottom: .3rem;
+      margin-bottom: 0.3rem;
       //border-radius: 1rem;
     }
   }
-  .wp-caption, .wp-caption-text, .bypostauthor {
+  .wp-caption,
+  .wp-caption-text,
+  .bypostauthor {
     font-size: 1.2rem;
   }
 }

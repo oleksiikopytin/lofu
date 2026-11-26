@@ -6,7 +6,6 @@ function lofu_scripts() {
 	// Theme stylesheet.
 	wp_enqueue_style( 'main', get_theme_file_uri( '/assets/css/main.css' ), array(), filemtime( get_theme_file_path( '/assets/css/main.css' ) ) );
 
-	wp_enqueue_script( 'scripts', get_theme_file_uri( '/assets/js/scripts.js' ), array( 'jquery' ), filemtime( get_theme_file_path( '/assets/js/scripts.js' ) ), true );
 
 	if ( has_nav_menu( 'main' ) ) {
 		wp_enqueue_script( 'lofu-header', get_theme_file_uri( '/assets/js/header/header.js' ), array(), filemtime( get_theme_file_path( '/assets/js/header/header.js' ) ), true );
@@ -25,12 +24,12 @@ function lofu_home_page_scripts() {
 		return;
 	}
 
-	$hero_css       = '/assets/css/pages/home-page/hero.css';
-	$about_css      = '/assets/css/pages/home-page/about.css';
+	$hero_css = '/assets/css/pages/home-page/hero.css';
+	$about_css = '/assets/css/pages/home-page/about.css';
 	$split_lines_js = '/assets/js/components/split-lines.js';
-	$about_js       = '/assets/js/pages/home-page/about.js';
-	$concepts_css   = '/assets/css/pages/home-page/concepts.css';
-	$concepts_js    = '/assets/js/pages/home-page/concepts.js';
+	$about_js = '/assets/js/pages/home-page/about.js';
+	$concepts_css = '/assets/css/pages/home-page/concepts.css';
+	$concepts_js = '/assets/js/pages/home-page/concepts.js';
 
 	wp_enqueue_style( 'lofu-home-hero', get_theme_file_uri( $hero_css ), array( 'main' ), filemtime( get_theme_file_path( $hero_css ) ) );
 	wp_enqueue_style( 'lofu-home-about', get_theme_file_uri( $about_css ), array( 'main' ), filemtime( get_theme_file_path( $about_css ) ) );
@@ -41,13 +40,13 @@ function lofu_home_page_scripts() {
 	wp_register_script( 'slick', get_theme_file_uri( '/assets/js/slick.min.js' ), array( 'jquery' ), '20170801', true );
 	wp_enqueue_script( 'lofu-home-concepts', get_theme_file_uri( $concepts_js ), array( 'jquery', 'slick' ), filemtime( get_theme_file_path( $concepts_js ) ), true );
 
-	$view_switch_css   = '/assets/css/global/components/view-switch.css';
-	$view_switch_js    = '/assets/js/components/view-switch.js';
-	$projects_css      = '/assets/css/pages/home-page/projects.css';
+	$view_switch_css = '/assets/css/global/components/view-switch.css';
+	$view_switch_js = '/assets/js/components/view-switch.js';
+	$projects_css = '/assets/css/pages/home-page/projects.css';
 	$project_modal_css = '/assets/css/pages/home-page/project-modal.css';
-	$projects_js       = '/assets/js/pages/home-page/projects.js';
-	$photo_viewer_css  = '/assets/css/global/components/photo-viewer.css';
-	$photo_viewer_js   = '/assets/js/components/photo-viewer.js';
+	$projects_js = '/assets/js/pages/home-page/projects.js';
+	$photo_viewer_css = '/assets/css/global/components/photo-viewer.css';
+	$photo_viewer_js = '/assets/js/components/photo-viewer.js';
 
 	wp_enqueue_style( 'lofu-view-switch', get_theme_file_uri( $view_switch_css ), array( 'main' ), filemtime( get_theme_file_path( $view_switch_css ) ) );
 	wp_enqueue_script( 'lofu-view-switch', get_theme_file_uri( $view_switch_js ), array(), filemtime( get_theme_file_path( $view_switch_js ) ), true );
@@ -61,18 +60,29 @@ function lofu_home_page_scripts() {
 	wp_enqueue_style( 'lofu-photo-viewer', get_theme_file_uri( $photo_viewer_css ), array( 'main' ), filemtime( get_theme_file_path( $photo_viewer_css ) ) );
 	wp_enqueue_script( 'lofu-photo-viewer', get_theme_file_uri( $photo_viewer_js ), array(), filemtime( get_theme_file_path( $photo_viewer_js ) ), true );
 
-	$products_css      = '/assets/css/pages/home-page/products.css';
-	$series_modal_css  = '/assets/css/pages/home-page/series-modal.css';
+	$products_css = '/assets/css/pages/home-page/products.css';
+	$series_modal_css = '/assets/css/pages/home-page/series-modal.css';
 	$product_modal_css = '/assets/css/pages/home-page/product-modal.css';
-	$products_js       = '/assets/js/pages/home-page/products.js';
+	$products_js = '/assets/js/pages/home-page/products.js';
 
 	wp_enqueue_style( 'lofu-home-products', get_theme_file_uri( $products_css ), array( 'main' ), filemtime( get_theme_file_path( $products_css ) ) );
 	wp_enqueue_style( 'lofu-home-series-modal', get_theme_file_uri( $series_modal_css ), array( 'main' ), filemtime( get_theme_file_path( $series_modal_css ) ) );
 	wp_enqueue_style( 'lofu-home-product-modal', get_theme_file_uri( $product_modal_css ), array( 'main' ), filemtime( get_theme_file_path( $product_modal_css ) ) );
 	wp_enqueue_script( 'lofu-home-products', get_theme_file_uri( $products_js ), array( 'lofu-lazy-templates' ), filemtime( get_theme_file_path( $products_js ) ), true );
 
+	// Order form window over the product one, when the page has an order form.
+	$products_field = get_field( 'products' );
+
+	if ( ! empty( $products_field['order_form'] ) ) {
+		$order_modal_css = '/assets/css/pages/home-page/order-modal.css';
+		$order_modal_js = '/assets/js/pages/home-page/order-modal.js';
+
+		wp_enqueue_style( 'lofu-home-order-modal', get_theme_file_uri( $order_modal_css ), array( 'main' ), filemtime( get_theme_file_path( $order_modal_css ) ) );
+		wp_enqueue_script( 'lofu-home-order-modal', get_theme_file_uri( $order_modal_js ), array(), filemtime( get_theme_file_path( $order_modal_js ) ), true );
+	}
+
 	$production_css = '/assets/css/pages/home-page/production.css';
-	$production_js  = '/assets/js/pages/home-page/production.js';
+	$production_js = '/assets/js/pages/home-page/production.js';
 
 	wp_enqueue_style( 'lofu-home-production', get_theme_file_uri( $production_css ), array( 'main' ), filemtime( get_theme_file_path( $production_css ) ) );
 	wp_enqueue_script( 'lofu-home-production', get_theme_file_uri( $production_js ), array( 'lofu-view-switch' ), filemtime( get_theme_file_path( $production_js ) ), true );
@@ -91,6 +101,51 @@ function lofu_home_page_scripts() {
 	wp_enqueue_script( 'lofu-reveal', get_theme_file_uri( $reveal_js ), array(), filemtime( get_theme_file_path( $reveal_js ) ), true );
 }
 add_action( 'wp_enqueue_scripts', 'lofu_home_page_scripts' );
+
+/**
+ * Lazy-load Google reCAPTCHA v3 for Contact Form 7.
+ *
+ * CF7 loads reCAPTCHA (api.js plus its own wpcf7-recaptcha script) on every
+ * page, which hurts PageSpeed. Swap them for recaptcha-lazy.js, which loads
+ * api.js on the first interaction with a form and fetches a token on submit.
+ * Runs after CF7's own enqueues (priority 10 and 20).
+ */
+function lofu_lazy_cf7_recaptcha() {
+	if ( ! class_exists( 'WPCF7_RECAPTCHA' ) ) {
+		return;
+	}
+
+	$service = WPCF7_RECAPTCHA::get_instance();
+
+	if ( ! $service->is_active() ) {
+		return;
+	}
+
+	wp_dequeue_script( 'wpcf7-recaptcha' );
+	wp_deregister_script( 'wpcf7-recaptcha' );
+	wp_dequeue_script( 'google-recaptcha' );
+	wp_deregister_script( 'google-recaptcha' );
+
+	if ( ! wp_script_is( 'contact-form-7', 'enqueued' ) ) {
+		return;
+	}
+
+	$api_url = apply_filters( 'wpcf7_use_recaptcha_net', false ) // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- CF7's own filter.
+		? 'https://www.recaptcha.net/recaptcha/api.js'
+		: 'https://www.google.com/recaptcha/api.js';
+
+	$config = array(
+		'sitekey' => $service->get_sitekey(),
+		'src' => add_query_arg( 'render', $service->get_sitekey(), $api_url ),
+		'action' => 'contactform',
+	);
+
+	$recaptcha_js = '/assets/js/components/recaptcha-lazy.js';
+
+	wp_enqueue_script( 'lofu-recaptcha-lazy', get_theme_file_uri( $recaptcha_js ), array( 'contact-form-7' ), filemtime( get_theme_file_path( $recaptcha_js ) ), true );
+	wp_add_inline_script( 'lofu-recaptcha-lazy', 'window.lofuRecaptcha = ' . wp_json_encode( $config ) . ';', 'before' );
+}
+add_action( 'wp_enqueue_scripts', 'lofu_lazy_cf7_recaptcha', 30 );
 
 /**
  * Handles JavaScript detection.

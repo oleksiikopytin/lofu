@@ -205,7 +205,8 @@ $lofu_slide_count = count( $lofu_gallery ) + ( $lofu_video_url ? 1 : 0 );
 						</div>
 					<?php endif; ?>
 
-					<a class="product-modal__cta d-flex align-items-center justify-content-center" href="#contacts"><?php esc_html_e( 'Зв’язатися щодо замовлення', 'lofu' ); ?></a>
+					<?php // order-modal.js opens the order form for this product instead, when the page has one. ?>
+					<a class="product-modal__cta d-flex align-items-center justify-content-center" href="#contacts" data-order-product="<?php echo esc_attr( $lofu_title ); ?>"><?php esc_html_e( 'Зв’язатися щодо замовлення', 'lofu' ); ?></a>
 				</div>
 			</div>
 		</div>

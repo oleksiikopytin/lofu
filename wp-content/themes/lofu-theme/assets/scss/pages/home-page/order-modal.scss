@@ -1,0 +1,254 @@
+@import "../../global/utils/variables";
+@import "../../global/mixins/mixin";
+@import "../../global/mixins/modal";
+
+// Order form, opened over the product window: full screen on phones, a
+// centred panel from $breakpoint-sm. The page scroll lock comes from
+// series-modal.scss (the series window is open under it).
+.order-modal {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: $white;
+  color: $ink;
+
+  &::backdrop {
+    background: rgba($ink, 0.4);
+  }
+
+  @include respond-to(sm) {
+    width: calc(100% - 4.8rem);
+    max-width: 60rem;
+    height: auto;
+    max-height: calc(100% - 4.8rem);
+    margin: auto;
+  }
+
+  &__panel {
+    padding: 2.4rem 2rem 4rem;
+
+    @include respond-to(sm) {
+      padding: 4rem 4.8rem 4.8rem;
+    }
+  }
+
+  &__head {
+    margin-bottom: 3.2rem;
+  }
+
+  &__heading {
+    gap: 1rem;
+  }
+
+  &__eyebrow {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $muted;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: clamp(2.8rem, 3.2vw, 4rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+  }
+
+  &__close {
+    flex-shrink: 0;
+    width: 4.4rem;
+    height: 4.4rem;
+    margin: -1rem -1rem 0 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: $ink;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    svg {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+
+    &:hover {
+      color: $navy;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $navy;
+      outline-offset: 2px;
+    }
+  }
+
+  // Contact Form 7 markup, restyled for the light panel (the global
+  // form-elements.scss rules are made for a dark background).
+  .wpcf7-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    p {
+      margin: 0;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: $muted;
+    }
+
+    .wpcf7-form-control-wrap {
+      position: relative;
+      margin: 0;
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="email"],
+      textarea {
+        width: 100%;
+        height: 5.2rem;
+        padding: 0 1.6rem;
+        border: 1px solid $muted;
+        border-radius: 0;
+        background: $white;
+        color: $ink;
+        font-family: $font-base;
+        font-size: 1.6rem;
+        letter-spacing: normal;
+        text-transform: none;
+        transition: border-color 0.2s;
+
+        &:hover {
+          border-color: $ink;
+        }
+
+        &:focus-visible {
+          border-color: $navy;
+          outline: 2px solid $navy;
+          outline-offset: -2px;
+        }
+
+        &.wpcf7-not-valid {
+          border-color: $danger;
+        }
+      }
+
+      textarea {
+        height: 14rem;
+        padding: 1.4rem 1.6rem;
+        resize: vertical;
+      }
+    }
+
+    .wpcf7-not-valid-tip {
+      position: static;
+      margin-top: 0.6rem;
+      padding: 0;
+      background: none;
+      color: $danger !important;
+      font-size: 1.3rem;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .wpcf7-acceptance {
+      .wpcf7-list-item {
+        margin: 0;
+      }
+
+      label {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 1.2rem;
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 1.6;
+        letter-spacing: normal;
+        text-transform: none;
+      }
+
+      input {
+        flex-shrink: 0;
+        width: 1.8rem;
+        height: 1.8rem;
+        margin: 0.2rem 0 0;
+        accent-color: $navy;
+      }
+
+      a {
+        color: $navy;
+      }
+    }
+
+    .wpcf7-submit {
+      width: 100%;
+      min-height: 5.2rem;
+      padding: 0 2.4rem;
+      border: 0;
+      border-radius: 0;
+      background: $navy;
+      color: $white;
+      font-family: $font-base;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover,
+      &:focus-visible {
+        background: $ink;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $navy;
+        outline-offset: 2px;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .wpcf7-spinner {
+      position: static;
+      display: block;
+      margin: 1.2rem auto 0;
+    }
+
+    .wpcf7-response-output {
+      margin: 0;
+      padding: 1.2rem 1.6rem;
+      font-size: 1.4rem;
+      line-height: 1.5;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &[open] {
+      animation: modal-window-in 0.4s $modal-ease-out;
+    }
+
+    &[open]::backdrop {
+      animation: modal-window-fade 0.4s $modal-ease-out;
+    }
+  }
+}
+
+@include modal-keyframes;

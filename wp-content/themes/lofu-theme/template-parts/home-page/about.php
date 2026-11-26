@@ -1,6 +1,6 @@
 <?php
 /**
- * Home page: about (facts, intro paragraph and numbered pillars).
+ * Home page: about (facts, heading, intro paragraph, body text and numbered pillars).
  *
  * Content comes from the "Home page: About" ACF group (`about` group field).
  * On scroll, about.js reveals the `about__rows` title/fact rows and the
@@ -18,7 +18,9 @@ if ( empty( $lofu_about ) ) {
 }
 
 $lofu_about_title       = $lofu_about['section_title'] ?? '';
+$lofu_about_heading     = $lofu_about['heading'] ?? '';
 $lofu_about_description = $lofu_about['description'] ?? '';
+$lofu_about_content     = $lofu_about['content'] ?? '';
 ?>
 <section id="about" class="about module"<?php echo $lofu_about_title ? ' aria-labelledby="about-title"' : ''; ?>>
 	<div class="ia-container">
@@ -52,8 +54,20 @@ $lofu_about_description = $lofu_about['description'] ?? '';
 				<?php endif; ?>
 			</div>
 
-			<?php if ( $lofu_about_description ) : ?>
-				<p class="about__description about__lines"><?php echo esc_html( $lofu_about_description ); ?></p>
+			<?php if ( $lofu_about_heading || $lofu_about_description || $lofu_about_content ) : ?>
+				<div class="about__main d-flex flex-column">
+					<?php if ( $lofu_about_heading ) : ?>
+						<h3 class="about__heading about__reveal"><?php echo esc_html( $lofu_about_heading ); ?></h3>
+					<?php endif; ?>
+
+					<?php if ( $lofu_about_description ) : ?>
+						<p class="about__description about__lines"><?php echo esc_html( $lofu_about_description ); ?></p>
+					<?php endif; ?>
+
+					<?php if ( $lofu_about_content ) : ?>
+						<div class="about__content about__reveal"><?php echo wp_kses_post( $lofu_about_content ); ?></div>
+					<?php endif; ?>
+				</div>
 			<?php endif; ?>
 		</div>
 

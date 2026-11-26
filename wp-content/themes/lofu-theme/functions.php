@@ -21,7 +21,6 @@ function lofu_setup() {
 		'lib/scripts.php',        // Scripts and stylesheets
 		'lib/shortcode.php',      // shortcode of the site
 		'lib/scss-compiler.php',  // compiler
-		'lib/ajax.php',           // Ajax functions
 		'lib/admin.php',          // wp-admin tweaks
 	);
 	foreach ( $roots_includes as $file ) {
@@ -195,6 +194,28 @@ function lofu_hide_wpml_footer_switcher( $html, $model, $slot ) {
 	return $slot->is_footer() ? '' : $html;
 }
 add_filter( 'wpml_ls_html', 'lofu_hide_wpml_footer_switcher', 10, 3 );
+
+/**
+ * Hide the REST API user list from logged-out visitors, so it doesn't reveal
+ * login names. The rest of the API stays public (Contact Form 7 needs it).
+ *
+ * @param array $endpoints REST routes.
+ * @return array
+ */
+function lofu_hide_rest_users( $endpoints ) {
+	if ( is_user_logged_in() ) {
+		return $endpoints;
+	}
+
+	foreach ( array_keys( $endpoints ) as $route ) {
+		if ( 0 === strpos( $route, '/wp/v2/users' ) ) {
+			unset( $endpoints[ $route ] );
+		}
+	}
+
+	return $endpoints;
+}
+add_filter( 'rest_endpoints', 'lofu_hide_rest_users' );
 
 add_action(
 	'send_headers',

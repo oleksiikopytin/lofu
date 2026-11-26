@@ -100,3 +100,9 @@ $lofu_products_intro = $lofu_products_field['intro'] ?? '';
 
 <dialog id="series-modal" class="series-modal" aria-labelledby="series-modal-title"></dialog>
 <dialog id="product-modal" class="product-modal" aria-labelledby="product-modal-title"></dialog>
+
+<?php
+// Opened over the product window by its "contact us about an order" button.
+if ( ! empty( $lofu_products_field['order_form'] ) ) {
+	get_template_part( 'template-parts/home-page/order-modal', null, array( 'form_id' => (int) $lofu_products_field['order_form'] ) );
+}
